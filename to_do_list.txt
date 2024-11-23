@@ -1,0 +1,76 @@
+what to do :
+------------
+
+lyall:
+- parse the input
+- separate into command, argument operators, etc. and add to struct 
+- make sure the parsing is working with the builtins
+
+
+
+
+aisha:
+- start to get the builtin functions and make sure its working with the parsing
+-handel signels
+-readlines and function hestory
+- i dont know what the fuck is dup2 but  we need to deal with it 
+
+
+
+
+
+what I got  for the to do list
+
+//Mandatory Features
+Basic Shell Functions
+ 1- Prompt:
+Display a prompt waiting for a new command.
+
+
+2-History:
+Implement command history functionality.
+
+
+3- Command Execution:
+Search and execute commands using $PATH, relative, or absolute paths.
+Quotes and Redirections
+
+4- Single & Double Quotes:
+Handle ' (single quotes) to prevent interpreting metacharacters.
+Handle " (double quotes), interpreting $ inside them.
+
+5- Redirections:
+< Input redirection.
+> Output redirection.
+<< Here-document functionality.
+>> Append redirection.
+
+6- Pipes
+Implement Piping:
+Connect command outputs to the inputs of subsequent commands using |.
+
+7- Environment Variables
+Variable Expansion:
+Expand $ followed by a sequence of characters.
+Expand $? to the exit status of the last foreground pipeline.
+
+8- Signal Handling
+Handle signals:
+Ctrl+C creates a new prompt.
+Ctrl+D exits the shell.
+Ctrl+\ does nothing.
+
+9- Built-in Commands
+Implement built-ins:
+echo (with -n option).
+cd (relative/absolute path only).
+pwd (print working directory).
+export (no options).
+unset (no options).
+env (no options/arguments).
+exit (no options).
+
+10- Memory Management
+Free memory:
+Ensure no leaks in your code.
+You don't need to fix memory leaks in readline().

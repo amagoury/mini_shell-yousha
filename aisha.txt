@@ -2,3 +2,5 @@
 -make sure you anderstand the fork syetem beacues we need it 
 -- for now you  need to collect data to start to do this project
 go step by step to know what you get 
+
+-handel the bulid_in;

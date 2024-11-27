@@ -4,7 +4,11 @@ notes to myself:
 - 
 
 
-
+- handle header
+- handle signals
+- handle makefile
+- env
+- parsing
 
 
 -- read the notes you got its will help you 

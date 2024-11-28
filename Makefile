@@ -1,6 +1,6 @@
 NAME    = minishell
 CC      = cc
-CFLAGS  = -Wall -Werror -Wextra -g3 #-fsanitize=address
+CFLAGS  = -Wall -Werror -Wextra -g3  -I/Users/$(USER)/.brew/opt/readline/include #-fsanitize=address
 
 SRCS    =  $(addprefix parsing/, main.c) $(addprefix parsing/utils/, ft_strdup.c \
 			ft_strncmp.c list_stuff.c)
@@ -18,7 +18,7 @@ $(LIBFT):
 	make -C aish_libft
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ) -lreadline -o $@ $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJ) -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -o $@ $(LIBFT)
 
 clean: 
 	rm -f $(OBJ)

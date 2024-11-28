@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 01:54:16 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/11/28 02:03:47 by lalwafi          ###   ########.fr       */
+/*   Updated: 2024/11/28 13:58:41 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,22 @@
 typedef struct s_environment	t_environment;
 typedef struct s_shell			t_shell;
 typedef struct s_values			t_values;
+typedef struct s_command		t_command;
+typedef struct s_direct			t_direct;
+typedef enum e_mini_state		t_state;
 
 typedef struct s_shell
 {
 	char	*input;
+	char	**pipe_split;
 	int     fd;
+	int		exit_code;
+	int		num_of_cmds;
 	pid_t   child;
 	pid_t   lastpid;
 	char    *str;
 	t_environment   *environment;
+	t_command	*command;
 	
 } t_shell;
 
@@ -69,23 +76,49 @@ typedef struct s_values
 	t_values	*next;
 } t_values;
 
-// // functions lyall
 
-// void		initialize_shell(t_shell *shell);
-// void		get_env(t_shell *shell, char **env);
-// char		*key_time(char *env);
-// void		make_values_node(char *key, char *envline, t_shell *shell);
-// void		minishell(t_shell *shell);
+typedef struct s_command
+{
+	char				**cmd_args; // the command, flag and command line
+	char				*cmd_line; // just a temp that i will be using for parsing, you can use it if you want
+	int					no_args;
+	int					no_redirs;
+	int					int_temp; // just like the char temp
+	int					redir_amount; // the amount of redirects there are in this command
+	t_direct			*redir; // redirects
+} t_command;
 
-// // utils
+typedef struct s_direct
+{
+	char				*file; // file name
+	t_state				*direct; // what do to with the files
+}	t_direct;
 
-// char		*ft_strdup(const char *s1);
-// int			ft_strncmp_lyall(const char *s1, const char *s2, size_t n);
-// int			ft_lstsize(t_values *lst);
-// t_values	*ft_lstlast_values(t_values *lst);
-// void		ft_lstadd_back_values(t_values **lst, t_values *new);
-// void		ft_lstclear_values(t_values **lst, void (*del)(void *));
-// void		ft_lstdelone_values(t_values *lst, void (*del)(void *));
+typedef enum e_mini_state
+{
+	RE_INPUT, // <
+	RE_OUTPUT, // >
+	HERE_DOC, // <<
+	APPEND // >>
+}	t_state;
+
+// functions lyall
+
+void		initialize_shell(t_shell *shell);
+void		get_env(t_shell *shell, char **env);
+char		*key_time(char *env);
+void		make_values_node(char *key, char *envline, t_shell *shell);
+void		minishell(t_shell *shell);
+
+// utils
+
+char		*ft_strdup(const char *s1);
+int			ft_strncmp_lyall(const char *s1, const char *s2, size_t n);
+int			ft_lstsize_v(t_values *lst);
+t_values	*ft_lstlast_values(t_values *lst);
+void		ft_lstadd_back_values(t_values **lst, t_values *new);
+void		ft_lstclear_values(t_values **lst, void (*del)(void *));
+void		ft_lstdelone_values(t_values *lst, void (*del)(void *));
 
 
 #endif

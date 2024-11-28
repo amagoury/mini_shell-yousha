@@ -1,8 +1,9 @@
 NAME    = minishell
 CC      = cc
-CFLAGS  = -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS  = -Wall -Werror -Wextra -g3 #-fsanitize=address
 
-SRCS    = 
+SRCS    =  $(addprefix parsing/, main.c) $(addprefix parsing/utils/, ft_strdup.c \
+			ft_strncmp.c list_stuff.c)
 
 OBJ     = $(SRCS:.c=.o)
 

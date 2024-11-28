@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 01:59:38 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/11/28 03:56:04 by lalwafi          ###   ########.fr       */
+/*   Updated: 2024/11/28 14:01:23 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,15 @@ void	minishell(t_shell *shell)
 			printf("got the input = %s\n", shell->input);
 			if (ft_strncmp_lyall(shell->input, "exit", 4) == 0)
 				break ;
+			if (ft_strncmp_lyall(shell->input, "env", 3) == 0)
+			{
+				while (shell->environment->vals->next)
+				{
+					ft_putstr_fd(shell->environment->vals->envstr, 1);
+					write(1, "\n", 1);
+					shell->environment->vals = shell->environment->vals->next;
+				}
+			}
 		}
 		else if (shell->input[0] == '\0')
 			printf("???\n");

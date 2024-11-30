@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 17:32:34 by amagoury          #+#    #+#             */
-/*   Updated: 2024/01/11 12:35:09 by amagoury         ###   ########.fr       */
+/*   Updated: 2024/11/30 16:22:09 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int		i;
 	char	*s1;
 	int		len;
 
 	len = ft_strlen(s) - 1;
-	i = 0;
 	s1 = (char *)s;
 	if ((char)c == '\0')
 		return (s1 + ft_strlen(s));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/11/30 07:35:25 by lalwafi          ###   ########.fr       */
+/*   Updated: 2024/11/30 15:25:58 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,11 @@ typedef enum e_mini_state
 	HERE_DOC, // <<
 	APPEND // >>
 }	t_state;
+
+typedef struct s_bulid
+{
+	t_list *env_p;
+}t_bulid;
 
 // functions lyall
 

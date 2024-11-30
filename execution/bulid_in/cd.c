@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 17:43:01 by amagoury          #+#    #+#             */
-/*   Updated: 2024/11/30 19:27:47 by aishamagour      ###   ########.fr       */
+/*   Updated: 2024/11/30 19:46:32 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,15 @@ static int change_directory(t_bulid *bulid, char *path)
     return(0);
 }
 
-static int simple_ms_cd_home(t_bulid *bulid,t_environment )
+static int simple_ms_cd_home(t_bulid *bulid, t_command command)
 {
     char  *home;
 
-    home = get_env(bulid, "HOME");
+    initialize_command(&command);
     if (home == NULL)
     {
-        if (cmdblock->cmd_argv != NULL)
-            simple_cmd_error(cmdblock->cmd_argv[0], "HOME not set");
+        if (command.cmd_args != NULL)
+            simple_cmd_error(command.cmd_args[0], "HOME not set");
         else
             simple_cmd_error("cd", "HOME not set");
         return 1;
@@ -81,20 +81,31 @@ static int simple_ms_cd_home(t_bulid *bulid,t_environment )
 
     if (access(home, F_OK) == 0)
     {
-        if (cmdblock->cmd_argv != NULL)
-            simple_cmd_error(cmdblock->cmd_argv[0], "Not a directory");
+        if (command.cmd_args != NULL)
+            simple_cmd_error(command.cmd_args[0], "Not a directory");
         else
             simple_cmd_error("cd", "Not a directory");
     }
     else
     {
-        if (cmdblock->cmd_argv != NULL)
-            simple_cmd_error(cmdblock->cmd_argv[0], "No such file or directory");
+        if (command.cmd_args != NULL)
+            simple_cmd_error(command.cmd_args[0], "No such file or directory");
         else
             simple_cmd_error("cd", "No such file or directory");
     }
     return 1;
 }
 
+
+void    initialize_command(t_command *meow)
+{
+    meow->cmd_args[1][4] = "HOME";
+    meow->cmd_line = NULL;
+    meow->no_args = 69;
+    meow->no_redirs = 0;
+    meow->int_temp = 0;
+    meow->redir_amount = 0;
+    meow->redir = NULL;
+}
 // dir_mas,
 // the mainfunction for the cd

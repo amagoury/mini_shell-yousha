@@ -6,7 +6,7 @@
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/11/30 15:25:58 by aishamagour      ###   ########.fr       */
+/*   Updated: 2024/11/30 19:17:14 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_shell
 {
 	char	*input;
 	char	**pipe_split;
+	char	**cmd_argv;
 	int     fd;
 	int		exit_code;
 	int		num_of_cmds;
@@ -125,5 +126,7 @@ void		ft_lstadd_back_values(t_values **lst, t_values *new);
 void		ft_lstclear_values(t_values **lst, void (*del)(void *));
 void		ft_lstdelone_values(t_values *lst, void (*del)(void *));
 
+//aisha erros 
+void simple_cmd_error(char *cmd, char *msg);
 
 #endif

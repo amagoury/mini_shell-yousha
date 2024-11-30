@@ -6,7 +6,7 @@
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 17:43:01 by amagoury          #+#    #+#             */
-/*   Updated: 2024/11/30 16:52:29 by aishamagour      ###   ########.fr       */
+/*   Updated: 2024/11/30 19:27:47 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,39 @@ static int change_directory(t_bulid *bulid, char *path)
     free(oldpwd);
     free(newpwd);
     return(0);
+}
+
+static int simple_ms_cd_home(t_bulid *bulid,t_environment )
+{
+    char  *home;
+
+    home = get_env(bulid, "HOME");
+    if (home == NULL)
+    {
+        if (cmdblock->cmd_argv != NULL)
+            simple_cmd_error(cmdblock->cmd_argv[0], "HOME not set");
+        else
+            simple_cmd_error("cd", "HOME not set");
+        return 1;
+    }
+    if (ms_chdir(bulid, home) == 0)
+        return 0;
+
+    if (access(home, F_OK) == 0)
+    {
+        if (cmdblock->cmd_argv != NULL)
+            simple_cmd_error(cmdblock->cmd_argv[0], "Not a directory");
+        else
+            simple_cmd_error("cd", "Not a directory");
+    }
+    else
+    {
+        if (cmdblock->cmd_argv != NULL)
+            simple_cmd_error(cmdblock->cmd_argv[0], "No such file or directory");
+        else
+            simple_cmd_error("cd", "No such file or directory");
+    }
+    return 1;
 }
 
 // dir_mas,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 01:59:38 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/11/28 16:56:26 by amagoury         ###   ########.fr       */
+/*   Updated: 2024/11/30 10:48:08 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	minishell(t_shell *shell)
 	while (1)
 	{
 		shell->input = readline("minishell> ");
-		if (!shell->input)
+		if (!shell->input)					//why
 			break ;
 		else if (shell->input[0] != '\0')
 		{
@@ -99,6 +99,8 @@ void	minishell(t_shell *shell)
 					shell->environment->vals = shell->environment->vals->next;
 				}
 			}
+			if (ft_strncmp("pwd", shell->input, 3) == 0)
+				printf("\n%s\n", shell->environment->cwd);
 		}
 		else if (shell->input[0] == '\0')
 			printf("???\n");
@@ -115,7 +117,7 @@ void	handle_signal(int signal)
 	if (signal == SIGINT)
 	{
 		write(1, "\n", 1);
-		// rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}

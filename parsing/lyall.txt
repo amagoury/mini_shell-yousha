@@ -10,7 +10,7 @@ notes to myself:
 
 learn:
 - tokenization
-- 
+- dup2
 
 to do:
 - handle header

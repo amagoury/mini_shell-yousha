@@ -3,7 +3,7 @@ CC      = cc
 CFLAGS  = -Wall -Werror -Wextra -g3  -I/Users/$(USER)/.brew/opt/readline/include #-fsanitize=address
 
 SRCS    =  $(addprefix parsing/, main.c) $(addprefix parsing/utils/, ft_strdup.c \
-			ft_strncmp.c list_stuff.c)
+			ft_strncmp.c list_stuff.c) $(addprefix execution/bulid_in/,cd.c \ errors.c \utils.c)
 
 OBJ     = $(SRCS:.c=.o)
 

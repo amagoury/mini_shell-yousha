@@ -6,13 +6,28 @@
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 19:08:05 by aishamagour       #+#    #+#             */
-/*   Updated: 2024/11/30 19:09:17 by aishamagour      ###   ########.fr       */
+/*   Updated: 2024/12/01 00:13:43 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void simple_cmd_error(char *cmd, char *msg)
+// void cmd_error(char *cmd, char *msg)
+// {
+//     printf( "Error: %s: %s\n", cmd ? cmd : "unknown", msg);
+// }
+
+int print_error(t_shell *shell, const char *cmd, const char *msg, const char *arg)
 {
-    printf( "Error: %s: %s\n", cmd ? cmd : "unknown", msg);
+    shell->exit_code = 1;
+    ft_putstr_fd("minishell: ", STDERR_FILENO);
+    ft_putstr_fd(cmd, STDERR_FILENO);
+    ft_putstr_fd(": ", STDERR_FILENO);
+    if (arg)
+    {
+        ft_putstr_fd(arg, STDERR_FILENO);
+        ft_putstr_fd(": ", STDERR_FILENO);
+    }
+    ft_putstr_fd(msg, STDERR_FILENO);
+    return (1);
 }

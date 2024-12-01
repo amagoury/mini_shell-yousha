@@ -6,7 +6,7 @@
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/11/30 19:17:14 by aishamagour      ###   ########.fr       */
+/*   Updated: 2024/12/01 00:13:51 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 # include <termios.h>
 # include <curses.h>
 # include <term.h>
-
 
 typedef struct s_environment	t_environment;
 typedef struct s_shell			t_shell;
@@ -127,6 +126,8 @@ void		ft_lstclear_values(t_values **lst, void (*del)(void *));
 void		ft_lstdelone_values(t_values *lst, void (*del)(void *));
 
 //aisha erros 
-void simple_cmd_error(char *cmd, char *msg);
-
+int print_error(t_shell *shell, const char *cmd, const char *msg, const char *arg);
+//aisha
+void    initialize_command(t_command *meow);
+int ft_cd(t_shell *shell, int cmd_num);
 #endif

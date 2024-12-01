@@ -3,109 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 17:43:01 by amagoury          #+#    #+#             */
-/*   Updated: 2024/11/30 19:46:32 by lalwafi          ###   ########.fr       */
+/*   Updated: 2024/12/01 12:24:01 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void update_dir(t_bulid *bulid, char *key, char *value)
+ static void pathcase(t_shell *shell, int cmd_num)
 {
-    t_list  *envp;
-    t_values  *temp;
-
-    envp = bulid->env_p;
-
-    while (envp != NULL)
+    char *home = getenv("HOME");
+    if (chdir(home) < 0)
     {
-        temp = (t_values *)envp->content;
-
-        if (ft_strncmp_lyall(temp->key, key,value) == 0)
-        {
-            free(temp->value);
-            temp->value = value;
-            return;
-        }
-
-        envp = envp->next;
+        shell->exit_code = 1;
     }
-    get_env(bulid, key);
+}
+static int ft_cd0(t_shell *shell, int cmd_num)
+{
+    if (ft_strcmp(shell->command[cmd_num].cmd_args[1], "~") == 0)
+    {
+        char *home = getenv("HOME");
+        if (home == NULL)
+            return 1;
+        if (chdir(home) < 0)
+            return 1;
+    }
+    else if (ft_strcmp(shell->command[cmd_num].cmd_args[1], "-") == 0)
+    {
+        char *oldpwd = getenv("OLDPWD");
+        if (oldpwd == NULL) 
+            return 1;
+        if (chdir(oldpwd) < 0)
+            return 1;
+        printf("%s\n", oldpwd);
+    }
+    else {
+        if (chdir(shell->command[cmd_num].cmd_args[1]) < 0)
+            return 1;
+    }
+    return 0;
 }
 
-static int change_directory(t_bulid *bulid, char *path)
+int ft_cd(t_shell *shell, int cmd_num)
 {
-    char *oldpwd;
-    char *newpwd;
-
-    if(access(path,F_OK) != 0)
-        return(-1);
-    oldpwd = getcwd(NULL,0);
-    if(!oldpwd)
-        return(-1);
-    if(chdir(path) != 0)
-    {
-        free(oldpwd);
-        return(-1);
-    }
-    newpwd = getcwd(NULL,0);
-    if(!newpwd)
-    {
-        free(oldpwd);
-        return(-1);
-    }
-    update_dir(bulid,"PWD",newpwd);
-    update_dir(bulid,"OLDPWD",oldpwd);
-    free(oldpwd);
-    free(newpwd);
-    return(0);
-}
-
-static int simple_ms_cd_home(t_bulid *bulid, t_command command)
-{
-    char  *home;
-
-    initialize_command(&command);
-    if (home == NULL)
-    {
-        if (command.cmd_args != NULL)
-            simple_cmd_error(command.cmd_args[0], "HOME not set");
-        else
-            simple_cmd_error("cd", "HOME not set");
-        return 1;
-    }
-    if (ms_chdir(bulid, home) == 0)
-        return 0;
-
-    if (access(home, F_OK) == 0)
-    {
-        if (command.cmd_args != NULL)
-            simple_cmd_error(command.cmd_args[0], "Not a directory");
-        else
-            simple_cmd_error("cd", "Not a directory");
+    if (shell->command[cmd_num].cmd_args[1] == NULL)
+    {   
+        char *home = getenv("HOME");
+        if (home != NULL)
+            chdir(home);
     }
     else
     {
-        if (command.cmd_args != NULL)
-            simple_cmd_error(command.cmd_args[0], "No such file or directory");
-        else
-            simple_cmd_error("cd", "No such file or directory");
+        return ft_cd0(shell, cmd_num);
     }
-    return 1;
+    return 0;
 }
-
-
-void    initialize_command(t_command *meow)
-{
-    meow->cmd_args[1][4] = "HOME";
-    meow->cmd_line = NULL;
-    meow->no_args = 69;
-    meow->no_redirs = 0;
-    meow->int_temp = 0;
-    meow->redir_amount = 0;
-    meow->redir = NULL;
-}
-// dir_mas,
-// the mainfunction for the cd

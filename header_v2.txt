@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   header_v2.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/02 23:57:45 by lalwafi          ###   ########.fr       */
+/*   Created: 2024/12/02 17:28:47 by lalwafi           #+#    #+#             */
+/*   Updated: 2024/12/02 23:50:50 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef HEADER_V2_H
+# define HEADER_V2_H
 
 # include "aish_libft/libft.h"
 
@@ -32,13 +32,6 @@
 # include <termios.h>
 # include <curses.h>
 # include <term.h>
-
-typedef struct s_environment	t_environment;
-typedef struct s_shell			t_shell;
-typedef struct s_values			t_values;
-typedef struct s_command		t_command;
-typedef struct s_direct			t_direct;
-typedef enum e_mini_state		t_state;
 
 typedef struct s_shell
 {
@@ -91,27 +84,17 @@ typedef struct s_values
 	t_values	*next;
 } t_values;
 
-// functions lyall
-
-void		initialize_shell(t_shell *shell);
-void		get_env(t_shell *shell, char **env);
-char		*key_time(char *env);
-void		make_values_node(char *key, char *envline, t_shell *shell);
-void		minishell(t_shell *shell);
-
-// utils
-
-char		*ft_strdup(const char *s1);
-int			ft_strncmp_lyall(const char *s1, const char *s2, size_t n);
-int			ft_lstsize_v(t_values *lst);
-t_values	*ft_lstlast_values(t_values *lst);
-void		ft_lstadd_back_values(t_values **lst, t_values *new);
-void		ft_lstclear_values(t_values **lst, void (*del)(void *));
-void		ft_lstdelone_values(t_values *lst, void (*del)(void *));
-
-//aisha erros 
-int print_error(t_shell *shell, const char *cmd, const char *msg, const char *arg);
-//aisha
-void    initialize_command(t_command *meow);
-int ft_cd(t_shell *shell, int cmd_num);
 #endif
+
+// echo hello world > meow.txt | ls -la | wc -l
+// echo "hello" > out.txt | cat -e < in.txt >> out2.txt | grep hello >> final.txt
+// echo hello | echo world
+// bash ececutes from the end to the start (world hello)
+// echo hello | meow world (nope)
+// pipe changes fd from output to input
+// echo hello | wc
+
+// echo "hello \' world\'" \> out.txt | cat -e < in.txt >> out2.txt | grep hello >> final.txt
+
+// echo 'hello $USER'
+// echo "hello $USER"

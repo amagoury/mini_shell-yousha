@@ -7,10 +7,24 @@ notes to myself:
 - deal with history
 - why global variable
 - env doesnt work twice for some reason
+- echo hello world > meow.txt | ls -la | wc -l
+- echo "hello" > out.txt | cat -e < in.txt >> out2.txt | grep hello >> final.txt
+- echo hello | echo world
+- bash ececutes from the end to the start (world hello)
+- echo hello | meow world (nope)
+- pipe changes fd from output to input
+- echo hello | wc
+- try only '|' in bash (all operators actually dont work)
+- hel"lo my fri"end
+- parse fail = 1 for rdp (for > | or "hello'\)
+- (echo "hello' y | es") is one word
+- expand variables in parsing ($USER) (not for single speechmarks but double yes)
+- 
 
 learn:
 - tokenization
-- 
+- recursive_decent_parsing
+- execv
 
 to do:
 - handle header

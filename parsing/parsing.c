@@ -1,16 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 01:59:38 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/02 19:04:24 by lalwafi          ###   ########.fr       */
+/*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
+/*   Updated: 2024/12/02 21:32:34 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	main(int ac, char **av, char **env)
+{
+	t_shell shell;
+	
+	(void)av;
+	if (ac != 1)
+		return (printf("'./minishell' only, no arguments\n"));
+	init_all(&shell);
+	// change_shlvl();
+	get_env(&shell, env);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handle_signal);
+	minishell(&shell);
+	free_all(&shell);
+}
+
+void	init_all(t_shell *shell)
+{
+	
+}
 
 void	initialize_shell(t_shell *shell)
 {
@@ -83,7 +104,7 @@ void	minishell(t_shell *shell)
 	while (1)
 	{
 		shell->input = readline("minishell> ");
-		if (!shell->input)					//why
+		if (!shell->input)					//why, ctrl d i think
 			break ;
 		else if (shell->input[0] != '\0')
 		{
@@ -104,7 +125,6 @@ void	minishell(t_shell *shell)
 		}
 		else if (shell->input[0] == '\0')
 			printf("???\n");
-		// execution();
 		// else
 		// {
 		// 	if (ft_strncmp("pwd", shell->input, 3) == 0)
@@ -135,20 +155,4 @@ void	free_all(t_shell *shell)
 		free(shell->environment);
 		// free(shell);
 	}
-}
-
-int	main(int ac, char **av, char **env)
-{
-	t_shell shell;
-	
-	(void)av;
-	if (ac != 1)
-		return (printf("no arguments\n"));
-	initialize_shell(&shell);
-	// change_shlvl();
-	get_env(&shell, env);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, handle_signal);
-	minishell(&shell);
-	free_all(&shell);
 }

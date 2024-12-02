@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/01 00:13:51 by aishamagour      ###   ########.fr       */
+/*   Updated: 2024/12/02 17:42:13 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_values
 typedef struct s_command
 {
 	char				**cmd_args; // the command, flag and command line
-	char				*cmd_line; // just a temp that i will be using for parsing, you can use it if you want
+	char				*cmd_line_L; // just a temp that i will be using for parsing, you can use it if you want
 	int					no_args;
 	int					no_redirs;
 	int					int_temp; // just like the char temp

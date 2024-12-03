@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   token_uitls.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 17:43:01 by amagoury          #+#    #+#             */
-/*   Updated: 2024/12/03 11:55:38 by aishamagour      ###   ########.fr       */
+/*   Created: 2024/12/03 12:14:07 by aishamagour       #+#    #+#             */
+/*   Updated: 2024/12/03 17:50:55 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include"minishell.h"
 
-int my_cd(t_environment *home, char *path)
-{
-    if (!path || strcmp(path, "") == 0)
-    {
-        if (!home->path)
-        {
-            return 1;
-        }
-        path = home->path;
-    }
-    if (chdir(path) != 0) 
-        return 1;
-
-    return 0; 
-}
+// void  initialize_tokens(t_token *token)
+// {
+// 	token->str = NULL;
+// 	token->blockers = "  \'\" \n\t\f\v\r<>|&$";
+// 	token->s_block = "\'";
+// 	token->dupl_block = "\"$";
+// 	token->len = 0;
+// 	token->convert = 0;
+// }

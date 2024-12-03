@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header_v2.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:28:47 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/02 22:50:11 by lalwafi          ###   ########.fr       */
+/*   Updated: 2024/12/03 17:51:41 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_command
 	char				**cmd_args; // double array of commands why
 	char				*cmd_line_L; // just a temp that i will be using for parsing, you can use it if you want
 	int					num_of_redir;
+	char				*var;
 	t_direct			*redir; // redirects
 	t_command			*next;
 } t_command;
@@ -55,6 +56,15 @@ typedef struct s_direct
 	t_direct			*next;
 }	t_direct;
 
+typedef struct s_token
+{
+    char *str;             // for normal text aisha
+    char *blockers;       // the bolcks withe the text will stop aisha
+	char *dupl_block;
+	char *s_block;
+   	int len;               //  text len aisha
+    bool convert;          // if the text need to convert or not aisha
+} t_token;
 typedef enum e_mini_state
 {
 	RE_INPUT, // <

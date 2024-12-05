@@ -15,7 +15,8 @@ notes to myself:
 - pipe changes fd from output to input
 - echo hello | wc
 - try only '|' in bash (all operators actually dont work)
-- hel"lo my fri"end
+- hel"lo my fri"end (quotes have to close, eg this wont work (hel"lo world)) (oh btw its one word)
+- (echo he'll say no) doesnt work, quotes have to close
 - parse fail = 1 for rdp (for > | or "hello'\)
 - (echo "hello' y | es") is one word
 - expand variables in parsing ($USER) (not for single speechmarks but double yes)

@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/05 02:37:51 by lalwafi          ###   ########.fr       */
+/*   Updated: 2024/12/05 16:37:19 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	minishell(t_shell *shell)
 			break ;
 		else if (shell->input_L[0] != '\0')
 		{
-			parse_it();
+			parse_it(shell);
 			// execution();
 		}
 		else if (shell->input_L[0] == '\0')

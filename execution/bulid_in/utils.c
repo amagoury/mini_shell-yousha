@@ -6,19 +6,37 @@
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 19:50:30 by aishamagour       #+#    #+#             */
-/*   Updated: 2024/12/01 00:13:35 by aishamagour      ###   ########.fr       */
+/*   Updated: 2024/12/05 21:20:10 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    initialize_command(t_command *meow)
+char	*remove_quotes(char *str)
 {
-    meow->cmd_args[1][4] = "HOME";
-    meow->cmd_line = NULL;
-    meow->no_args = 69;
-    meow->no_redirs = 0;
-    meow->int_temp = 0;
-    meow->redir_amount = 0;
-    meow->redir = NULL;
+    char  *old_quotes;
+    int    nbr_of_quotes;
+    int i;
+    int j;
+
+    nbr_of_quotes = ft_strlen(str);
+    i = 0;
+    while(str[i])
+    {
+        if(str[i] == '"' || str[i] == '\'')
+            nbr_of_quotes++;
+    }
+    i++;
+    old_quotes = malloc(sizeof(char) * (nbr_of_quotes + 1));
+    j = -1;
+    while(str[i])
+    {
+        if(str[i] == '"' || str[i] == '\'')
+            old_quotes[j++] = str[i];
+        i++;
+    }
+    old_quotes[j] = '\0';
+    return (old_quotes);
 }
+
+

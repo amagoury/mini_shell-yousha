@@ -43,13 +43,15 @@ steps:
 - first check arguments if its only ./minishell
 - initialize the structs
 - initialize env (check what parts of env i need to keep)
-- handle signals
+------------------------------------------------------------- handle signals
 - start loop
-- handle shlvl
+------------------------------------------------------------- handle shlvl
 - parse input
-- add everything needed to structs
+	- tokenize and check syntax errors
+	- rdp parsing 
+	- any errors handle them, free, print the error, then continue loop without going to Execution
+	- add everything needed to structs
 - go to Execution
-- go one by one in commands to execute them
 - go back to while (1) waiting for input
 
 

@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:29:27 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/11/28 13:26:01 by lalwafi          ###   ########.fr       */
+/*   Updated: 2024/12/04 22:57:21 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,6 @@ void	ft_lstadd_back_values(t_values **lst, t_values *new)
 	else
 		*lst = new;
 }
-
-
-
-
-
 
 void	ft_lstclear_values(t_values **lst, void (*del)(void *))
 {

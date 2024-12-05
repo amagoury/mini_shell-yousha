@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_old.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 01:59:38 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/02 19:04:24 by lalwafi          ###   ########.fr       */
+/*   Updated: 2024/12/04 22:37:38 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void	initialize_shell(t_shell *shell)
 {
 	shell->input = NULL;
-	shell->fd = -1;
-	shell->child = -1;
-	shell->lastpid = -1;
-	shell->str = NULL;
+	// shell->fd = -1;
+	// shell->child = -1;
+	// shell->lastpid = -1;
+	// shell->str = NULL;
 	shell->environment = NULL;
 }
 
@@ -60,10 +60,10 @@ void	get_env(t_shell *shell, char **env)
 	shell->environment->cwd = getcwd(NULL, 0);
 	shell->environment->owd = getcwd(NULL, 0);
 	shell->environment->path = NULL;
-	shell->environment->environ = NULL;
+	// shell->environment->environ = NULL;
 	shell->environment->vals = NULL;
 	// change shlvl
-	shell->environment->shlvl = 1;
+	// shell->environment->shlvl = 1;
 	while (env[++i])
 	{
 		key = key_time(env[i]);
@@ -83,8 +83,8 @@ void	minishell(t_shell *shell)
 	while (1)
 	{
 		shell->input = readline("minishell> ");
-		if (!shell->input)					//why
-			break ;
+		if (!shell->input)					//ctrl-D
+			printf("signal thing maybe\n");
 		else if (shell->input[0] != '\0')
 		{
 			printf("got the input = %s\n", shell->input);

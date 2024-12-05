@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/02 23:57:45 by lalwafi          ###   ########.fr       */
+/*   Updated: 2024/12/05 04:22:10 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,31 @@
 # include <curses.h>
 # include <term.h>
 
-typedef struct s_environment	t_environment;
-typedef struct s_shell			t_shell;
-typedef struct s_values			t_values;
-typedef struct s_command		t_command;
-typedef struct s_direct			t_direct;
-typedef enum e_mini_state		t_state;
+typedef struct	s_environment	t_environment;
+typedef struct	s_shell			t_shell;
+typedef struct	s_values		t_values;
+typedef struct	s_command		t_command;
+typedef struct	s_direct		t_direct;
+typedef enum	e_state			t_state;
 
 typedef struct s_shell
 {
-	char				*input; // for parsing probably i will use
-	char				**pipe_split_L; // array of command lines split into pipes
-	int					num_of_cmds; // how many commands there are, also can be used to keep track of how many pipes there are by doing -1
-	int					parsing_fail_L; // flag for parsing
-	t_command			*commands; // list for commands/tree
-	t_environment   	*environment; // contains the env
+	char			*input_L; // the input line
+	char			**pipe_split_L; // input split by pipes
+	t_command		*commands;
+	t_environment	*environment;
 } t_shell;
+
+typedef struct s_command
+{
+	char				**words_L; // words split
+	char				*cmd; // the command
+	char				**cmd_args; // double array of arguments for command;
+	char				*cmd_line_L; // the pipe split line to parse
+	int					num_of_redir; // number of redirects in the line
+	t_direct			*redir; // redirects
+	t_command			*next;
+} t_command;
 
 typedef struct s_environment
 {
@@ -59,14 +68,13 @@ typedef struct s_environment
 	t_values			*vals; // contains all the elements in env
 }	t_environment;
 
-typedef struct s_command
+typedef struct s_values
 {
-	char				**cmd_args; // double array of commands split by words
-	char				*cmd_line_L; // the command line not split by words
-	int					num_of_redir; // how many redirects there are
-	t_direct			*redir; // redirects
-	t_command			*next;
-} t_command;
+	char				*key; // before "=" (eg; USER)
+	char				*value; // after "=" (eg; lalwafi)
+	char				*envstr; // the whole line (eg; USER = lalwafi)
+	t_values			*next;
+} t_values;
 
 typedef struct s_direct
 {
@@ -75,21 +83,23 @@ typedef struct s_direct
 	t_direct			*next;
 }	t_direct;
 
-typedef enum e_mini_state
+typedef struct s_token
+{
+    char *str;             // for normal text aisha
+    char *blockers;       // the bolcks withe the text will stop aisha
+	char *dupl_block;
+	char *s_block;
+   	int len;               //  text len aisha
+    bool convert;          // if the text need to convert or not aisha
+} t_token;
+
+typedef enum e_state
 {
 	RE_INPUT, // <
 	RE_OUTPUT, // >
 	HERE_DOC, // <<
-	APPEND // >>d
+	APPEND // >>
 }	t_state;
-
-typedef struct s_values
-{
-	char		*key; // before "=" (eg; USER)
-	char		*value; // after "=" (eg; lalwafi)
-	char		*envstr; // the whole line (eg; USER = lalwafi)
-	t_values	*next;
-} t_values;
 
 // functions lyall
 

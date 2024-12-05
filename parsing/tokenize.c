@@ -3,18 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:56:21 by aishamagour       #+#    #+#             */
-/*   Updated: 2024/12/03 17:46:44 by aishamagour      ###   ########.fr       */
+/*   Updated: 2024/12/05 02:05:26 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"minishell.h"
+#include "../minishell.h"
+
+void    tokenize_it(t_shell *shell)
+{
+    
+}
 
 int set_token(t_token *token, char **input, char *quote) {
     token->str = NULL;
-    token->blockers = " \n\t\f\v\r<>|&$";
+    token->blockers = " \n\t\f\v\r<>|$";
     token->s_block = '\'';
     token->dupl_block = "\"$";
     token->len = 0;
@@ -24,7 +29,7 @@ int set_token(t_token *token, char **input, char *quote) {
 	{
         token->quote = '\'';
         token->blockers = token->s_block;
-    } 
+    }
 	else if (**input == '\"')
 	{
         token->quote = '\"';

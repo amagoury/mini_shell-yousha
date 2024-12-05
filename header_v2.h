@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header_v2.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:28:47 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/03 17:51:41 by aishamagour      ###   ########.fr       */
+/*   Updated: 2024/12/04 22:21:57 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@
 
 typedef struct s_shell
 {
-	char	**pipe_split_L;
-	t_command *commands;
+	char			**pipe_split_L;
+	t_command		*commands;
+	t_environment	*environment;
 } t_shell;
 
 typedef struct s_command
@@ -48,6 +49,23 @@ typedef struct s_command
 	t_direct			*redir; // redirects
 	t_command			*next;
 } t_command;
+
+typedef struct s_environment
+{
+	int					exit; // exit code i think im not sure
+	char				*cwd; // current working directory
+	char				*owd; // old working directory
+	char				**path; // $PATH variable split to double array, probably for execution
+	t_values			*vals; // contains all the elements in env
+}	t_environment;
+
+typedef struct s_values
+{
+	char				*key; // before "=" (eg; USER)
+	char				*value; // after "=" (eg; lalwafi)
+	char				*envstr; // the whole line (eg; USER = lalwafi)
+	t_values			*next;
+} t_values;
 
 typedef struct s_direct
 {
@@ -65,7 +83,8 @@ typedef struct s_token
    	int len;               //  text len aisha
     bool convert;          // if the text need to convert or not aisha
 } t_token;
-typedef enum e_mini_state
+
+typedef enum e_state
 {
 	RE_INPUT, // <
 	RE_OUTPUT, // >

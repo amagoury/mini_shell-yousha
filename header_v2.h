@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:28:47 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/04 22:21:57 by lalwafi          ###   ########.fr       */
+/*   Updated: 2024/12/06 18:48:02 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,3 +103,4 @@ typedef enum e_state
 // echo hello | wc
 
 // echo "hello \' world\'" \> out.txt | cat -e < in.txt >> out2.txt | grep hello >> final.txt
+// echo "hello world how are you" > 1 > 2 > 3 | rtgmje4dy6t,cd

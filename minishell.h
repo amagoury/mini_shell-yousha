@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/05 04:22:10 by lalwafi          ###   ########.fr       */
+/*   Updated: 2024/12/07 20:00:37 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_shell
 {
 	char			*input_L; // the input line
 	char			**pipe_split_L; // input split by pipes
+	int				num_of_pipes;
 	t_command		*commands;
 	t_environment	*environment;
 } t_shell;
@@ -72,7 +73,7 @@ typedef struct s_values
 {
 	char				*key; // before "=" (eg; USER)
 	char				*value; // after "=" (eg; lalwafi)
-	char				*envstr; // the whole line (eg; USER = lalwafi)
+	// char				*envstr; // the whole line (eg; USER = lalwafi) probably will delete
 	t_values			*next;
 } t_values;
 
@@ -109,19 +110,29 @@ char		*key_time(char *env);
 void		make_values_node(char *key, char *envline, t_shell *shell);
 void		minishell(t_shell *shell);
 
-// utils
+// utils lyall
 
 char		*ft_strdup(const char *s1);
 int			ft_strncmp_lyall(const char *s1, const char *s2, size_t n);
 int			ft_lstsize_v(t_values *lst);
 t_values	*ft_lstlast_values(t_values *lst);
 void		ft_lstadd_back_values(t_values **lst, t_values *new);
-void		ft_lstclear_values(t_values **lst, void (*del)(void *));
-void		ft_lstdelone_values(t_values *lst, void (*del)(void *));
+void		ft_lstclear_values(t_values *lst);
+void		ft_lstdelone_values(t_values *lst);
+
+// parsing lyall
+
+void	parse_it(t_shell *shell);
+int		open_quote_or_no(char *str);
+int	count_pipes(char *str);
+
 
 //aisha erros 
+
 int print_error(t_shell *shell, const char *cmd, const char *msg, const char *arg);
+
 //aisha
+
 void    initialize_command(t_command *meow);
 int ft_cd(t_shell *shell, int cmd_num);
 #endif

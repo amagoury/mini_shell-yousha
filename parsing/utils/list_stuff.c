@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:29:27 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/04 22:57:21 by lalwafi          ###   ########.fr       */
+/*   Updated: 2024/12/07 19:55:46 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_lstsize_v(t_values *lst)
 	if (!lst)
 		return (0);
 	current = lst;
-	while (current != NULL)
+	while (current->next != NULL)
 	{
 		current = current->next;
 		count++;
@@ -55,26 +55,28 @@ void	ft_lstadd_back_values(t_values **lst, t_values *new)
 		*lst = new;
 }
 
-void	ft_lstclear_values(t_values **lst, void (*del)(void *))
+void	ft_lstclear_values(t_values *lst)
 {
 	t_values	*a;
 
-	while (*lst)
+	while (lst)
 	{
-		a = (*lst)->next;
-		ft_lstdelone_values(*lst, del);
-		*lst = a;
+		a = lst->next;
+		// ft_lstdelone_values(lst);
+		free(lst->key);
+		free(lst);
+		lst = a;
 	}
-	*lst = NULL;
+	lst = NULL;
 }
 
-void	ft_lstdelone_values(t_values *lst, void (*del)(void *))
+void	ft_lstdelone_values(t_values *lst)
 {
 	if (lst)
 	{
-		del(lst->key);
-		// del(lst->value);
-		del(lst->envstr);
+		free(lst->key);
+		// free(lst->value);
+		// free(lst->envstr);
 		free(lst);
 	}
 }

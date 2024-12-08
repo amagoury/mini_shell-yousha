@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/07 20:00:37 by lalwafi          ###   ########.fr       */
+/*   Updated: 2024/12/08 19:22:51 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,11 @@ t_values	*ft_lstlast_values(t_values *lst);
 void		ft_lstadd_back_values(t_values **lst, t_values *new);
 void		ft_lstclear_values(t_values *lst);
 void		ft_lstdelone_values(t_values *lst);
+char		**split_pipes(char const *s, char c);
+char		**make_letters(char **result, char const *s, char c, int count);
+int			make_words(char const *s, char c);
+char		**free_array(char **result);
+
 
 // parsing lyall
 
@@ -135,4 +140,5 @@ int print_error(t_shell *shell, const char *cmd, const char *msg, const char *ar
 
 void    initialize_command(t_command *meow);
 int ft_cd(t_shell *shell, int cmd_num);
+
 #endif

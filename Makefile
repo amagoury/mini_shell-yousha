@@ -1,9 +1,13 @@
 NAME    = minishell
 CC      = cc
-CFLAGS  = -Wall -Werror -Wextra -g3  -I/Users/$(USER)/.brew/opt/readline/include #-fsanitize=address
+CFLAGS  = -Wall -Werror -Wextra -g3  -I/Users/$(USER)/.brew/opt/readline/include -fsanitize=address
 
-SRCS    =  $(addprefix parsing/, main.c) $(addprefix parsing/utils/, ft_strdup.c \
-			ft_strncmp.c list_stuff.c) $(addprefix execution/bulid_in/,cd.c \ errors.c \utils.c)
+SRCS    =  $(addprefix parsing/, parsing.c parsing_2.c rdp.c) \
+			$(addprefix parsing/utils/, ft_strdup.c \
+			ft_strncmp.c list_stuff.c split_pipes.c) \
+#			$(addprefix execution/bulid_in/,cd.c \ errors.c \utils.c) 
+			
+#I commented your files so i can test mine, you can just delete the '#'
 
 OBJ     = $(SRCS:.c=.o)
 

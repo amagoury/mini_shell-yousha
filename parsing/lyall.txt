@@ -20,12 +20,16 @@ notes to myself:
 - parse fail = 1 for rdp (for > | or "hello'\)
 - (echo "hello' y | es") is one word
 - expand variables in parsing ($USER) (not for single speechmarks but double yes)
-- 
+- echo he"llo' frie"nd > fi"le he'l"l.txt
+	- echo
+	- hello' friend
+	- >
+	- file he'll.txt
 
 learn:
 - tokenization
 - recursive_decent_parsing
-- execv
+- execv!!!!
 
 to do:
 - handle header

@@ -1,0 +1,41 @@
+parsing steps cuz im lost:
+##########################
+
+- initialize
+
+- get the environment set up 
+	- increase SHLVL
+
+- signals
+
+- readline for input
+
+- history???
+
+- check if theres open quotes
+- check if theres any syntax errors in the beginning or end
+- split pipes and check if theres like >|< or smth idk (maybe check that later)
+- expand env variables (eg; $USER) if double quotes
+- replace \ characters (eg; \n , \t , ...)
+- handle $?
+- preserve quotes
+- 
+
+= things that should fail
+	- echo m'y frie"nd
+	- echo hello > > file 
+	- '|'   ,   ">"    and those stuff (actually just operators alone)
+= this should pass for parsing
+	- echo hello | meow world
+
+- exit with codes, look up what they should be
+
+
+
+
+
+
+notes
+- bash ececutes from the end to the start (world hello)
+- pipe changes fd from output to input
+- 

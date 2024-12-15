@@ -56,6 +56,14 @@ steps:
 	- rdp parsing 
 	- any errors handle them, free, print the error, then continue loop without going to Execution
 	- add everything needed to structs
+
+	- again
+	- separate by pipes, ignoring quotes
+	- check if pipe at the end or beginning, if not
+	- separate the words by spaces, redirects, quotes make sure are one word
+	- add the command to cmd, arguments to cmd_args, redirects to the lists, yadda yadda
+	- free pipe_split_L and cmd_line_L and whatever for parsing
+	- go to execution
 - go to Execution
 - go back to while (1) waiting for input
 

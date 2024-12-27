@@ -12,9 +12,52 @@ parsing steps cuz im lost:
 
 - history???
 
-- check if theres open quotes
 - check if theres any syntax errors in the beginning or end
-- split pipes and check if theres like >|< or smth idk (maybe check that later)
+	- check if theres open quotes
+		- Error: open quote
+
+	- Leading pipe: | ls
+	- Trailing pipe: ls |
+	- Consecutive pipes: ls ||| grep
+		- Error: Syntax error near unexpected token `|'
+
+	- Leading redirection: > ls
+	- Missing filename: ls >
+	- Double <: cat << < file
+	- Mixed without commands: < > file
+		- Error: Syntax error near unexpected token < or >
+
+	- ls &&| grep
+	- cat < << file
+		- Error: Syntax error near unexpected token < or |
+
+	- Empty command after pipe: |
+	- Empty command between pipes: ls || grep
+	- Empty command after redirection: ls >	- 
+
+	- ls %&$
+	- cat file@
+		- Error: Syntax error near unexpected token <char>
+
+	- cat <<
+	- cat << EOF grep
+		- Error: Syntax error near unexpected token <<
+
+	- cd dir1 dir2
+		- Error: cd: too many arguments
+
+	- exit 42 99
+		- Error: exit: too many arguments
+	
+	- $?x (invalid variable)
+	- $123 (numbers aren't valid variable names)
+		- Error: Undefined variable or invalid syntax
+
+	- Leading &&: && ls
+	- Mixed: ls && || grep
+		- Error: "Syntax error near unexpected token && or ||."
+
+	
 - expand env variables (eg; $USER) if double quotes
 - replace \ characters (eg; \n , \t , ...)
 - handle $?

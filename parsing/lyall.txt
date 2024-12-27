@@ -68,7 +68,10 @@ steps:
 - go back to while (1) waiting for input
 
 
-
+QUESTIONS
+- Description: A redirection leads to multiple or ambiguous targets.
+	Example: echo hello > file1 > file2
+	Error: "Ambiguous redirect."
 
 =============================================================================================================
 ------CHRIS HEADER REFERENCE-------

@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:21:30 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/08 22:23:16 by lalwafi          ###   ########.fr       */
+/*   Updated: 2024/12/24 21:20:24 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	make_words(char const *s, char c)
 		return (0);
 	while (s[i] != '\0')
 	{
+		if (s[i] == '"' || s[i] == "\'")
+			skip_quotes(s, i);
 		if ((s[i - 1] != c && s[i] == c) || (s[i + 1] == '\0' && s[i] != c))
 			count++;
 		i++;

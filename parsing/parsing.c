@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/08 21:32:28 by lalwafi          ###   ########.fr       */
+/*   Updated: 2024/12/27 15:37:43 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,9 @@ void	minishell(t_shell *shell)
 				write(1, "open quotes :(\n", 15);
 			else
 			{
-				shell->num_of_pipes = count_pipes(shell->input_L); // check if it counts inside quotes
+				if (shell->pipe_split_L)
+					free_array(shell->pipe_split_L);
+				// shell->num_of_pipes = count_pipes(shell->input_L); // check if it counts inside quotes
 				shell->pipe_split_L = split_pipes(shell->input_L, '|');
 				if (!shell->pipe_split_L)
 					printf("pipe oopsie\n");
@@ -136,10 +138,11 @@ void	free_all(t_shell *shell)
 	}
 	if (shell->pipe_split_L)
 	{
-		shell->num_of_pipes += 1;
-		while (--shell->num_of_pipes >= 0)
-			free(shell->pipe_split_L[shell->num_of_pipes]);
-		free(shell->pipe_split_L);
+		// shell->num_of_pipes += 1;
+		// while (--shell->num_of_pipes >= 0)
+		// 	free(shell->pipe_split_L[shell->num_of_pipes]);
+		// free(shell->pipe_split_L);
+		free_array(shell->pipe_split_L);
 	}
 	free(shell->commands);
 	// free(shell);

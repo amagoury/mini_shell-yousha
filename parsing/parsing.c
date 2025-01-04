@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/29 13:07:36 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/01/04 11:42:27 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,11 @@ void	minishell(t_shell *shell)
 				{
 					int i = -1;
 					while (shell->pipe_split_L[++i] != NULL)
-						printf("%s\n", shell->pipe_split_L[i]);
+						printf("#%s#\n", shell->pipe_split_L[i]);
 				}
 			}
-			else
-				printf("%s\n", shell->input_L);
+			// else
+			// 	printf("%s\n", shell->input_L);
 			// execution();
 		}
 		else if (shell->input_L[0] == '\0')

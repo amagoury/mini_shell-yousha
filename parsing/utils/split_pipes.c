@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:21:30 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/27 15:32:23 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/01/04 12:08:35 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ char	**make_letters(char **result, char const *s, char c, int count)
 	len = 0;
 	while (s[i] != '\0' && counter < count)
 	{
+		while (s[i] == ' ' && s[i] != '\0')
+			i++;
 		if (s[i] == '"' || s[i] == '\'')
 			i = skip_quotes(s, i);
 		if (s[i] != c)
@@ -84,6 +86,8 @@ char	**make_letters(char **result, char const *s, char c, int count)
 					len = skip_quotes(s, (i + len)) - i;
 				len++;
 			}
+			while (s[i + len - 1] != c && s[i + len - 1] == ' ')
+				len--;
 			result[counter] = ft_substr(s, i, len);
 			if (!result[counter])
 				return (free_array(result));

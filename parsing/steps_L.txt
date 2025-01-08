@@ -1,19 +1,19 @@
 parsing steps cuz im lost:
 ##########################
 
-- initialize
+- initialize✅
 
-- get the environment set up 
-	- increase SHLVL
+- get the environment set up ✅
+	- increase SHLVL❌
 
-- signals
+- signals✅
 
-- readline for input
+- readline for input✅
 
-- history???
+- history✅
 
-- check if theres any syntax errors in the beginning or end
-	- check if theres open quotes
+- check if theres any syntax errors in the beginning or end❌
+	- check if theres open quotes✅
 		- Error: open quote
 
 	- Leading pipe: | ls
@@ -58,11 +58,11 @@ parsing steps cuz im lost:
 		- Error: "Syntax error near unexpected token && or ||."
 
 	
-- expand env variables (eg; $USER) if double quotes
-- replace \ characters (eg; \n , \t , ...)
-- handle $?
+- expand env variables (eg; $USER) if double quotes❌
+- replace \ characters (eg; \n , \t , ...)❌
+- handle $?❌
 - preserve quotes
-- 
+- where do i split??????????
 
 = things that should fail
 	- echo m'y frie"nd
@@ -82,3 +82,6 @@ notes
 - bash ececutes from the end to the start (world hello)
 - pipe changes fd from output to input
 - 
+
+
+✅❌

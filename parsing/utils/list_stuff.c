@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:29:27 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/07 19:55:46 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/01/04 12:25:47 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_lstclear_values(t_values *lst)
 		free(lst);
 		lst = a;
 	}
-	lst = NULL;
+	// lst = NULL;
 }
 
 void	ft_lstdelone_values(t_values *lst)
@@ -75,7 +75,7 @@ void	ft_lstdelone_values(t_values *lst)
 	if (lst)
 	{
 		free(lst->key);
-		// free(lst->value);
+		free(lst->value);
 		// free(lst->envstr);
 		free(lst);
 	}

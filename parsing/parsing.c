@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/01/04 11:42:27 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/01/08 16:40:00 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	minishell(t_shell *shell)
 	while (1)
 	{
 		shell->input_L = readline("minishell> ");
+		if (shell->input_L && shell->input_L[0] != '\0')
+			add_history(shell->input_L);
 		if (!shell->input_L)	// ctrl-D
 			break ;
 		else if (shell->input_L[0] != '\0')
@@ -90,6 +92,7 @@ void	minishell(t_shell *shell)
 				write(1, "open quotes :(\n", 15);
 			else
 			{
+				// check_syntax_errors(); 
 				if (shell->pipe_split_L)
 					free_array(shell->pipe_split_L);
 				// shell->num_of_pipes = count_pipes(shell->input_L); // check if it counts inside quotes
@@ -103,8 +106,6 @@ void	minishell(t_shell *shell)
 						printf("#%s#\n", shell->pipe_split_L[i]);
 				}
 			}
-			// else
-			// 	printf("%s\n", shell->input_L);
 			// execution();
 		}
 		else if (shell->input_L[0] == '\0')

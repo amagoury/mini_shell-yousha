@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/08 19:22:51 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/01/10 00:04:26 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void		get_env(t_shell *shell, char **env);
 char		*key_time(char *env);
 void		make_values_node(char *key, char *envline, t_shell *shell);
 void		minishell(t_shell *shell);
+int			check_syntax_errors(char *input);
 
 // utils lyall
 

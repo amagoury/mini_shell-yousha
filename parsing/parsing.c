@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/01/08 16:40:00 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/01/10 00:04:03 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,10 @@ void	minishell(t_shell *shell)
 			// get rid of white spaces
 			if (open_quote_or_no(shell->input_L) == 1)
 				write(1, "open quotes :(\n", 15);
+			else if (check_syntax_errors(shell->input_L) == 1)
+				write(2, "syntax error\n", 13);
 			else
 			{
-				// check_syntax_errors(); 
 				if (shell->pipe_split_L)
 					free_array(shell->pipe_split_L);
 				// shell->num_of_pipes = count_pipes(shell->input_L); // check if it counts inside quotes

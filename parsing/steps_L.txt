@@ -12,6 +12,8 @@ parsing steps cuz im lost:
 
 - history✅
 
+- refresh env??
+
 - check if theres any syntax errors in the beginning or end❌
 	- check if theres open quotes✅
 		- Error: open quote

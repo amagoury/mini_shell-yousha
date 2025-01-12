@@ -196,3 +196,21 @@ void	ft_env_init(t_shell *shell, char *tenv[]);
 
 #endif
 =============================================================================================================
+
+
+
+minishell> ^C
+minishell> ^C
+minishell> ^C
+minishell> ^C
+minishell> ^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C

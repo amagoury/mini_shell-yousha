@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/01/11 19:38:24 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/01/17 07:44:15 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	minishell(t_shell *shell)
 		else if (shell->input_L[0] != '\0')
 		{
 			// parse_it(shell);
-			// get rid of white spaces
+			shell->input_L = rmv_extra_spaces(ft_strtrim(shell->input_L, " "));
 			if (open_quote_or_no(shell->input_L) == 1)
 				write(1, "open quotes :(\n", 15);
 			else if (check_syntax_errors(shell->input_L) == 1)
@@ -111,6 +111,7 @@ void	minishell(t_shell *shell)
 		}
 		else if (shell->input_L[0] == '\0')
 			write(1, "empty line\n", 11);
+		free(shell->input_L);
 	}
 }
 

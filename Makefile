@@ -2,7 +2,7 @@ NAME    = minishell
 CC      = cc
 CFLAGS  = -Wall -Werror -Wextra -g3  -I/Users/$(USER)/.brew/opt/readline/include -fsanitize=address
 
-SRCS    =  $(addprefix parsing/, parsing.c parsing_2.c rdp.c) \
+SRCS    =  $(addprefix parsing/, main.c parsing_2.c rdp.c syntax_stuff.c) \
 			$(addprefix parsing/utils/, ft_strdup.c \
 			ft_strncmp.c list_stuff.c split_pipes.c) \
 #			$(addprefix execution/bulid_in/,cd.c \ errors.c \utils.c) 

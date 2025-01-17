@@ -1,8 +1,8 @@
 notes to myself:
 - hardoc
 - $?
-- how do we use fork, for multiple commands, for shlvl for just the commands themselves???
 - does it only have to be ./minishell or with arguments and we ignore them?
+- how do we use fork, for multiple commands, for shlvl for just the commands themselves???
 - what parts of env do i keep or all of it?
 - deal with history
 - why global variable

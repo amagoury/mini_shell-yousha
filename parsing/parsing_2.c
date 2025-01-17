@@ -6,13 +6,13 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:17:23 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/01/10 00:16:54 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/01/17 10:17:48 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	change_shlvl(t_values *vals, int lvl)
+void	change_shlvl(t_values *vals, int lvl) // still not working properly dont use
 {
 	t_values *temp;
 	t_values *node;
@@ -33,7 +33,6 @@ void	change_shlvl(t_values *vals, int lvl)
 	}
 }
 
-
 int	count_pipes(char *str)
 {
 	int	i;
@@ -49,18 +48,69 @@ int	count_pipes(char *str)
 	return (pipes);
 }
 
-int	check_syntax_errors(char *input)
+// int	skip_white(char *str, int i)
+// {
+// 	if (str[i] == ' ')
+// }
+
+char	*rmv_extra_spaces(char *str)
+{
+	char	*result;
+	int		i;
+	int		j;
+
+	i = -1;
+	j = 0;
+	while (str[++i])
+	{
+		j++;
+		if (str[i] == ' ')
+			j++;
+		while (str[i] == ' ')
+			i++;
+	}
+	result = malloc(sizeof(char) + (j + 1));
+	if (!result)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		result[j++] = str[i++];
+		if (str[i] == ' ')
+			result[j++] = str[i];;
+		while (str[i] == ' ')
+			i++;
+	}
+	result[j] = '\0';
+	free(str);
+	return (result);
+}
+
+int	open_quote_or_no(char *str)
 {
 	int	i;
-	int	j;
-
-	i = 0;
-	j = ft_strlen(input) - 1;
-	while (input[i] == ' ')
-		i++;
-	while (input[j] == ' ')
-		j--;
-	if (input[i] == '|' || input[j] == '|')
-		return (1);
+	
+	i = -1;
+	while (str[++i] != '\0')
+	{
+		if (str[i] == '"')
+		{
+			i++;
+			while (str[i] != '"' && str[i] != '\0')
+				i++;
+			if (str[i] != '"')
+				return (1);
+		}
+		if (str[i] == '\'')
+		{
+			i++;
+			while (str[i] != '\'' && str[i] != '\0')
+				i++;
+			if (str[i] != '\'')
+				return (1);
+		}
+	}
 	return (0);
 }
+

@@ -12,59 +12,72 @@ parsing steps cuz im lost:
 
 - history✅
 
-- refresh env??
+- check open quotes✅
 
 - check if theres any syntax errors in the beginning or end❌
 	- check if theres open quotes✅
 		- Error: open quote
 
-	- Leading pipe: | ls
-	- Trailing pipe: ls |
-	- Consecutive pipes: ls ||| grep
+	- Leading pipe: | ls✅
+	- Trailing pipe: ls |✅
+	- Consecutive pipes: ls ||| grep✅
 		- Error: Syntax error near unexpected token `|'
 
-	- Leading redirection: > ls
-	- Missing filename: ls >
-	- Double <: cat << < file
-	- Mixed without commands: < > file
+	- Leading redirection: > ls❌
+	- Missing filename: ls >❌
+	- Double <: cat << < file❌
+	- Mixed without commands: < > file❌
 		- Error: Syntax error near unexpected token < or >
 
-	- ls &&| grep
-	- cat < << file
+	- ls &&| grep❌
+	- cat < << file❌
 		- Error: Syntax error near unexpected token < or |
 
-	- Empty command after pipe: |
-	- Empty command between pipes: ls || grep
-	- Empty command after redirection: ls >	- 
+	- Empty command after pipe: |❌
+	- Empty command between pipes: ls || grep❌
+	- Empty command after redirection: ls >	- ❌
 
-	- ls %&$
-	- cat file@
+	- ls %&$❌
+	- cat file@❌
 		- Error: Syntax error near unexpected token <char>
 
-	- cat <<
-	- cat << EOF grep
+	- cat <<❌
+	- cat << EOF grep❌
 		- Error: Syntax error near unexpected token <<
 
-	- cd dir1 dir2
+	- cd dir1 dir2❌
 		- Error: cd: too many arguments
 
-	- exit 42 99
+	- exit 42 99❌
 		- Error: exit: too many arguments
 	
-	- $?x (invalid variable)
-	- $123 (numbers aren't valid variable names)
+	- $?x (invalid variable)❌
+	- $123 (numbers aren't valid variable names)❌
 		- Error: Undefined variable or invalid syntax
 
-	- Leading &&: && ls
-	- Mixed: ls && || grep
+	- Leading &&: && ls❌
+	- Mixed: ls && || grep❌
 		- Error: "Syntax error near unexpected token && or ||."
 
-	
+
+- split by pipes and remove white spaces before and after
+
+- tokenize and put everything into the structs ❌
+	- redirects into recirects
+	- command into cmd 
+	- command agruments into cmg_args
+	.......
+
 - expand env variables (eg; $USER) if double quotes❌
+
 - replace \ characters (eg; \n , \t , ...)❌
+
 - handle $?❌
-- preserve quotes
-- where do i split??????????
+
+- preserve quotes❌
+
+
+
 
 = things that should fail
 	- echo m'y frie"nd
@@ -72,7 +85,7 @@ parsing steps cuz im lost:
 	- '|'   ,   ">"    and those stuff (actually just operators alone)
 = this should pass for parsing
 	- echo hello | meow world
-
+	- echo hello world | > meow.txt
 - exit with codes, look up what they should be
 
 
@@ -83,6 +96,7 @@ parsing steps cuz im lost:
 notes
 - bash ececutes from the end to the start (world hello)
 - pipe changes fd from output to input
+- check error codes
 - 
 
 

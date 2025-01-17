@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 02:32:53 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/07 20:57:38 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/01/17 10:17:44 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,3 @@
 // 	// '<'  '>'  '<<'  '>>' 
 	
 // }
-
-int	open_quote_or_no(char *str)
-{
-	int	i;
-	
-	i = -1;
-	while (str[++i] != '\0')
-	{
-		if (str[i] == '"')
-		{
-			i++;
-			while (str[i] != '"' && str[i] != '\0')
-				i++;
-			if (str[i] != '"')
-				return (1);
-		}
-		if (str[i] == '\'')
-		{
-			i++;
-			while (str[i] != '\'' && str[i] != '\0')
-				i++;
-			if (str[i] != '\'')
-				return (1);
-		}
-	}
-	return (0);
-}
-

@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/01/10 00:04:26 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/01/17 07:40:10 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_shell
 {
 	char			*input_L; // the input line
 	char			**pipe_split_L; // input split by pipes
+	int				parsing_fail; // if parsing failed its 1 if parsing passed its 0
 	int				num_of_pipes;
 	t_command		*commands;
 	t_environment	*environment;
@@ -124,6 +125,7 @@ char		**split_pipes(char const *s, char c);
 char		**make_letters(char **result, char const *s, char c, int count);
 int			make_words(char const *s, char c);
 char		**free_array(char **result);
+char		*rmv_extra_spaces(char *str);
 
 
 // parsing lyall

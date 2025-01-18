@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/01/17 07:40:10 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/01/18 21:59:16 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct s_shell
 {
 	char			*input_L; // the input line
 	char			**pipe_split_L; // input split by pipes
-	int				parsing_fail; // if parsing failed its 1 if parsing passed its 0
 	int				num_of_pipes;
 	t_command		*commands;
 	t_environment	*environment;
@@ -68,6 +67,7 @@ typedef struct s_environment
 	char				*owd; // old working directory
 	char				**path; // $PATH variable split to double array, probably for execution
 	t_values			*vals; // contains all the elements in env
+	 t_command    *command;
 }	t_environment;
 
 typedef struct s_values
@@ -125,7 +125,6 @@ char		**split_pipes(char const *s, char c);
 char		**make_letters(char **result, char const *s, char c, int count);
 int			make_words(char const *s, char c);
 char		**free_array(char **result);
-char		*rmv_extra_spaces(char *str);
 
 
 // parsing lyall
@@ -139,9 +138,17 @@ int	count_pipes(char *str);
 
 int print_error(t_shell *shell, const char *cmd, const char *msg, const char *arg);
 
-//aisha
+//aisha bulid_in
+t_command *creat_command(char *cmd);
+void add_command(t_command **command, t_command *new);
+int my_cd(t_environment *env, char *path);
+void my_unset(t_command **head, char *args);
+void print_list(t_command *head) ;
+t_command *create_node(char *cmd);
+void add_node(t_command **head, char *cmd);
+void my_echo(char **command,t_command *cmd);
+void	ms_pwd(void);
+char *getcopyenv(char *str, t_command **env);
 
-void    initialize_command(t_command *meow);
-int ft_cd(t_shell *shell, int cmd_num);
 
 #endif

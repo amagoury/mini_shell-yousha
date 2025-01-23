@@ -1,0 +1,29 @@
+	- check if theres open quotes✅
+		- Error: open quote
+
+	- Leading pipe: | ls✅
+	- Trailing pipe: ls |✅
+	- Consecutive pipes: ls ||| grep✅
+	- Empty command after pipe: | ✅
+	- Empty command between pipes: ls || grep ✅
+	- ls &&| grep❌
+	- Mixed: ls && | grep❌
+
+	- Missing filename: ls >❌
+	- Double <: cat << < file❌
+	- Mixed without commands: < > file❌
+	- cat <<❌
+
+	
+	- Leading &&: && ls❌
+
+
+
+	- Empty command after redirection: ls >	-   (WAIT THIS WORKS!!!!!!!!!!!)🥶
+	- ls %&$❌ (WAIT THIS WORKS!!!!!!!!!!!)🥶
+	- cat << EOF grep❌ (WAIT THIS WORKS BUT GREP DOESNT WORK!!!!!!!!!!!)🥶
+	- cat file@  (WAIT THIS WORKS!!!!!!!!!!!)🥶
+
+
+	- $?x (invalid variable)❌ NOT SYNTAX BUT FOR VARIABLE EXPANDING!!!!!
+	- $123 (numbers aren't valid variable names)❌ NOT SYNTAX BUT FOR VARIABLE EXPANDING!!!!!

@@ -23,7 +23,7 @@ parsing steps cuz im lost:
 	- Consecutive pipes: ls ||| grep✅
 		- Error: Syntax error near unexpected token `|'
 
-	- Leading redirection: > ls❌
+	- Leading redirection: > ls❌ (WAIT THIS WORKS!!!!!!!!!!!)🥶
 	- Missing filename: ls >❌
 	- Double <: cat << < file❌
 	- Mixed without commands: < > file❌
@@ -35,14 +35,14 @@ parsing steps cuz im lost:
 
 	- Empty command after pipe: |❌
 	- Empty command between pipes: ls || grep❌
-	- Empty command after redirection: ls >	- ❌
+	- Empty command after redirection: ls >	- ❌ (WAIT THIS WORKS!!!!!!!!!!!)🥶
 
-	- ls %&$❌
+	- ls %&$❌ (WAIT THIS WORKS!!!!!!!!!!!)🥶
 	- cat file@❌
 		- Error: Syntax error near unexpected token <char>
 
 	- cat <<❌
-	- cat << EOF grep❌
+	- cat << EOF grep❌ (WAIT THIS WORKS BUT GREP DOESNT WORK!!!!!!!!!!!)🥶
 		- Error: Syntax error near unexpected token <<
 
 	- cd dir1 dir2❌

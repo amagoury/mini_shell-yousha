@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/01/18 21:59:16 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/01/24 03:56:31 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ void		get_env(t_shell *shell, char **env);
 char		*key_time(char *env);
 void		make_values_node(char *key, char *envline, t_shell *shell);
 void		minishell(t_shell *shell);
-int			check_syntax_errors(char *input);
 
 // utils lyall
 
@@ -125,13 +124,15 @@ char		**split_pipes(char const *s, char c);
 char		**make_letters(char **result, char const *s, char c, int count);
 int			make_words(char const *s, char c);
 char		**free_array(char **result);
+char		*rmv_extra_spaces(char *str);
 
 
 // parsing lyall
 
 void	parse_it(t_shell *shell);
 int		open_quote_or_no(char *str);
-int	count_pipes(char *str);
+int		count_pipes(char *str);
+int		check_pipes(char *input);
 
 
 //aisha erros 

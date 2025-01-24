@@ -1,29 +1,52 @@
-	- check if theres open quotes✅
-		- Error: open quote
-
-	- Leading pipe: | ls✅
-	- Trailing pipe: ls |✅
-	- Consecutive pipes: ls ||| grep✅
-	- Empty command after pipe: | ✅
-	- Empty command between pipes: ls || grep ✅
-	- ls &&| grep❌
-	- Mixed: ls && | grep❌
-
-	- Missing filename: ls >❌
-	- Double <: cat << < file❌
-	- Mixed without commands: < > file❌
-	- cat <<❌
-
-	
-	- Leading &&: && ls❌
 
 
+1. Syntax Errors
+		Unclosed quotes (' or ").
+		Misuse of pipes (|):
+		Starting/ending with a pipe (|).
+		Consecutive pipes (||).
+		Misuse of redirects (>, >>, <):
+		No file/command after a redirect.
+		Invalid syntax like > > file or | <.
 
-	- Empty command after redirection: ls >	-   (WAIT THIS WORKS!!!!!!!!!!!)🥶
-	- ls %&$❌ (WAIT THIS WORKS!!!!!!!!!!!)🥶
-	- cat << EOF grep❌ (WAIT THIS WORKS BUT GREP DOESNT WORK!!!!!!!!!!!)🥶
-	- cat file@  (WAIT THIS WORKS!!!!!!!!!!!)🥶
+2. Tokenization
+		Split input by:
+		Pipes (|).
+		Redirections (>, >>, <).
+		Whitespace outside of quotes.
+		Preserve quotes and handle escape characters (\).
+
+3. Expansion
+		Expand environment variables ($VAR).
+		Handle special variables like $?.
+		Ignore expansion inside single quotes ('), but expand inside double quotes (").
+
+4. Quotes Handling
+		Remove quotes but preserve the content inside them.
+		Handle nested quotes correctly.
+
+5. Redirections
+		Ensure valid file names after >/>>/<.
+		Handle heredoc (<<):
+		Match the delimiter.
+		Expand variables unless quoted.
+
+6. Whitespace
+		Trim unnecessary leading/trailing spaces.
+		Ignore extra spaces between tokens (e.g., cmd | cmd).
+
+7. Pipelines
+		Validate pipeline structure and token sequence.
+
+8. Command Validation
+		Ensure valid command names after each pipe/redirect.
+
+9. Edge Cases
+		Empty input or input with only spaces.
+		Special characters in file/command names.
+		Escaped characters like \|, \>, etc.
+
+10. Error Handling
+		Provide appropriate error messages for invalid syntax (like Bash does).
 
 
-	- $?x (invalid variable)❌ NOT SYNTAX BUT FOR VARIABLE EXPANDING!!!!!
-	- $123 (numbers aren't valid variable names)❌ NOT SYNTAX BUT FOR VARIABLE EXPANDING!!!!!

@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/01/17 07:44:15 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/01/24 03:56:31 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,11 @@ void	minishell(t_shell *shell)
 		{
 			// parse_it(shell);
 			shell->input_L = rmv_extra_spaces(ft_strtrim(shell->input_L, " "));
-			if (open_quote_or_no(shell->input_L) == 1)
+			if (!shell->input_L || shell->input_L[0] == '\0')
+				write(1, "only spaces\n", 12);
+			else if (open_quote_or_no(shell->input_L) == 1)
 				write(1, "open quotes :(\n", 15);
-			else if (check_syntax_errors(shell->input_L) == 1)
+			else if (check_pipes(shell->input_L) == 1)
 				write(2, "syntax error\n", 13);
 			else
 			{

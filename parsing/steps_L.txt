@@ -14,17 +14,25 @@ parsing steps cuz im lost:
 
 - check open quotes✅
 
+- check if pipes are valid✅
+	- Leading pipe: | ls✅
+	- Trailing pipe: ls |✅
+	- Consecutive pipes: ls ||| grep✅
+	- Empty command after pipe: | ✅
+	- Empty command between pipes: ls || grep ✅
+
+- split by pipes and remove white spaces before and after✅
+
+- u can probably expand variables while tokenizing so u dont malloc too much
+
+- tokenize (split into 'words')
+
 - EXPAND THE VARIABLES FIRST!!!!!! ( "export B=ls"    \n     "$B -la") !!!!!!!!!!!!!!!!!!!
 - expand env variables (eg; $USER) if double quotes❌
 	- $?x (invalid variable)❌
 	- $123 (numbers aren't valid variable names)❌
 
 - check if theres any syntax errors in the beginning or end❌
-	- Leading pipe: | ls✅
-	- Trailing pipe: ls |✅
-	- Consecutive pipes: ls ||| grep✅
-	- Empty command after pipe: | ✅
-	- Empty command between pipes: ls || grep ✅
 	- ls &&| grep❌
 	- Mixed: ls && | grep❌
 
@@ -35,9 +43,7 @@ parsing steps cuz im lost:
 	- Leading &&: && ls❌
 
 
-- split by pipes and remove white spaces before and after
-
-- tokenize and put everything into the structs ❌
+- put everything into the structs ❌
 	- redirects into recirects
 	- command into cmd 
 	- command agruments into cmg_args

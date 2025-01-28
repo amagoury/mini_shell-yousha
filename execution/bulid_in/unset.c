@@ -6,7 +6,7 @@
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 20:14:19 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/01/16 15:18:42 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/01/27 16:00:16 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,32 +62,32 @@ void print_list(t_command *head) {
     }
 }
 
-int main() {
-    t_command *unset = NULL; // Initialize the head of the linked list
+// int main() {
+//     t_command *unset = NULL; // Initialize the head of the linked list
 
-    // Add some nodes to the linked list
-    add_node(&unset, "VAR1=value1");
-    add_node(&unset, "VAR2=value2");
-    add_node(&unset, "VAR3=value3");
+//     // Add some nodes to the linked list
+//     add_node(&unset, "VAR1=value1");
+//     add_node(&unset, "VAR2=value2");
+//     add_node(&unset, "VAR3=value3");
 
-    // Print the list before unsetting
-    printf("Before unset:\n");
-    print_list(unset);
+//     // Print the list before unsetting
+//     printf("Before unset:\n");
+//     print_list(unset);
 
-    // Unset a variable
-    my_unset(&unset, "VAR2");
+//     // Unset a variable
+//     my_unset(&unset, "VAR2");
 
-    // Print the list after unsetting
-    printf("\nAfter unset:\n");
-    print_list(unset);
+//     // Print the list after unsetting
+//     printf("\nAfter unset:\n");
+//     print_list(unset);
 
-    // Free the remaining nodes in the list
-    while (unset) {
-        t_command *tmp = unset;
-        unset = unset->next;
-        free(tmp->cmd);
-        free(tmp);
-    }
+//     // Free the remaining nodes in the list
+//     while (unset) {
+//         t_command *tmp = unset;
+//         unset = unset->next;
+//         free(tmp->cmd);
+//         free(tmp);
+//     }
 
-    return 0;
-}
+//     return 0;
+// }

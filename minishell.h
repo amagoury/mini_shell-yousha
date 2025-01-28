@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/01/24 03:56:31 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/01/28 15:54:23 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include <termios.h>
 # include <curses.h>
 # include <term.h>
+#define BUFF_SIZE 1024 
 
 typedef struct	s_environment	t_environment;
 typedef struct	s_shell			t_shell;
@@ -53,7 +54,7 @@ typedef struct s_command
 {
 	char				**words_L; // words split
 	char				*cmd; // the command
-	char				**cmd_args; // double array of arguments for command;
+	t_list				**cmd_args; // double array of arguments for command;
 	char				*cmd_line_L; // the pipe split line to parse
 	int					num_of_redir; // number of redirects in the line
 	t_direct			*redir; // redirects
@@ -138,7 +139,10 @@ int		check_pipes(char *input);
 //aisha erros 
 
 int print_error(t_shell *shell, const char *cmd, const char *msg, const char *arg);
-
+// aisha utils
+bool is_valid_env(const char *env_var);
+int env_add(char *content, char ***env);
+int is_in_env(char **export_env, char *content);
 //aisha bulid_in
 t_command *creat_command(char *cmd);
 void add_command(t_command **command, t_command *new);
@@ -150,6 +154,11 @@ void add_node(t_command **head, char *cmd);
 void my_echo(char **command,t_command *cmd);
 void	ms_pwd(void);
 char *getcopyenv(char *str, t_command **env);
+void    exit_shell(t_command *command);
+char  *add_quotes(char *value);
+void	print_env(char  **env, bool export);
+int env_add(char *value, char ***env);
+bool ft_export(t_command *cmd, char ***env, char ***export_env);
 
 
 #endif

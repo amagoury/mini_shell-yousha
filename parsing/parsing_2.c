@@ -6,32 +6,32 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:17:23 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/01/24 03:18:40 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/12 16:51:01 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	change_shlvl(t_values *vals, int lvl) // still not working properly dont use
-{
-	t_values *temp;
-	t_values *node;
+// void	change_shlvl(t_values *vals, int lvl) // still not working properly dont use
+// {
+// 	t_values *temp;
+// 	t_values *node;
 
-	temp = vals;
-	node = NULL;
-	while (temp->next && ft_strncmp_lyall(temp->key, "SHLVL", 5) != 0)
-		temp = temp->next;
-	if (ft_strncmp_lyall(temp->key, "SHLVL", 5) == 0)
-		temp->value = ft_itoa(lvl); 
-	else
-	{
-		node->key = malloc(sizeof(char) * 6);
-		node->key = "SHLVL";
-		node->value = ft_itoa(lvl);
-		node->next = NULL;
-		ft_lstadd_back_values(&vals, node);
-	}
-}
+// 	temp = vals;
+// 	node = NULL;
+// 	while (temp->next && ft_strncmp_lyall(temp->key, "SHLVL", 5) != 0)
+// 		temp = temp->next;
+// 	if (ft_strncmp_lyall(temp->key, "SHLVL", 5) == 0)
+// 		temp->value = ft_itoa(lvl); 
+// 	else
+// 	{
+// 		node->key = malloc(sizeof(char) * 6);
+// 		node->key = "SHLVL";
+// 		node->value = ft_itoa(lvl);
+// 		node->next = NULL;
+// 		ft_lstadd_back_values(&vals, node);
+// 	}
+// }
 
 int	count_pipes(char *str)
 {

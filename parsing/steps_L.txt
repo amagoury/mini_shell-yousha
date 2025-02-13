@@ -1,38 +1,42 @@
 parsing steps cuz im lost:
 ##########################
 
-- initialize✅
+initialize✅
 
-- get the environment set up ✅
+get the environment set up ✅
 	- increase SHLVL❌
 
-- signals✅
+signals✅
 
-- readline for input✅
+readline for input✅
 
-- history✅
+history✅
 
-- check open quotes✅
+check open quotes✅
 
-- check if pipes are valid✅
+check if pipes are valid✅
 	- Leading pipe: | ls✅
 	- Trailing pipe: ls |✅
 	- Consecutive pipes: ls ||| grep✅
 	- Empty command after pipe: | ✅
 	- Empty command between pipes: ls || grep ✅
 
-- split by pipes and remove white spaces before and after✅
+split by pipes and remove white spaces before and after✅
 
-- u can probably expand variables while tokenizing so u dont malloc too much
+u can probably expand variables while tokenizing so u dont malloc too much NAHHH
 
-- tokenize (split into 'words')
 
-- EXPAND THE VARIABLES FIRST!!!!!! ( "export B=ls"    \n     "$B -la") !!!!!!!!!!!!!!!!!!!
-- expand env variables (eg; $USER) if double quotes❌
+tokenize (split into 'words')
+    - preserve quotes???
+    - expand variables while tokenizing and use substr to remove each part I think
+    - 
+
+EXPAND THE VARIABLES FIRST!!!!!! ( "export B=ls"    \n     "$B -la") !!!!!!!!!!!!!!!!!!!
+expand env variables (eg; $USER) if double quotes❌
 	- $?x (invalid variable)❌
 	- $123 (numbers aren't valid variable names)❌
 
-- check if theres any syntax errors in the beginning or end❌
+check if theres any syntax errors in the beginning or end❌
 	- ls &&| grep❌
 	- Mixed: ls && | grep❌
 
@@ -43,18 +47,18 @@ parsing steps cuz im lost:
 	- Leading &&: && ls❌
 
 
-- put everything into the structs ❌
+put everything into the structs ❌
 	- redirects into recirects
 	- command into cmd 
 	- command agruments into cmg_args
 	.......
 
 
-- replace \ characters (eg; \n , \t , ...)❌
+replace \ characters (eg; \n , \t , ...)❌
 
-- handle $?❌
+handle $?❌
 
-- preserve quotes❌
+preserve quotes❌
 
 
 
@@ -75,7 +79,7 @@ parsing steps cuz im lost:
 	- exit 9 2
 	- < meow
 	- > meow
-- exit with codes, look up what they should be
+exit with codes, look up what they should be
 
 
 Commands That Should Pass Parsing
@@ -107,10 +111,10 @@ Commands That Should Fail Parsing
 
 
 notes
-- bash ececutes from the end to the start (world hello)
-- pipe changes fd from output to input
-- check error codes
-- 
+bash ececutes from the end to the start (world hello)
+pipe changes fd from output to input
+check error codes
+- 
 
 
 ✅❌

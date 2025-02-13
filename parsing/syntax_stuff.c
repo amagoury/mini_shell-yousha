@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:16:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/01/24 03:59:33 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/12 21:37:51 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_pipes(char *input)
 	return (0);
 }
 
-char	*expand_those_vars(char *str)
-{
+// char	*expand_those_vars(char *str)
+// {
 	
-}
+// }

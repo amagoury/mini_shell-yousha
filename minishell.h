@@ -6,7 +6,7 @@
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/01/28 15:54:23 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/02/14 15:53:51 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ void    exit_shell(t_command *command);
 char  *add_quotes(char *value);
 void	print_env(char  **env, bool export);
 int env_add(char *value, char ***env);
-bool ft_export(t_command *cmd, char ***env, char ***export_env);
+bool ft_export(t_command *cmd,  char **export_env);
 
 
 #endif

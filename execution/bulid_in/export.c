@@ -6,7 +6,7 @@
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 19:45:26 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/01/28 15:38:14 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/02/14 15:53:22 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,16 @@ int env_add(char *value, char ***env)
     return (1);
 }
 
-bool ft_export(t_command *cmd, char ***env, char ***export_env)
+bool ft_export(t_command *cmd,  char **export_env)
 {
     t_list *args;
 
-    if (!cmd || !env || !export_env)
+    if (!cmd || !cmd->cmd_args|| !cmd->cmd_args[0])
         return (false);
 
     if (!cmd->cmd_args)
     {
-        print_env(*export_env, true);
+        print_env(export_env, true);
         return (true);
     }
 

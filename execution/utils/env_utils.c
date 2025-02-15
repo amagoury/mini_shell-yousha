@@ -6,7 +6,7 @@
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:15:38 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/01/28 15:32:48 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/02/08 17:32:58 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,6 @@ char *get_env_name(char *dest, const char *src)
     return dest; // Return the destination buffer
 }
 
-// bool is_valid_env(const char *env_var)
-// {
-//     int index = 0;
-
-//     // Check if the first character is a digit (invalid for env vars)
-//     if (ft_isdigit(env_var[index]) == 1)
-//     {
-//         return false;
-//     }
-
-//     // Iterate through the string until '=' or the end of the string
-//     while (env_var[index] != '\0' && env_var[index] != '=')
-//     {
-//         // Check if the current character is alphanumeric
-//         if (ft_isalnum(env_var[index]) == 0)
-//         {
-//             return false;
-//         }
-//         index++;
-//     }
-
-//     // If we reach here, the environment variable name is valid
-//     return true;
-// }
 bool is_valid_env(const char *env_var)
 {
     int i = 0;

@@ -6,7 +6,7 @@
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:30:37 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/01/18 21:54:44 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/02/14 15:54:43 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void my_echo(char **command,t_command *cmd)
 	if(!flag)
 		write(1, "\n", 1);
 }
- int main()
- {
-	 char *command[] = {"echo", "-n", "hello", "world", NULL};
-	 my_echo(command, NULL);
-	 return 0;
- }
+//  int main()
+//  {
+// 	 char *command[] = {"echo", "-n", "hello", "world", NULL};
+// 	 my_echo(command, NULL);
+// 	 return 0;
+//  }

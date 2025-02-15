@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_stuff.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:16:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/01/24 03:59:33 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/01/30 16:16:18 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_pipes(char *input)
 	return (0);
 }
 
-char	*expand_those_vars(char *str)
-{
+// char	*expand_those_vars(char *str)
+// {
 	
-}
+// }

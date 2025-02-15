@@ -5,8 +5,8 @@ CFLAGS  = -Wall -Werror -Wextra -g3  -I/Users/$(USER)/.brew/opt/readline/include
 SRCS    =  $(addprefix parsing/, main.c parsing_2.c rdp.c syntax_stuff.c) \
 			$(addprefix parsing/utils/, ft_strdup.c \
 			ft_strncmp.c list_stuff.c split_pipes.c) \
-			$(addprefix utils /,utils.c env_utils.c) \
-			$(addprefix execution/bulid_in/,cd.c \ errors.c \ echo.c \ env.c \ exit.c \ export.c \ pwd.c \ unset.c) \
+			$(addprefix execution/utils/, utils.c env_utils.c) \
+			$(addprefix execution/bulid_in/, cd.c   echo.c env.c  exit.c  export.c  pwd.c  unset.c)\
 			
 #I commented your files so i can test mine, you can just delete the '#'
 

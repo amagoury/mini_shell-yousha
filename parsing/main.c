@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/12 16:52:34 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/17 20:26:41 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	minishell(t_shell *shell)
 		else if (shell->input_L[0] != '\0')
 		{
 			// parse_it(shell);
-			shell->input_L = rmv_extra_spaces(ft_strtrim(shell->input_L, " "));
+			shell->input_L = ft_strtrim(shell->input_L, " ");
 			if (!shell->input_L || shell->input_L[0] == '\0')
 				write(1, "only spaces\n", 12);
 			else if (open_quote_or_no(shell->input_L) == 1)
@@ -96,8 +96,9 @@ void	minishell(t_shell *shell)
 				write(2, "syntax error\n", 13);
 			else
 			{
-				if (shell->pipe_split_L)
-					free_array(shell->pipe_split_L);
+				// shell->input_L = rmv_extra_spaces(shell->input_L);
+				// if (shell->pipe_split_L)
+				// 	free_array(shell->pipe_split_L);
 				// shell->num_of_pipes = count_pipes(shell->input_L); // check if it counts inside quotes
 				shell->pipe_split_L = split_pipes(shell->input_L, '|');
 				if (!shell->pipe_split_L)
@@ -109,7 +110,7 @@ void	minishell(t_shell *shell)
 						printf("#%s#\n", shell->pipe_split_L[i]);
 				}
 			}
-			// execution(shell);
+			// execution(shell); this is where you start execution aisha - lyall
 		}
 		else if (shell->input_L[0] == '\0')
 			write(1, "empty line\n", 11);
@@ -160,6 +161,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	if (ac != 1)
 		return (printf("'./minishell' only, no arguments\n"));
+	ft_bzero(&shell, sizeof(t_shell));
 	initialize_shell(&shell);
 	// change_shlvl();
 	get_env(&shell, env);
@@ -170,3 +172,6 @@ int	main(int ac, char **av, char **env)
 }
 
 // { }, { }, { }
+
+//    echo    hello   " my   friend   "
+// j = 28  i = 33

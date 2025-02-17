@@ -6,28 +6,11 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:21:30 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/01/04 12:08:35 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/16 19:47:51 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-int	skip_quotes(const char *str, int i)
-{
-	if (str[i] == '"')
-	{
-		i++;
-		while (str[i] != '"')
-			i++;
-	}
-	else if (str[i] == '\'')
-	{
-		i++;
-		while (str[i] != '\'')
-			i++;
-	}
-	return (i);
-}
 
 char	**free_array(char **result)
 {

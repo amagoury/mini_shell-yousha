@@ -1,7 +1,7 @@
 NAME    = minishell
 CC      = cc
-CFLAGS  = -Wall -Werror -Wextra -g3  -I/Users/$(USER)/.brew/opt/readline/include -fsanitize=address
-
+# CFLAGS  = -Wall -Werror -Wextra -g3  -I /Users/$(USER)/.brew/opt/readline/include -fsanitize=address
+CFLAGS  = -Wall -Werror -Wextra -g3 
 SRCS    =  $(addprefix parsing/, main.c parsing_2.c rdp.c syntax_stuff.c tokenize.c) \
 			$(addprefix parsing/utils/, ft_strdup.c \
 			ft_strncmp.c list_stuff.c split_pipes.c) \
@@ -23,7 +23,7 @@ $(LIBFT):
 	make -C aish_libft
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ) -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -o $@ $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJ) -lreadline -L/opt/homebrew/opt/readline/lib -I/opt/homebrew/opt/readline/include -o $@ $(LIBFT)
 
 clean: 
 	rm -f $(OBJ)

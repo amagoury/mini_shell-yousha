@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/18 04:49:17 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/18 22:01:23 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	initialize_shell(t_shell *shell)
 	shell->pipe_split_L = NULL;
 	shell->input_L = NULL;
 	shell->commands->cmd_args = NULL;
+	shell->exit_code = 0;
 	shell->commands->cmd_line_L = NULL;
 	shell->commands->num_of_redir = -1;
 	shell->commands->redir = NULL;
@@ -33,10 +34,9 @@ void	get_env(t_shell *shell, char **env)
 
 	i = -1;
 	shell->environment = malloc(sizeof(t_environment));
-	shell->environment->exit = 0;
+	// shell->environment->exit = 0;
 	shell->environment->cwd = getcwd(NULL, 0);
 	shell->environment->owd = getcwd(NULL, 0);
-	shell->environment->path = NULL;
 	shell->environment->vals = NULL;
 	// change shlvl??
 	while (env[++i])
@@ -45,6 +45,8 @@ void	get_env(t_shell *shell, char **env)
 		make_values_node(key, env[i], shell);
 		free(key);
 	}
+	// ft_strncmp_lyall(env->vals->key, "PATH", j) == 0
+	shell->environment->path = NULL;
 }
 
 char *key_time(char *env)
@@ -124,7 +126,7 @@ void	handle_signal(int signal)
 	if (signal == SIGINT)
 	{
 		write(1, "\n", 1);
-		// rl_replace_line("", 0);
+		// rl_replace_line("", 0); fix later
 		rl_on_new_line();
 		rl_redisplay();
 	}

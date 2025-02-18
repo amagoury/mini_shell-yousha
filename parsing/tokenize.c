@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:56:21 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/18 04:45:13 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/18 22:02:57 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	expand_vars(char *str, t_environment *env)
 	{
 		if (str[i] == '$')
 		{
+			if (str[i + 1] == '?')
+				var = "?"; //ITS THE EXIT CODE IN SHELL->EXIT_CODE!!!!!
 			j = i + 1;
 			while (str[j] != '\0' && ft_strchr(cmp, str[j]) == NULL)
 				j++;

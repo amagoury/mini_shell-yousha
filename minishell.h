@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/18 04:45:39 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/18 22:01:04 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef enum	e_state			t_state;
 
 typedef struct s_shell
 {
+	int				exit_code; // exit code i think im not sure
 	char			*input_L; // the input line
 	char			**pipe_split_L; // input split by pipes
 	int				num_of_pipes;
@@ -63,7 +64,6 @@ typedef struct s_command
 
 typedef struct s_environment
 {
-	int					exit; // exit code i think im not sure
 	char				*cwd; // current working directory
 	char				*owd; // old working directory
 	char				**path; // $PATH variable split to double array, probably for execution

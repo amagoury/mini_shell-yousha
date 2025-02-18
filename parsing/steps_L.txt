@@ -24,10 +24,13 @@ check if pipes are valid✅
 split by pipes and remove white spaces before and after✅
 
 u can probably expand variables while tokenizing so u dont malloc too much NAHHH
+	- substr invalid variables 
+	- tokenize and expand variables while tokenizing
+	- parse tokens and add to structs
 
 
 tokenize (split into 'words')
-    - preserve quotes???
+    - preserve quotes??? no remove them ("echo he\"llo y'all \" " -> "echo" "hello y'all")
     - expand variables while tokenizing and use substr to remove each part I think
     - 
 

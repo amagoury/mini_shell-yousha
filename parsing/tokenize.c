@@ -6,50 +6,51 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:56:21 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/16 19:17:03 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/18 04:45:13 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void    tokenize_it(t_shell *shell)
-{
+// void    tokenize_it(t_shell *shell)
+// {
 	
-}
+// }
 
-int set_token(t_token *token, char **input, char *quote) {
-	token->str = NULL;
-	token->blockers = " \n\t\f\v\r<>|$";
-	token->s_block = '\'';
-	token->dupl_block = "\"$";
-	token->len = 0;
-	token->convert = 0;
-	token->quote = '\0';
-	if (**input == '\'')
-	{
-		token->quote = '\'';
-		token->blockers = token->s_block;
-	}
-	else if (**input == '\"')
-	{
-		token->quote = '\"';
-		token->blockers = token->dupl_block;
-	}
-	if (token->quote != '\0')
-	{
-		(*input)++;
-		if (**input == token->quote)
-		{
-			(*input)++;
-			return 1;
-		}
-	}
-	return 0;
-}
+// int set_token(t_token *token, char **input, char *quote) {
+// 	token->str = NULL;
+// 	token->blockers = " \n\t\f\v\r<>|$";
+// 	token->s_block = '\'';
+// 	token->dupl_block = "\"$";
+// 	token->len = 0;
+// 	token->convert = 0;
+// 	token->quote = '\0';
+// 	if (**input == '\'')
+// 	{
+// 		token->quote = '\'';
+// 		token->blockers = token->s_block;
+// 	}
+// 	else if (**input == '\"')
+// 	{
+// 		token->quote = '\"';
+// 		token->blockers = token->dupl_block;
+// 	}
+// 	if (token->quote != '\0')
+// 	{
+// 		(*input)++;
+// 		if (**input == token->quote)
+// 		{
+// 			(*input)++;
+// 			return 1;
+// 		}
+// 	}
+// 	return 0;
+// }
 
-char	*expand_vars(char *str)
+void	expand_vars(char *str, t_environment *env)
 {
-	char	*result;
+	// char	*result;
+	char	*var;
 	char	*cmp = " \n\t\f\v\r<>|$";
 	int		i;
 	int		j;
@@ -59,11 +60,33 @@ char	*expand_vars(char *str)
 	{
 		if (str[i] == '$')
 		{
-			j = i;
-			while (ft_strchr(cmp, str[j]) == NULL)
+			j = i + 1;
+			while (str[j] != '\0' && ft_strchr(cmp, str[j]) == NULL)
 				j++;
-			
+			var = malloc(j - i);
+			if (!var)
+				return;
+			ft_strlcpy(var, &str[i + 1], j - i);
+			printf("var = #%s#\n", var);
+			while (env->vals->next != NULL)
+			{
+				if (ft_strlen(env->vals->key) >= ft_strlen(var))
+					j = ft_strlen(var);
+				else
+					j = ft_strlen(env->vals->key);
+				if (ft_strncmp_lyall(env->vals->key, var, j) == 0)
+					printf("var = %s matches key = %s\n", var, env->vals->key);
+				else
+					printf("var = %s doesn't match key = %s\n", var, env->vals->key);
+				env->vals = env->vals->next;
+			}
+			free(var);
 		}
 	}
 }
 
+// int main(void)
+// {
+// 	char *a = "$USERecho  he\"llo' $USER frie\"nd > fi\"le  he'l\"l.txt$MEO\tW";
+// 	expand_vars(a);
+// }

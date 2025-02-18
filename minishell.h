@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/14 15:53:51 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/02/18 04:45:39 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,11 @@ void		ft_lstdelone_values(t_values *lst);
 char		**split_pipes(char const *s, char c);
 char		**make_letters(char **result, char const *s, char c, int count);
 int			make_words(char const *s, char c);
+char		**one_word(char const *s, char **result);
 char		**free_array(char **result);
+int			skip_quotes(const char *str, int i);
 char		*rmv_extra_spaces(char *str);
+void		expand_vars(char *str, t_environment *env);
 
 
 // parsing lyall

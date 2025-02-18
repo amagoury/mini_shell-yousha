@@ -95,6 +95,7 @@ Commands That Should Pass Parsing
 	export VAR=value && echo $VAR
 	cd .. || echo "Failed"
 	pwd; ls; echo "done"
+	echo $lolwrongvar hello
 Commands That Should Fail Parsing
 	| echo hello
 	echo hello ||
@@ -106,6 +107,7 @@ Commands That Should Fail Parsing
 	echo "unclosed quote
 	ls ;; pwd
 	echo hello | > file.txt
+	$USERecho hello
 
 
 

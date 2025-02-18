@@ -73,6 +73,24 @@ QUESTIONS
 	Example: echo hello > file1 > file2
 	Error: "Ambiguous redirect."
 
+
+minishell> ^C
+minishell> ^C
+minishell> ^C
+minishell> ^C
+minishell> ^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+
+
 =============================================================================================================
 ------CHRIS HEADER REFERENCE-------
 /* ************************************************************************** */
@@ -197,20 +215,3 @@ void	ft_env_init(t_shell *shell, char *tenv[]);
 #endif
 =============================================================================================================
 
-
-
-minishell> ^C
-minishell> ^C
-minishell> ^C
-minishell> ^C
-minishell> ^C
-minishell> kuyfrutyfoluyf^C
-minishell> kuyfrutyfoluyf^C
-minishell> kuyfrutyfoluyf^C
-minishell> kuyfrutyfoluyf^C
-minishell> kuyfrutyfoluyf^C
-minishell> kuyfrutyfoluyf^C
-minishell> kuyfrutyfoluyf^C
-minishell> kuyfrutyfoluyf^C
-minishell> kuyfrutyfoluyf^C
-minishell> kuyfrutyfoluyf^C

@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:21:30 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/16 19:47:51 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/18 03:30:20 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,15 @@ int	make_words(char const *s, char c)
 	{
 		if (s[i] == '"' || s[i] == '\'')
 			i = skip_quotes(s, i);
-		if ((s[i - 1] != c && s[i] == c) || (s[i + 1] == '\0' && s[i] != c))
+		if (s[i] == '\0')
+			break;
+		// if ((s[i - 1] != c && s[i] == c) || (s[i + 1] == '\0' && s[i] != c))
+		// 	count++;
+		if (s[i] == c)
 			count++;
 		i++;
 	}
+	count++;
 	return (count);
 }
 
@@ -67,7 +72,8 @@ char	**make_letters(char **result, char const *s, char c, int count)
 			{
 				if (s[i + len] == '"' || s[i + len] == '\'')
 					len = skip_quotes(s, (i + len)) - i;
-				len++;
+				else
+					len++;
 			}
 			while (s[i + len - 1] != c && s[i + len - 1] == ' ')
 				len--;
@@ -85,6 +91,15 @@ char	**make_letters(char **result, char const *s, char c, int count)
 	return (result);
 }
 
+char	**one_word(char const *s, char **result)
+{
+	result[0] = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!result[0])
+		return (NULL);
+	result[0] = ft_strdup(s);
+	result[1] = NULL;
+	return(result);
+}
 char	**split_pipes(char const *s, char c)
 {
 	char	**result;
@@ -94,6 +109,8 @@ char	**split_pipes(char const *s, char c)
 	result = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!result)
 		return (NULL);
+	if (count == 1)
+		return (one_word(s, result));
 	return (make_letters(result, s, c, count));
 }
 

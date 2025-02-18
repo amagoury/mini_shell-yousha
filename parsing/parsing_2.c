@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:17:23 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/17 19:16:01 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/17 21:41:35 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,6 @@ int	skip_quotes(const char *str, int i)
 			i++;
 	}
 	return (i);
-	
-	// if (str[i] == '"')
-	// {
-	// 	i++;
-	// 	while (str[i] != '\0' && str[i] != '"')
-	// 		i++;
-	// }
-	// else if (str[i] == '\'')
-	// {
-	// 	i++;
-	// 	while (str[i] != '\0' && str[i] != '\'')
-	// 		i++;
-	// }
-	// return (i);
 }
 
 char	*rmv_extra_spaces(char *str)
@@ -83,65 +69,66 @@ char	*rmv_extra_spaces(char *str)
 	char	*result;
 	int		i;
 	int		j;
-	int		quote;
+	char	quote;
 
 	i = -1;
 	j = 0;
-	while (str[++i])
-		printf("i = %d , char = %c\n", i, str[i]);
+	// while (str[++i])
+		// printf("i = %d , char = %c\n", i, str[i]);
 	i = 0;
-	while (str[i])
+	// printf("\n-------------\n\n");
+	while (str[i] != '\0')
 	{
 		if (str[i] == '\"' || str[i] == '\'')
 		{
+			// printf("before skip quotes j = %d\n", j);
 			j += skip_quotes(str, i) - i;
+			// printf("after skip quotes j = %d\n", j);
+			// printf("before skip quotes i = %d ,  char = %c\n", i, str[i]);
 			i = skip_quotes(str, i);
+			// printf("after skip quotes i = %d ,  char = %c\n", i, str[i]);
 		}
-			j++;
-		if (str[i] == ' ')
+		else if (str[i] == ' ')
 		{
-			while (str[i] == ' ' && str[i] != '\0')
+			j++;
+			while (str[i] != '\0' && str[i] == ' ')
 				i++;
 		}
 		else
-			i++;
+			j++, i++;
 	}
-	printf("j = %d\n", j);
-	result = malloc(sizeof(char) * (j + 2));
+	// printf("\nsize of str = %ld\n", strlen(str));
+	// printf("final count j = %d\n", j);
+	// printf("final count i = %d\n", i);
+	result = malloc(sizeof(char) * (j + 1));
 	if (!result)
-	return (NULL);
+		return (NULL);
 	i = 0;
 	j = 0;
 	while (str[i] != '\0')
 	{
-		printf("what char on 1 = %c\n", str[i]);
-		quote = skip_quotes(str, i) - i;
-		while (quote > 0 && str[i + 1] != '\0')
+		if (str[i] == '\"' || str[i] == '\'')
 		{
-			printf("in quote, i = %d , j = %d , char = %c\n", i, j, str[i]);
+			quote = str[i];
 			result[j++] = str[i++];
-			quote--;
+			while (str[i] != '\0' && str[i] != quote)
+				result[j++] = str[i++];
+			if (str[i] == quote)
+				result[j++] = str[i++];
 		}
-		if (str[i] == '\0')
-			break ;
-		printf("what char on 22222 = %c\n", str[i]);
-		result[j] = str[i];
-		if (str[i] != '\0' && str[i + 1] != '\0' && str[i++] == ' ')
+		else if (str[i] == ' ')
 		{
-			printf("what char on 3333333333 = %c\n", str[i]);
 			result[j++] = str[i];
-			while (str[i] == ' ' && str[i] != '\0')
+			while (str[i] != '\0' && str[i] == ' ')
 				i++;
 		}
 		else
-			j++;
-		if (str[i] != '\0' && str[i + 1] == '\0')
-			result[j] = str[i++];
-		printf("i = %d\n", i);
-		printf("j = %d\n", j);
+		result[j++] = str[i++];
 	}
 	result[j] = '\0';
 	free(str);
+	// printf("\nresult size = %ld , result = #%s#\n", strlen(result), result);
+	// printf("\nstr size    = %ld , str    = #%s#\n", strlen(str), str);
 	return (result);
 }
 

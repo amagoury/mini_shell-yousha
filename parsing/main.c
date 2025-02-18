@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/17 20:26:41 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/18 04:49:17 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,13 @@ void	minishell(t_shell *shell)
 			else if (open_quote_or_no(shell->input_L) == 1)
 				write(1, "open quotes :(\n", 15);
 			else if (check_pipes(shell->input_L) == 1)
-				write(2, "syntax error\n", 13);
+				write(2, "syntax error: pipes\n", 13);
 			else
 			{
-				// shell->input_L = rmv_extra_spaces(shell->input_L);
-				// if (shell->pipe_split_L)
-				// 	free_array(shell->pipe_split_L);
+				shell->input_L = rmv_extra_spaces(shell->input_L);
+				// expand_vars(shell->input_L, shell->environment);
+				if (shell->pipe_split_L)
+					free_array(shell->pipe_split_L);
 				// shell->num_of_pipes = count_pipes(shell->input_L); // check if it counts inside quotes
 				shell->pipe_split_L = split_pipes(shell->input_L, '|');
 				if (!shell->pipe_split_L)
@@ -131,6 +132,7 @@ void	handle_signal(int signal)
 
 void	free_all(t_shell *shell)
 {
+	printf("freeing\n");
 	// int	i;
 	// i = -1;
 	ft_lstclear_values(shell->environment->vals);

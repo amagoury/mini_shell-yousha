@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/19 13:25:43 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/19 23:23:05 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_command
 	char				*cmd_line_L; // the pipe split line to parse
 	int					num_of_redir; // number of redirects in the line
 	t_direct			*redir; // redirects
+	int					save_statues; // save the statues of the command
 	t_command			*next;
 } t_command;
 
@@ -166,6 +167,7 @@ char  *add_quotes(char *value);
 void	print_env(char  **env, bool export);
 int env_add(char *value, char ***env);
 bool ft_export(t_command *cmd,  char **export_env);
-
+int     exec_bulidin(t_command *cmd);
+bool  run_bulidin(t_environment *path);
 
 #endif

@@ -31,6 +31,7 @@ u can probably expand variables while tokenizing so u dont malloc too much NAHHH
 
 tokenize (split into 'words')
     - preserve quotes??? no remove them ("echo he\"llo y'all \" " -> "echo" "hello y'all")
+	- DUMBASS SUBJECT SAYS DONT INTERPRET SPECIAL CHARACERS LIKE ; OR \
     - expand variables while tokenizing and use substr to remove each part I think
     - 
 
@@ -40,14 +41,14 @@ expand env variables (eg; $USER) if double quotes❌
 	- $123 (numbers aren't valid variable names)❌
 
 check if theres any syntax errors in the beginning or end❌
-	- ls &&| grep❌
-	- Mixed: ls && | grep❌
+					(	- ls &&| grep❌ )		THIS IS BONUS DUMBASS
+					(	- Mixed: ls && | grep❌) THIS IS BONUS DUMBASS
+					(	- Leading &&: && ls❌)	THIS IS BONUS DUMBASS
 
 	- Missing filename: ls >❌
 	- Double <: cat << < file❌
 	- Mixed without commands: < > file❌
 	- cat <<❌
-	- Leading &&: && ls❌
 
 
 put everything into the structs ❌
@@ -57,7 +58,7 @@ put everything into the structs ❌
 	.......
 
 
-replace \ characters (eg; \n , \t , ...)❌
+					(replace \ characters (eg; \n , \t , ...)❌ )THIS IS BONUS DUMBASS
 
 handle $?❌
 
@@ -82,6 +83,8 @@ preserve quotes❌
 	- exit 9 2
 	- < meow
 	- > meow
+	- << meow
+	- >> meow
 exit with codes, look up what they should be
 
 
@@ -89,16 +92,14 @@ Commands That Should Pass Parsing
 	echo hello | grep h | wc -l
 	ls -la > output.txt
 	cat < file.txt | grep "pattern" >> result.txt
-	echo "foo bar" | cat -e
+	echo "foo 'bar" | cat -e
 	grep "test" file1 file2
 	ls | sort | uniq
 	cat << EOF | grep hello
 	hello
 	EOF
-	export VAR=value && echo $VAR
-	cd .. || echo "Failed"
-	pwd; ls; echo "done"
 	echo $lolwrongvar hello
+	echo hello | > file.txt
 Commands That Should Fail Parsing
 	| echo hello
 	echo hello ||
@@ -109,7 +110,6 @@ Commands That Should Fail Parsing
 	cat << EOF | | grep hello
 	echo "unclosed quote
 	ls ;; pwd
-	echo hello | > file.txt
 	$USERecho hello
 
 

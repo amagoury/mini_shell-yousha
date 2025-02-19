@@ -6,16 +6,99 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:56:21 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/19 02:36:54 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/19 22:39:12 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// void    tokenize_it(t_shell *shell)
-// {
-	
-// }
+void    tokenize_it(t_shell *shell)
+{
+	// shell->pipe_split_L into shell.commands.cmd_line_L
+	// tokenize, parse, and expand variables at the same time
+	// for now probably spread to structs
+	int	i;
+	int	in_quote;
+
+	i = 0;
+	in_quote = 0;
+	shell->commands->cmd_line_L = ft_strdup(shell->pipe_split_L[0]);
+	if (!shell->commands->cmd_line_L)
+		printf("failed cmd_line_L ft_strdup\n");
+	// i = ft_strlen(shell->commands->cmd_line_L);
+	// if (shell->commands->cmd_line_L[i] == '>' ||
+	// 	shell->commands->cmd_line_L[i] == '<')
+	// 	printf("parse fail: ends in operator\n");
+	while (shell->commands->cmd_line_L[i])
+	{
+		if ((shell->commands->cmd_line_L[i] == '>' ||
+			shell->commands->cmd_line_L[i] == '<') &&
+			operators_check(shell->commands->cmd_line_L, i) != -1)
+		{
+			shell->commands->redir->direct = operators_check(shell->commands->cmd_line_L, i);
+			// copy the string too into redir and set next to null... deal with it idk
+			// substr the rest away
+		}
+		else if (shell->commands->cmd_line_L[i] == '$')
+		{
+			// expand the variable or remove if invalid
+		}
+		else if (shell->commands->cmd_line_L[i] == '\'' ||
+				shell->commands->cmd_line_L[i] == '\"')
+		{
+			// if " worry about variables then keep all of it as one word
+			// if ' just blindly copy all of it as one word
+			in_quote = 1;
+		}
+		else if (shell->commands->cmd_line_L[i] == ' ')
+		{
+			// finish the word and substr it then restart???
+			// idk figure it out how the i count is gonna look like
+		}
+		else 
+			i++;
+	}
+}
+
+int	operators_check(char *str, int i)
+{
+	char *cmp = " <>|$";
+	int		j;
+
+	j = i;
+	if ((str[j] == '>' && str[j + 1] == '<') ||
+		(str[j] == '<' && str[j + 1] == '>'))
+		return (-1);
+	if ((str[j] == '>' && str[j + 1] == '>') ||
+		(str[j] == '<' && str[j + 1] == '<'))
+		j++;
+	j++;
+	while (str[j] != '\0' && str[j] == ' ')
+		j++;
+	if (str[j] == '\0')
+		return (-1);
+	printf("char on rn %c\n", str[j]);
+	if (ft_strchr(cmp, str[j]) == NULL)
+	{
+		if (str[i] == '<' && str[i + 1] != '<')
+			return (RE_INPUT);
+		else if (str[i] == '<' && str[i + 1] == '<')
+			return (HERE_DOC);
+		else if (str[i] == '>' && str[i + 1] != '>')
+			return (RE_OUTPUT);
+		else if (str[i] == '>' && str[i + 1] == '>')
+			return (APPEND);
+	}
+	return (-1);
+}
+
+
+
+
+
+
+
+
 
 // int set_token(t_token *token, char **input, char *quote) {
 // 	token->str = NULL;
@@ -47,124 +130,3 @@
 // 	return 0;
 // }
 
-void	expand_vars(char *str, t_environment *env)
-{
-	// char	*result;
-	char	*var;
-	char	*cmp = " \n\t\f\v\r<>|$";
-	int		i;
-	int		j;
-
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == '$')
-		{
-			if (str[i + 1] == '?')
-				var = "?"; //ITS THE EXIT CODE IN SHELL->EXIT_CODE!!!!!
-			j = i + 1;
-			while (str[j] != '\0' && ft_strchr(cmp, str[j]) == NULL)
-				j++;
-			var = malloc(j - i);
-			if (!var)
-				return;
-			ft_strlcpy(var, &str[i + 1], j - i);
-			printf("var = #%s#\n", var);
-			while (env->vals->next != NULL)
-			{
-				if (ft_strlen(env->vals->key) >= ft_strlen(var))
-					j = ft_strlen(var);
-				else
-					j = ft_strlen(env->vals->key);
-				if (ft_strncmp_lyall(env->vals->key, var, j) == 0)
-					printf("var = %s matches key = %s\n", var, env->vals->key);
-				else
-					printf("var = %s doesn't match key = %s\n", var, env->vals->key);
-				env->vals = env->vals->next;
-			}
-			free(var);
-		}
-	}
-}
-
-char	*rmv_invalid_vars(char *str, t_environment *env)
-{
-	char	*var;
-	char	*cmp = " \n\t\f\v\r<>|$";
-	int		i;
-	int		j;
-	int		flag;
-
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == '$' && str[i + 1] == '?')
-			i++; //ITS THE EXIT CODE IN SHELL->EXIT_CODE!!!!!
-		else if (str[i] == '$')
-		{
-			flag = 0;
-			j = i + 1;
-			while (str[j] != '\0' && ft_strchr(cmp, str[j]) == NULL)
-				j++;
-			var = malloc(j - i);
-			if (!var)
-				return (NULL);
-			ft_strlcpy(var, &str[i + 1], j - i);
-			printf("var = #%s#\n", var);
-			while (env->vals->next != NULL)
-			{
-				if (ft_strlen(env->vals->key) >= ft_strlen(var))
-					j = ft_strlen(var);
-				else
-					j = ft_strlen(env->vals->key);
-				if (ft_strncmp_lyall(env->vals->key, var, j) == 0)
-					flag = 1;
-				env->vals = env->vals->next;
-			}
-			if (flag == 0)
-			{
-				str = ft_remove_chunk(str, i, ft_strlen(var));
-				i = 0;
-			}
-			free(var);
-		}
-	}
-	return (str);
-}
-
-char	*ft_remove_chunk(char *str, int start, int len)
-{
-	char	*result;
-	int		i;
-	int		j;
-
-	i = -1;
-	j = 0;
-	if (len <= 0)
-		return (str);
-	result = malloc(sizeof(char) * (ft_strlen(str) - len + 1));
-	if (!result)
-		return (NULL);
-	while (str[++i])
-	{
-		if (i == start)
-			i += len;
-		result[j++] = str[i];
-	}
-	result[j] = '\0';
-	free(str);
-	return (result);
-}
-
-
-// int main(void)
-// {
-// 	// char *a = "$USERecho  he\"llo' $USER frie\"nd > fi\"le  he'l\"l.txt$MEO\tW";
-// 	// expand_vars(a);
-
-// 	char *b = "echo $usss $USER lol";
-// 	char *result;
-// 	result = ft_remove_chunk(b, 5, 5);
-// 	printf("result = %s\n", result);
-// 	free(result);
-// }

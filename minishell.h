@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/19 23:23:05 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/02/20 01:02:48 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ typedef enum e_state
 	APPEND // >>
 }	t_state;
 
+// ================================================================================== //
+
 // functions lyall
 
 void		initialize_shell(t_shell *shell);
@@ -126,7 +128,6 @@ int			count_pipes(char *str);
 int			check_pipes(char *input);
 char		*rmv_invalid_vars(char *str, t_environment *env);
 // char	*rmv_invalid_vars(char *str, char **keys);
-
 
 
 char		*ft_remove_chunk(char *str, int start, int len);

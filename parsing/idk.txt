@@ -108,3 +108,16 @@ variables:
 	- export _VAR=hello
 	
 ------------------------------------------------------
+
+
+
+
+cat < file.txt | grep "pattern   $USER    $aaa" >> result.txt
+
+remove invalid variables (eg: "$aaa")
+tokenize and expand variables and parse
+	go left to right
+		- valid command
+		- valid redirect, as in < , > , << , >> 
+		- file after redirect
+		- 

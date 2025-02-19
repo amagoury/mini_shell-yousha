@@ -1,105 +1,95 @@
-// # include <stdio.h>
-// # include <stdlib.h>
-// # include <stdint.h>
-// # include <unistd.h>
-// # include <fcntl.h>
-// # include <sys/wait.h>
-// # include <sys/types.h>
-// # include <signal.h>
-// # include <string.h>
+#include "../minishell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/wait.h>
+# include <sys/types.h>
+#include <signal.h>
+#include <string.h>
 
-// int	skip_quotes(const char *str, int i)
-// {
-// 	char quote;
+char	*ft_remove_chunk(char *str, size_t start, size_t len)
+{
+	char	*result;
+	size_t		i;
+	size_t		j;
 
-// 	if (str[i] == '"' || str[i] == '\'')
-// 	{
-// 		quote = str[i++];
-// 		while (str[i] != '\0' && str[i] != quote)
-// 			i++;
-// 		if (str[i] == quote)
-// 			i++;
-// 	}
-// 	return (i);
-// }
+	i = -1;
+	j = 0;
+	if (len <= 0)
+		return (str);
+	result = malloc(sizeof(char) * (ft_strlen(str) - len + 1));
+	if (!result)
+		return (NULL);
+	while (str[++i])
+	{
+		if (i == start && ft_strlen(str) >= (i + len))
+			i += len;
+		result[j++] = str[i];
+	}
+	result[j] = '\0';
+	free(str);
+	return (result);
+}
 
-// char	*rmv_extra_spaces(char *str)
-// {
-// 	char	*result;
-// 	int		i;
-// 	int		j;
-// 	char	quote;
 
-// 	i = -1;
-// 	j = 0;
-// 	while (str[++i])
-// 		printf("i = %d , char = %c\n", i, str[i]);
-// 	i = 0;
-// 	printf("\n-------------\n\n");
-// 	while (str[i] != '\0')
-// 	{
-// 		if (str[i] == '\"' || str[i] == '\'')
-// 		{
-// 			printf("before skip quotes j = %d\n", j);
-// 			j += skip_quotes(str, i) - i;
-// 			printf("after skip quotes j = %d\n", j);
-// 			printf("before skip quotes i = %d ,  char = %c\n", i, str[i]);
-// 			i = skip_quotes(str, i);
-// 			printf("after skip quotes i = %d ,  char = %c\n", i, str[i]);
-// 		}
-// 		else if (str[i] == ' ')
-// 		{
-// 			j++;
-// 			while (str[i] != '\0' && str[i] == ' ')
-// 				i++;
-// 		}
-// 		else
-// 			j++, i++;
-// 	}
-// 	printf("\nsize of str = %ld\n", strlen(str));
-// 	printf("final count j = %d\n", j);
-// 	printf("final count i = %d\n", i);
-// 	result = malloc(sizeof(char) * (j + 1));
-// 	if (!result)
-// 		return (NULL);
-// 	i = 0;
-// 	j = 0;
-// 	while (str[i] != '\0')
-// 	{
-// 		if (str[i] == '\"' || str[i] == '\'')
-// 		{
-// 			quote = str[i];
-// 			result[j++] = str[i++];
-// 			while (str[i] != '\0' && str[i] != quote)
-// 				result[j++] = str[i++];
-// 			if (str[i] == quote)
-// 				result[j++] = str[i++];
-// 		}
-// 		else if (str[i] == ' ')
-// 		{
-// 			result[j++] = str[i];
-// 			while (str[i] != '\0' && str[i] == ' ')
-// 				i++;
-// 		}
-// 		else
-// 		result[j++] = str[i++];
-// 	}
-// 	result[j] = '\0';
-// 	// free(str);
-// 	printf("\nresult size = %ld , result = #%s#\n", strlen(result), result);
-// 	printf("\nstr size    = %ld , str    = #%s#\n", strlen(str), str);
-// 	return (result);
-// }
+char	*rmv_invalid_vars(char *str, char **keys)
+{
+	char	*var;
+	char	*cmp = " \n\t\f\v\r<>|$";
+	size_t		i;
+	size_t		j;
+	size_t		flag;
 
-// int main(void)
-// {
-// 	char *a = "echo    hello   \" my   friend   \"   a     hello9 birtch     \" wjat   tjhe fuck    \"";
-// 	char *result;
-// 	result = rmv_extra_spaces(a);
-// 	printf("\nresult = #%s#\n", result);
-// 	free(result);
-// }
-// // echo    hello   " my   friend   "   a     hello9 birtch     " wjat   tjhe fuck    "
-// // i = 83  j = 68
-// // echo hello " my   friend   " a hello9 birtch " wjat   tjhe fuck    "
-// // echo hello " my   friend   " a hello9 birtch " wjat   tjhe fuck    "
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '$' && str[i + 1] == '?')
+			i++; //ITS THE EXIT CODE IN SHELL->EXIT_CODE!!!!!
+		else if (str[i] == '$')
+		{
+			flag = 0;
+			j = i + 1;
+			while (str[j] != '\0' && ft_strchr(cmp, str[j]) == NULL)
+				j++;
+			var = malloc(j - i + 1);
+			if (!var)
+				return (NULL);
+			ft_strlcpy(var, &str[i + 1], j - i + 1);
+			printf("var = #%s#\n", var);
+			int k = 0;
+			while (keys[k] != NULL)
+			{
+				if (ft_strlen(keys[k]) >= ft_strlen(var))
+					j = ft_strlen(var);
+				else
+					j = ft_strlen(keys[k]);
+				if (ft_strncmp_lyall(keys[k], var, j) == 0)
+					flag = 1;
+				k++;
+			}
+			if (flag == 0)
+			{
+				str = ft_remove_chunk(str, i, ft_strlen(var));
+				i = 0;
+			}
+			free(var);
+		}
+	}
+	return (str);
+}
+
+
+int main(void)
+{
+	// char *a = "$USERecho  he\"llo' $USER frie\"nd > fi\"le  he'l\"l.txt$MEO\tW";
+	// expand_vars(a);
+
+	char *b = "echo $usss $USER lol";
+	char *keys[4] = {"USER" , "SHELL" , "PATH" , "ENV"};
+	char *result;
+	result = rmv_invalid_vars(b, keys);
+	printf("result = %s\n", result);
+	free(result);
+}

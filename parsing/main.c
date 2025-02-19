@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/18 22:01:23 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/02/19 04:04:40 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	get_env(t_shell *shell, char **env)
 		make_values_node(key, env[i], shell);
 		free(key);
 	}
-	// ft_strncmp_lyall(env->vals->key, "PATH", j) == 0
+	// while ()
+	// ft_strncmp_lyall(shell->environment->vals->key, "PATH", 4)
 	shell->environment->path = NULL;
 }
 
@@ -98,8 +99,8 @@ void	minishell(t_shell *shell)
 				write(2, "syntax error: pipes\n", 13);
 			else
 			{
+				// shell->input_L = rmv_invalid_vars(shell->input_L, shell->environment);
 				shell->input_L = rmv_extra_spaces(shell->input_L);
-				// expand_vars(shell->input_L, shell->environment);
 				if (shell->pipe_split_L)
 					free_array(shell->pipe_split_L);
 				// shell->num_of_pipes = count_pipes(shell->input_L); // check if it counts inside quotes

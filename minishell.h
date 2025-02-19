@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/18 22:01:04 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/02/19 04:04:52 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,25 @@ void		get_env(t_shell *shell, char **env);
 char		*key_time(char *env);
 void		make_values_node(char *key, char *envline, t_shell *shell);
 void		minishell(t_shell *shell);
+char		**split_pipes(char const *s, char c);
+char		**make_letters(char **result, char const *s, char c, int count);
+int			make_words(char const *s, char c);
+char		**one_word(char const *s, char **result);
+char		**free_array(char **result);
+int			skip_quotes(const char *str, int i);
+char		*rmv_extra_spaces(char *str);
+void		expand_vars(char *str, t_environment *env);
+void		parse_it(t_shell *shell);
+int			open_quote_or_no(char *str);
+int			count_pipes(char *str);
+int			check_pipes(char *input);
+char		*rmv_invalid_vars(char *str, t_environment *env);
+// char	*rmv_invalid_vars(char *str, char **keys);
+
+
+
+char		*ft_remove_chunk(char *str, int start, int len);
+// char		*ft_remove_chunk(char *str, size_t start, size_t len);
 
 // utils lyall
 
@@ -121,23 +140,8 @@ t_values	*ft_lstlast_values(t_values *lst);
 void		ft_lstadd_back_values(t_values **lst, t_values *new);
 void		ft_lstclear_values(t_values *lst);
 void		ft_lstdelone_values(t_values *lst);
-char		**split_pipes(char const *s, char c);
-char		**make_letters(char **result, char const *s, char c, int count);
-int			make_words(char const *s, char c);
-char		**one_word(char const *s, char **result);
-char		**free_array(char **result);
-int			skip_quotes(const char *str, int i);
-char		*rmv_extra_spaces(char *str);
-void		expand_vars(char *str, t_environment *env);
 
-
-// parsing lyall
-
-void	parse_it(t_shell *shell);
-int		open_quote_or_no(char *str);
-int		count_pipes(char *str);
-int		check_pipes(char *input);
-
+// ================================================================================== //
 
 //aisha erros 
 

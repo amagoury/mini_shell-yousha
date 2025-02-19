@@ -1,7 +1,7 @@
 NAME    = minishell
 CC      = cc
 # CFLAGS  = -Wall -Werror -Wextra -g3  -I /Users/$(USER)/.brew/opt/readline/include -fsanitize=address
-CFLAGS  = -Wall -Werror -Wextra -g3 
+CFLAGS  = -Wall -Werror -Wextra -g3 -fsanitize=address
 SRCS    =  $(addprefix parsing/, main.c parsing_2.c rdp.c syntax_stuff.c tokenize.c) \
 			$(addprefix parsing/utils/, ft_strdup.c \
 			ft_strncmp.c list_stuff.c split_pipes.c) \

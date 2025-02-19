@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:17:23 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/17 21:41:35 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/19 14:39:00 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,3 +178,5 @@ int	open_quote_or_no(char *str)
 //         echo    hello   " my   friend   " a
 //         echo    hello   " my   friend   "a
 //         echo    hello   " my   friend   "     a
+
+

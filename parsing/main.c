@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/19 04:04:40 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/19 14:54:09 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,19 @@ void	get_env(t_shell *shell, char **env)
 	// shell->environment->exit = 0;
 	shell->environment->cwd = getcwd(NULL, 0);
 	shell->environment->owd = getcwd(NULL, 0);
+	shell->environment->path = NULL;
 	shell->environment->vals = NULL;
 	// change shlvl??
 	while (env[++i])
 	{
 		key = key_time(env[i]);
+		if (!key || key == NULL)
+			continue;
+		if (ft_strlen(key) == 4 && ft_strncmp_lyall(key, "PATH", 4) == 0)
+			shell->environment->path = ft_split(getenv(key), ':');
 		make_values_node(key, env[i], shell);
 		free(key);
 	}
-	// while ()
-	// ft_strncmp_lyall(shell->environment->vals->key, "PATH", 4)
-	shell->environment->path = NULL;
 }
 
 char *key_time(char *env)
@@ -58,6 +60,8 @@ char *key_time(char *env)
 	while(env[i] != '=')
 		i++;
 	key = malloc(sizeof(char) * (i + 1));
+	if (!key)
+		return (NULL);
 	i = -1;
 	while(env[++i] != '=')
 		key[i] = env[i];
@@ -144,6 +148,7 @@ void	free_all(t_shell *shell)
 	{
 		free(shell->environment->cwd);
 		free(shell->environment->owd);
+		free_array(shell->environment->path);
 		// free(shell->environment->);
 		free(shell->environment);
 	}

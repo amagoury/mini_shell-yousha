@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/21 14:55:11 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/21 22:36:51 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_command
 {
 	char				**words_L; // words split
 	char				*cmd; // the command                                           echo
-	t_list				**cmd_args; // double array of arguments for command;		   {hello} , 
+	char				**cmd_args; // double array of arguments for command;		   {hello} , 
 	char				*cmd_line_L; // the pipe split line to parse
 	int					num_of_redir; // number of redirects in the line
 	t_direct			*redir; // redirects
@@ -69,7 +69,6 @@ typedef struct s_environment
 	char				*owd; // old working directory
 	char				**path; // $PATH variable split to double array, probably for execution
 	t_values			*vals; // contains all the elements in env
-	 t_command    *command;
 }	t_environment;
 
 typedef struct s_values
@@ -147,6 +146,10 @@ void		ft_lstdelone_values(t_values *lst);
 
 int	operators_check(char *str, int i);
 void    tokenize_it(t_shell *shell);
+char	*expand_them_vars(char *str, t_environment *env, t_shell *shell);
+char	*string_but_string(char *pushed, char *pusher, int start, int rmv);
+char	*return_var(char *str, int start, int len, t_environment *env);
+
 
 
 // ================================================================================== //

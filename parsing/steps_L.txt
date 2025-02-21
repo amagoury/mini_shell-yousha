@@ -39,6 +39,34 @@ EXPAND THE VARIABLES FIRST!!!!!! ( "export B=ls"    \n     "$B -la") !!!!!!!!!!!
 expand env variables (eg; $USER) if double quotes❌
 	- $?x (invalid variable)❌
 	- $123 (numbers aren't valid variable names)❌
+		bash-3.2$ echo $USER
+		lalwafi
+		bash-3.2$ echo ae$USER-ae
+		aelalwafi-ae
+		bash-3.2$ echo ae$USER'ae'
+		aelalwafiae
+		bash-3.2$ echo ae$USER\ae'
+		> 
+		> '
+		aelalwafiae
+
+
+		bash-3.2$ echo ae$USER\ae
+		aelalwafiae
+		bash-3.2$ echo ae$USER+ae
+		aelalwafi+ae
+		bash-3.2$ echo ae$USER+_e
+		aelalwafi+_e
+		bash-3.2$ echo ae$USER_ae
+		ae
+		bash-3.2$ echo ae$USER#ae
+		aelalwafi#ae
+		bash-3.2$ echo ae$USER@ae
+		aelalwafi@ae
+		bash-3.2$ echo ae$1USERae
+		aeUSERae
+		bash-3.2$ echo ae$a1USERae
+		ae
 
 check if theres any syntax errors in the beginning or end❌
 					(	- ls &&| grep❌ )		THIS IS BONUS DUMBASS

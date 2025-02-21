@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 17:05:41 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/20 00:17:23 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/21 21:10:59 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	expand_vars(char *str, t_environment *env)
 char	*rmv_invalid_vars(char *str, t_environment *env)
 {
 	char	*var;
-	char	*cmp = " <>|$";
+	char	*cmp = " <>|$-";
 	int		i;
 	int		j;
 	int		flag;
@@ -117,7 +117,7 @@ char	*ft_remove_chunk(char *str, int start, int len)
 		result[j++] = str[i];
 	}
 	result[j] = '\0';
-	free(str);
+	// free(str);
 	return (result);
 }
 

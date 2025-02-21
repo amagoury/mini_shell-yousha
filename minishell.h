@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/20 01:02:48 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/21 14:55:11 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ typedef struct s_shell
 typedef struct s_command
 {
 	char				**words_L; // words split
-	char				*cmd; // the command
-	t_list				**cmd_args; // double array of arguments for command;
+	char				*cmd; // the command                                           echo
+	t_list				**cmd_args; // double array of arguments for command;		   {hello} , 
 	char				*cmd_line_L; // the pipe split line to parse
 	int					num_of_redir; // number of redirects in the line
 	t_direct			*redir; // redirects
@@ -87,15 +87,15 @@ typedef struct s_direct
 	t_direct			*next;
 }	t_direct;
 
-typedef struct s_token
-{
-    char *str;             // for normal text aisha
-    char *blockers;       // the bolcks withe the text will stop aisha
-	char *dupl_block;
-	char *s_block;
-   	int len;               //  text len aisha
-    bool convert;          // if the text need to convert or not aisha
-} t_token;
+// typedef struct s_token
+// {
+//     char *str;             // for normal text aisha
+//     char *blockers;       // the bolcks withe the text will stop aisha
+// 	char *dupl_block;
+// 	char *s_block;
+//    	int len;               //  text len aisha
+//     bool convert;          // if the text need to convert or not aisha
+// } t_token;
 
 typedef enum e_state
 {
@@ -142,6 +142,12 @@ t_values	*ft_lstlast_values(t_values *lst);
 void		ft_lstadd_back_values(t_values **lst, t_values *new);
 void		ft_lstclear_values(t_values *lst);
 void		ft_lstdelone_values(t_values *lst);
+
+// tokenize lyall
+
+int	operators_check(char *str, int i);
+void    tokenize_it(t_shell *shell);
+
 
 // ================================================================================== //
 

@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:56:21 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/19 22:39:12 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/21 14:53:35 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void    tokenize_it(t_shell *shell)
 	}
 }
 
-int	operators_check(char *str, int i)
+int	operators_check(char *str, int i)    // integrate quotes!!!
 {
 	char *cmp = " <>|$";
 	int		j;

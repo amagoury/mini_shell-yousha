@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
 /*   Updated: 2025/02/21 22:59:31 by amagoury         ###   ########.fr       */
+=======
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
+/*   Updated: 2025/02/21 22:36:51 by lalwafi          ###   ########.fr       */
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +75,15 @@ typedef struct s_environment
 	char				*cwd; // current working directory
 	char				*owd; // old working directory
 	char				**path; // $PATH variable split to double array, probably for execution
+<<<<<<< HEAD
 	 char 				**export_env;      // Environment variables for export
 	t_values			*vals; // contains all the elements in env
 	 t_command    *command;
 	t_command *head;        // Head of the linked list for unset
 
+=======
+	t_values			*vals; // contains all the elements in env
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 }	t_environment;
 
 typedef struct s_values
@@ -150,6 +161,13 @@ void		ft_lstdelone_values(t_values *lst);
 
 int	operators_check(char *str, int i);
 void    tokenize_it(t_shell *shell);
+<<<<<<< HEAD
+=======
+char	*expand_them_vars(char *str, t_environment *env, t_shell *shell);
+char	*string_but_string(char *pushed, char *pusher, int start, int rmv);
+char	*return_var(char *str, int start, int len, t_environment *env);
+
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 
 
 // ================================================================================== //
@@ -165,22 +183,36 @@ int is_in_env(char **export_env, char *content);
 t_command *creat_command(char *cmd);
 void add_command(t_command **command, t_command *new);
 int my_cd(t_environment *env, char *path);
+<<<<<<< HEAD
 int  my_unset(t_command **head, char *args);
 void print_list(t_command *head) ;
 t_command *create_node(char *cmd);
 void add_node(t_command **head, char *cmd);
 int my_echo(char **command,t_command *cmd);
 int 	ms_pwd(void);
+=======
+void my_unset(t_command **head, char *args);
+void print_list(t_command *head) ;
+t_command *create_node(char *cmd);
+void add_node(t_command **head, char *cmd);
+void my_echo(char **command,t_command *cmd);
+void	ms_pwd(void);
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 char *getcopyenv(char *str, t_command **env);
 void    exit_shell(t_command *command);
 char  *add_quotes(char *value);
 void	print_env(char  **env, bool export);
 int env_add(char *value, char ***env);
 bool ft_export(t_command *cmd,  char **export_env);
+<<<<<<< HEAD
 int     exec_bulidin(t_command *cmd,t_environment *env);
 int ft_env(t_command *env);
 bool  run_bulidin(t_command *cmd, t_environment *env);
 bool  is_bulidin(t_command *is_cmd);
 void final_exec(t_command *cmd,t_environment *path, int cmd_cnt);
+=======
+int     exec_bulidin(t_command *cmd);
+bool  run_bulidin(t_environment *path);
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 
 #endif

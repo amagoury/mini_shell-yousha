@@ -6,7 +6,11 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:29:27 by lalwafi           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/01/04 12:25:47 by lalwafi          ###   ########.fr       */
+=======
+/*   Updated: 2025/02/21 22:38:03 by lalwafi          ###   ########.fr       */
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +35,19 @@ int	ft_lstsize_v(t_values *lst)
 
 t_values	*ft_lstlast_values(t_values *lst)
 {
-	int	i;
+	t_values	*temp;
+	int		i;
 
 	if (!lst)
 		return (NULL);
-	i = ft_lstsize_v(lst);
+	temp = lst;
+	i = ft_lstsize_v(temp);
 	while (i > 1)
 	{
-		lst = lst -> next;
+		temp = temp -> next;
 		i--;
 	}
-	return (lst);
+	return (temp);
 }
 
 void	ft_lstadd_back_values(t_values **lst, t_values *new)
@@ -53,6 +59,7 @@ void	ft_lstadd_back_values(t_values **lst, t_values *new)
 		last -> next = new;
 	else
 		*lst = new;
+	// printf("last = #%s#\nnew = #%s#\n\n", last->key, new->key);
 }
 
 void	ft_lstclear_values(t_values *lst)

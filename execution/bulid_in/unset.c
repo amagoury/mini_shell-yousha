@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 20:14:19 by aishamagour       #+#    #+#             */
 /*   Updated: 2025/02/21 21:43:29 by amagoury         ###   ########.fr       */
+=======
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/05 20:14:19 by aishamagour       #+#    #+#             */
+/*   Updated: 2025/01/27 16:00:16 by aishamagour      ###   ########.fr       */
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +40,11 @@ void add_node(t_command **head, char *cmd) {
 }
 
 // Your unset function
+<<<<<<< HEAD
 int my_unset(t_command **head, char *args) {
+=======
+void my_unset(t_command **head, char *args) {
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
     t_command *tmp = *head;
     t_command *prev = NULL;
 
@@ -46,12 +57,19 @@ int my_unset(t_command **head, char *args) {
             }
             free(tmp->cmd);
             free(tmp);
+<<<<<<< HEAD
             return 1;
+=======
+            return;
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
         }
         prev = tmp;
         tmp = tmp->next;
     }
+<<<<<<< HEAD
     return(0);
+=======
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 }
 
 // Function to print the linked list (for debugging)

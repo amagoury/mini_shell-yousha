@@ -3,6 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   final_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:39:51 by aishamagour       #+#    #+#             */
@@ -13,13 +14,29 @@
 #include "../minishell.h"
 
 void final_exec(t_command *cmd,t_environment *path, int cmd_cnt)
+=======
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/19 19:39:51 by aishamagour       #+#    #+#             */
+/*   Updated: 2025/02/19 20:26:58 by aishamagour      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../minishell.h"
+
+void final_exec(t_command *cmd,t_environment *path)
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 {
 	int fd[2];
 	int i = -1;
 	pid_t last_pid;
 	pid_t pid;
 	// int run_bulidin;
+<<<<<<< HEAD
 	while(++i < cmd_cnt)
+=======
+	while(++i < cmd)
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 	{
 		if(pipe(fd) == -1)
 			exit(1);
@@ -27,21 +44,36 @@ void final_exec(t_command *cmd,t_environment *path, int cmd_cnt)
 		if(pid == 0)
 		{
 			close(fd[0]);
+<<<<<<< HEAD
 			dup2(fd[1],STDOUT_FILENO);
 			close(fd[1]);
 			if(is_bulidin(cmd) == true && cmd_cnt > 1)
 				cmd->save_statues = run_bulidin(cmd, path);
 			else if(is_bulidin(cmd) ==  false && execve(cmd->cmd,cmd->cmd_args,path->path) == -1)
+=======
+			duo2(fd[1],STDOUT_FILENO);
+			close(fd[1]);
+			if(exec_bulidin(cmd) == 0)
+				cmd->save_statues = run_bulidin(cmd);
+			else if(execve(cmd->cmd,cmd->cmd_args,path) == -1)
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 					exit(1);
 			exit(0);
 		}
 		else
 		{
 			close(fd[1]);
+<<<<<<< HEAD
 			dup2(fd[0],STDIN_FILENO);
 			close(fd[0]);
 			if(is_bulidin(cmd) == true &&cmd_cnt == 1)
 				cmd->save_statues = run_bulidin(cmd, path);
+=======
+			duo2(fd[0],STDIN_FILENO);
+			close(fd[0]);
+			if(exec_bulidin(cmd) == 0)
+				cmd->save_statues = run_bulidin(cmd);
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 		}
 		last_pid = pid;
 	}

@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
 /*   Updated: 2025/02/22 13:52:57 by amagoury         ###   ########.fr       */
+=======
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
+/*   Updated: 2025/02/21 22:34:22 by lalwafi          ###   ########.fr       */
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +56,21 @@ void	get_env(t_shell *shell, char **env)
 		if (ft_strlen(key) == 4 && ft_strncmp_lyall(key, "PATH", 4) == 0)
 			shell->environment->path = ft_split(getenv(key), ':');
 		make_values_node(key, env[i], shell);
+<<<<<<< HEAD
 		free(key);
 	}
+=======
+		// free(key);
+	}
+	t_values	*temp = shell->environment->vals;
+	printf("---------env---------\n");
+	while (temp->next)
+	{
+		printf("#%s=%s#\n", temp->key, temp->value);
+		temp = temp->next;
+	}
+	printf("---------env---------\n\n");
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 }
 
 char *key_time(char *env)
@@ -76,8 +96,15 @@ void	make_values_node(char *key, char *envline, t_shell *shell)
 
 	(void)envline;
 	temp = malloc(sizeof(t_values));
+<<<<<<< HEAD
 	// temp->envstr = ft_strdup(envline);
 	temp->key = ft_strdup(key);
+=======
+	if (!temp)
+		printf("issue in make values node\n");
+	// temp->envstr = ft_strdup(envline);
+	temp->key = key;
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 	temp->value = getenv(temp->key);
 	temp->next = NULL;
 	ft_lstadd_back_values(&shell->environment->vals, temp);
@@ -104,6 +131,10 @@ void	minishell(t_shell *shell)
 				write(2, "syntax error: pipes\n", 13);
 			else
 			{
+<<<<<<< HEAD
+=======
+				shell->input_L = expand_them_vars(shell->input_L, shell->environment, shell);
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 				// shell->input_L = rmv_invalid_vars(shell->input_L, shell->environment);
 				shell->input_L = rmv_extra_spaces(shell->input_L);
 				if (shell->pipe_split_L)
@@ -119,11 +150,14 @@ void	minishell(t_shell *shell)
 						printf("#%s#\n", shell->pipe_split_L[i]);
 				}
 			}
+<<<<<<< HEAD
 			int i = 0;
 			for (t_command * store = shell->commands; store; store = store->next)
 				i++;
 			shell->commands->cmd = "pwd";
 			final_exec(shell->commands, shell->environment, i);
+=======
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 			// execution(shell); this is where you start execution aisha - lyall
 		}
 		else if (shell->input_L[0] == '\0')
@@ -137,7 +171,11 @@ void	handle_signal(int signal)
 	if (signal == SIGINT)
 	{
 		write(1, "\n", 1);
+<<<<<<< HEAD
 		// rl_replace_line("", 0); fix later
+=======
+		// rl_replace_line("", 0); // fix later
+>>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 		rl_on_new_line();
 		rl_redisplay();
 	}

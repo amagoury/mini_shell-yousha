@@ -1,17 +1,9 @@
 NAME    = minishell
 CC      = cc
-# CFLAGS  = -Wall -Werror -Wextra -g3  -I /Users/$(USER)/.brew/opt/readline/include -fsanitize=address
-CFLAGS  = -Wall -Werror -Wextra
-CFLAGS  += -g3 -fsanitize=address
-# CFLAGS  += -L/opt/vagrant/embedded/lib/ -lreadline -I/opt/vagrant/embedded/include/readline -I/opt/vagrant/embedded/include
+CFLAGS  = -Wall -Werror -Wextra -g3  -I/Users/$(USER)/.brew/opt/readline/include #-fsanitize=address
 
-SRCS    =  $(addprefix parsing/, main.c parsing_2.c syntax_stuff.c variable_stuff.c variable_stuff_v2.c) \
-			$(addprefix parsing/utils/, ft_strdup.c \
-			ft_strncmp.c list_stuff.c split_pipes.c) \
-			$(addprefix execution/utils/, utils.c env_utils.c) \
-			$(addprefix execution/bulid_in/, cd.c   echo.c env.c  exit.c  export.c  pwd.c  unset.c)\
-			
-#I commented your files so i can test mine, you can just delete the '#'
+SRCS    =  $(addprefix parsing/, main.c) $(addprefix parsing/utils/, ft_strdup.c \
+			ft_strncmp.c list_stuff.c) $(addprefix execution/bulid_in/,cd.c \ errors.c \utils.c)
 
 OBJ     = $(SRCS:.c=.o)
 
@@ -26,7 +18,7 @@ $(LIBFT):
 	make -C aish_libft
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) -L/opt/vagrant/embedded/lib/ -lreadline -I/opt/vagrant/embedded/include/readline -I/opt/vagrant/embedded/include $(OBJ) -o $@ $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJ) -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -o $@ $(LIBFT)
 
 clean: 
 	rm -f $(OBJ)

@@ -6,18 +6,13 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 17:43:01 by amagoury          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2025/02/21 22:29:29 by amagoury         ###   ########.fr       */
-=======
-/*   Updated: 2025/01/18 21:56:19 by aishamagour      ###   ########.fr       */
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
 
-<<<<<<< HEAD
 // t_command *creat_command(char *cmd)
 // {
 //     t_command *new;
@@ -29,19 +24,6 @@
 //     new->next = NULL;
 //     return (new);
 // }
-=======
-t_command *creat_command(char *cmd)
-{
-    t_command *new;
-
-    new = malloc(sizeof(t_command));
-    if (!new)
-        return (NULL);
-    new->cmd = ft_strdup(cmd);
-    new->next = NULL;
-    return (new);
-}
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 
 void add_command(t_command **command, t_command *new)
 {
@@ -51,7 +33,6 @@ void add_command(t_command **command, t_command *new)
         return;
     tmp = *command;
     if(!tmp)
-<<<<<<< HEAD
     {
         *command = new;
         return ;
@@ -77,33 +58,6 @@ void add_command(t_command **command, t_command *new)
             break;
         tmp = tmp->next;
     }
-=======
-    {
-        *command = new;
-        return ;
-    }
-    while(tmp)
-    {
-        if(ft_strncmp(tmp->cmd, new->cmd, ft_strlen(new->cmd)) == 0)
-        {
-            value = ft_strdup(new->cmd);
-            if (!value)
-            {
-                ft_putendl_fd("Memory allocation failed", STDERR_FILENO);
-                return;
-            }
-            free(new->cmd);
-            new->cmd = value;
-            new->next = tmp->next;
-            free(tmp);
-            *command = new;
-            return;
-        }
-        if(!tmp->next)
-            break;
-        tmp = tmp->next;
-    }
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
     tmp->next = new;
 }
 
@@ -111,11 +65,7 @@ int my_cd(t_environment *env, char *path)
 {
     char current_dir[PATH_MAX];
     char *new_path;
-<<<<<<< HEAD
     // t_command *new_cmd;
-=======
-    t_command *new_cmd;
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 
     // Get current directory
     if (getcwd(current_dir, PATH_MAX) == NULL)
@@ -156,15 +106,9 @@ int my_cd(t_environment *env, char *path)
     }
 
     // Update environment
-<<<<<<< HEAD
     // new_cmd = creat_command(current_dir);
     // if (new_cmd)
     //     add_command(&env->command, new_cmd);
-=======
-    new_cmd = creat_command(current_dir);
-    if (new_cmd)
-        add_command(&env->command, new_cmd);
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 
     // Update current and old working directories
     if (getcwd(current_dir, PATH_MAX) != NULL)

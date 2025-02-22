@@ -60,7 +60,7 @@ Ctrl+C creates a new prompt.
 Ctrl+D exits the shell.
 Ctrl+\ does nothing.
 
-9- Built-in Commands✅
+9- Built-in Commands❌
 Implement built-ins:
 echo (with -n option).
 cd (relative/absolute path only).

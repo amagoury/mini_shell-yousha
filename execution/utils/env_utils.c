@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:15:38 by aishamagour       #+#    #+#             */
 /*   Updated: 2025/02/21 22:53:52 by amagoury         ###   ########.fr       */
-=======
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/27 17:15:38 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/08 17:32:58 by aishamagour      ###   ########.fr       */
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +34,7 @@ bool is_valid_env(const char *env_var)
 {
     int i = 0;
 
-<<<<<<< HEAD
     if (!*env_var)
-=======
-    if (!env_var || !*env_var)
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
         return false;
 
     if (!ft_isalpha(env_var[0]) && env_var[0] != '_')

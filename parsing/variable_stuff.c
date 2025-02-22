@@ -6,11 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 17:05:41 by lalwafi           #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2025/02/20 00:17:23 by lalwafi          ###   ########.fr       */
-=======
-/*   Updated: 2025/02/21 21:10:59 by lalwafi          ###   ########.fr       */
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +55,7 @@ void	expand_vars(char *str, t_environment *env)
 char	*rmv_invalid_vars(char *str, t_environment *env)
 {
 	char	*var;
-<<<<<<< HEAD
 	char	*cmp = " <>|$";
-=======
-	char	*cmp = " <>|$-";
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 	int		i;
 	int		j;
 	int		flag;
@@ -125,11 +117,7 @@ char	*ft_remove_chunk(char *str, int start, int len)
 		result[j++] = str[i];
 	}
 	result[j] = '\0';
-<<<<<<< HEAD
 	free(str);
-=======
-	// free(str);
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 	return (result);
 }
 

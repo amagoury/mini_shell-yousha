@@ -6,11 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:56:21 by aishamagour       #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2025/02/21 14:53:35 by lalwafi          ###   ########.fr       */
-=======
-/*   Updated: 2025/02/21 17:03:11 by lalwafi          ###   ########.fr       */
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +18,9 @@ void    tokenize_it(t_shell *shell)
 	// tokenize, parse, and expand variables at the same time
 	// for now probably spread to structs
 	int	i;
-<<<<<<< HEAD
 	int	in_quote;
 
 	i = 0;
-=======
-	int	len;
-	int	in_quote;
-	char	quote;
-	i = 0;
-	len = 0;
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 	in_quote = 0;
 	shell->commands->cmd_line_L = ft_strdup(shell->pipe_split_L[0]);
 	if (!shell->commands->cmd_line_L)
@@ -50,10 +38,6 @@ void    tokenize_it(t_shell *shell)
 			shell->commands->redir->direct = operators_check(shell->commands->cmd_line_L, i);
 			// copy the string too into redir and set next to null... deal with it idk
 			// substr the rest away
-<<<<<<< HEAD
-=======
-			len = 0;
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 		}
 		else if (shell->commands->cmd_line_L[i] == '$')
 		{
@@ -65,17 +49,11 @@ void    tokenize_it(t_shell *shell)
 			// if " worry about variables then keep all of it as one word
 			// if ' just blindly copy all of it as one word
 			in_quote = 1;
-<<<<<<< HEAD
-=======
-			quote = shell->commands->cmd_line_L[i];
-			
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 		}
 		else if (shell->commands->cmd_line_L[i] == ' ')
 		{
 			// finish the word and substr it then restart???
 			// idk figure it out how the i count is gonna look like
-<<<<<<< HEAD
 		}
 		else 
 			i++;
@@ -83,22 +61,6 @@ void    tokenize_it(t_shell *shell)
 }
 
 int	operators_check(char *str, int i)    // integrate quotes!!!
-=======
-			len = 0;
-		}
-		else 
-			i++, len++;
-	}
-}
-
-char	*parse_quotes(char *cmd, int i)
-{
-	
-}
-
-
-size_t	operators_check(char *str, int i)    // integrate quotes!!!
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 {
 	char *cmp = " <>|$";
 	int		j;

@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 19:45:26 by aishamagour       #+#    #+#             */
 /*   Updated: 2025/02/21 22:54:31 by amagoury         ###   ########.fr       */
-=======
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/26 19:45:26 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/14 15:53:22 by aishamagour      ###   ########.fr       */
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,36 +92,18 @@ int env_add(char *value, char ***env)
 
 bool ft_export(t_command *cmd,  char **export_env)
 {
-<<<<<<< HEAD
     int i;
 
     if (!cmd->cmd_args[0])
-=======
-    t_list *args;
-
-    if (!cmd || !cmd->cmd_args|| !cmd->cmd_args[0])
-        return (false);
-
-    if (!cmd->cmd_args)
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
     {
         print_env(export_env, true);
         return (true);
     }
-<<<<<<< HEAD
     i = -1;
     while (cmd->cmd_args[++i])
     {
         // Now is_valid_env is properly declared
         if (!is_valid_env(cmd->cmd_args[i]))
-=======
-
-    args = *(cmd->cmd_args);
-    while (args)
-    {
-        // Now is_valid_env is properly declared
-        if (!is_valid_env((char *)args->content) || ft_strncmp(args->content, "=", 1) == 0)
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
             return (false);
             
         // ...existing code...

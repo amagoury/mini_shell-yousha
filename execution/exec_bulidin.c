@@ -3,7 +3,6 @@
 /*                                                        :::      ::::::::   */
 /*   exec_bulidin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:09:53 by aishamagour       #+#    #+#             */
@@ -12,16 +11,6 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-=======
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/30 16:09:53 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/21 14:38:21 by lalwafi          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../../minishell.h"
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 
 static  int	ft_strcmp(char *s1, char *s2)
 {
@@ -46,7 +35,6 @@ static  int	ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
-<<<<<<< HEAD
 // int     exec_bulidin(t_command *is_cmd)
 // {
 // 	char **env;
@@ -119,33 +107,6 @@ bool  run_bulidin(t_command *cmd, t_environment *env)
 {
 
 	if (exec_bulidin(cmd, env) != 0)
-=======
-int     exec_bulidin(t_command *is_cmd)
-{
-	// char **env;
-	char **export_env;
-	if (ft_strcmp(is_cmd->cmd, "echo") == 0)
-		return (my_echo(is_cmd));
-	else if (ft_strcmp(is_cmd->cmd, "cd") == 0)
-		return (ft_cd(is_cmd));
-	else if (ft_strcmp(is_cmd->cmd, "pwd") == 0)
-		return (ft_pwd());
-	else if (ft_strcmp(is_cmd->cmd, "export") == 0)
-		 return (ft_export(is_cmd, *export_env));
-	else if (ft_strcmp(is_cmd->cmd, "unset") == 0)
-		return (ft_unset(is_cmd));
-	else if (ft_strcmp(is_cmd->cmd, "env") == 0)
-		return (ft_env());
-	else if (ft_strcmp(is_cmd->cmd, "exit") == 0)
-		return (ft_exit(is_cmd));
-	return (0);
-}
-
-
-bool  run_bulidin(t_environment *env)
-{
-	if (exec_bulidin(env->path) != 0)
->>>>>>> e3c04689e87eb0d88ac830579b35e40b4e79eebd
 		return (false);
 	return (true);
 }

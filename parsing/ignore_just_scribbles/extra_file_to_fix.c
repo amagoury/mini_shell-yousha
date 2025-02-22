@@ -81,15 +81,15 @@ char	*rmv_invalid_vars(char *str, char **keys)
 }
 
 
-int main(void)
-{
-	// char *a = "$USERecho  he\"llo' $USER frie\"nd > fi\"le  he'l\"l.txt$MEO\tW";
-	// expand_vars(a);
+// int main(void)
+// {
+// 	// char *a = "$USERecho  he\"llo' $USER frie\"nd > fi\"le  he'l\"l.txt$MEO\tW";
+// 	// expand_vars(a);
 
-	char *b = "echo $usss $USER lol";
-	char *keys[4] = {"USER" , "SHELL" , "PATH" , "ENV"};
-	char *result;
-	result = rmv_invalid_vars(b, keys);
-	printf("result = %s\n", result);
-	free(result);
-}
+// 	char *b = "echo $usss $USER lol";
+// 	char *keys[4] = {"USER" , "SHELL" , "PATH" , "ENV"};
+// 	char *result;
+// 	result = rmv_invalid_vars(b, keys);
+// 	printf("result = %s\n", result);
+// 	free(result);
+// }

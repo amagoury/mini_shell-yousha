@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/22 13:52:57 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/02/22 22:23:54 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,29 @@ void	get_env(t_shell *shell, char **env)
 	{
 		// key = key_time(env[i]);
 		key = ft_substr(env[i], 0, ft_strchr(env[i], '=') - env[i]);
+		// printf("key = #%s#\n", key);
 		if (!key || key == NULL)
 			continue;
 		if (ft_strlen(key) == 4 && ft_strncmp_lyall(key, "PATH", 4) == 0)
 			shell->environment->path = ft_split(getenv(key), ':');
 		make_values_node(key, env[i], shell);
-		free(key);
+		// free(key);
 	}
+	t_values	*temp = shell->environment->vals;
+	printf("---------PATH---------\n");
+	i = -1;
+	while (shell->environment->path[++i])
+	{
+		printf("#%s#\n", shell->environment->path[i]);
+	}
+	printf("---------PATH---------\n");
+	printf("---------env---------\n");
+	while (temp->next)
+	{
+		printf("#%s=%s#\n", temp->key, temp->value);
+		temp = temp->next;
+	}
+	printf("---------env---------\n\n");
 }
 
 char *key_time(char *env)
@@ -76,9 +92,11 @@ void	make_values_node(char *key, char *envline, t_shell *shell)
 
 	(void)envline;
 	temp = malloc(sizeof(t_values));
+	if (!temp)
+		printf("issue in make values node\n");
 	// temp->envstr = ft_strdup(envline);
 	temp->key = ft_strdup(key);
-	temp->value = getenv(temp->key);
+	temp->value = ft_strdup(getenv(temp->key));
 	temp->next = NULL;
 	ft_lstadd_back_values(&shell->environment->vals, temp);
 }
@@ -104,6 +122,7 @@ void	minishell(t_shell *shell)
 				write(2, "syntax error: pipes\n", 13);
 			else
 			{
+				shell->input_L = ft_strtrim(expand_them_vars(shell->input_L, shell->environment, shell), " ");
 				// shell->input_L = rmv_invalid_vars(shell->input_L, shell->environment);
 				shell->input_L = rmv_extra_spaces(shell->input_L);
 				if (shell->pipe_split_L)
@@ -137,7 +156,7 @@ void	handle_signal(int signal)
 	if (signal == SIGINT)
 	{
 		write(1, "\n", 1);
-		// rl_replace_line("", 0); fix later
+		// rl_replace_line("", 0); // fix later
 		rl_on_new_line();
 		rl_redisplay();
 	}

@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:29:27 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/01/04 12:25:47 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/22 19:03:27 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,44 @@ int	ft_lstsize_v(t_values *lst)
 		current = current->next;
 		count++;
 	}
+	printf("size  = %d\n", count);
 	return (count);
 }
 
 t_values	*ft_lstlast_values(t_values *lst)
 {
-	int	i;
+	t_values	*temp;
+	// int		i;
 
 	if (!lst)
 		return (NULL);
-	i = ft_lstsize_v(lst);
-	while (i > 1)
+	temp = lst;
+	// i = ft_lstsize_v(temp);
+	// printf("i = %d\n", i);
+	while (temp->next)
 	{
-		lst = lst -> next;
-		i--;
+		temp = temp->next;
+		// i--;
 	}
-	return (lst);
+	printf("------- lstlastvalues key = %s\n", temp->key);
+	return (temp);
 }
 
 void	ft_lstadd_back_values(t_values **lst, t_values *new)
 {
 	t_values	*last;
 
-	last = ft_lstlast_values(*lst);
 	if (*lst)
-		last -> next = new;
+	{
+		last = ft_lstlast_values(*lst);
+		last->next = new;
+		printf("last = #%s#\nnew = #%s#\nnext node = %s\n\n", last->key, new->key, last->next->key);
+	}
 	else
+	{
 		*lst = new;
+		printf("edewdwedewdwedwdwdwelse\n");
+	}
 }
 
 void	ft_lstclear_values(t_values *lst)

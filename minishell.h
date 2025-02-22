@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/21 22:59:31 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/02/22 22:20:39 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,9 @@ void		ft_lstdelone_values(t_values *lst);
 
 int	operators_check(char *str, int i);
 void    tokenize_it(t_shell *shell);
+char	*expand_them_vars(char *str, t_environment *env, t_shell *shell);
+char	*string_but_string(char *pushed, char *pusher, int start, int rmv);
+char	*return_var(char *str, int start, int len, t_environment *env);
 
 
 // ================================================================================== //

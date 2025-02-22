@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2024/12/01 00:13:51 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/02/21 22:59:31 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,69 +32,75 @@
 # include <termios.h>
 # include <curses.h>
 # include <term.h>
+#define BUFF_SIZE 1024 
 
-typedef struct s_environment	t_environment;
-typedef struct s_shell			t_shell;
-typedef struct s_values			t_values;
-typedef struct s_command		t_command;
-typedef struct s_direct			t_direct;
-typedef enum e_mini_state		t_state;
+typedef struct	s_environment	t_environment;
+typedef struct	s_shell			t_shell;
+typedef struct	s_values		t_values;
+typedef struct	s_command		t_command;
+typedef struct	s_direct		t_direct;
+typedef enum	e_state			t_state;
 
 typedef struct s_shell
 {
-	char	*input;
-	char	**pipe_split;
-	char	**cmd_argv;
-	int     fd;
-	int		exit_code;
-	int		num_of_cmds;
-	pid_t   child;
-	pid_t   lastpid;
-	char    *str;
-	t_environment   *environment;
-	t_command	*command;
-	
+	int				exit_code; // exit code i think im not sure
+	char			*input_L; // the input line
+	char			**pipe_split_L; // input split by pipes
+	int				num_of_pipes;
+	t_command		*commands;
+	t_environment	*environment;
 } t_shell;
+
+typedef struct s_command
+{
+	char				**words_L; // words split
+	char				*cmd; // the command                                           echo
+	char				**cmd_args; // double array of arguments for command;		   {hello} , 
+	char				*cmd_line_L; // the pipe split line to parse
+	int					num_of_redir; // number of redirects in the line
+	t_direct			*redir; // redirects
+	int					save_statues; // save the statues of the command
+	t_command			*next;
+} t_command;
 
 typedef struct s_environment
 {
-	int			exit;
-	int			shlvl;
-	char		*cwd;
-	char		*owd;
-	char		**path;
-	char		**environ;
-	t_values	*vals;
-	t_shell		*shell;
+	char				*cwd; // current working directory
+	char				*owd; // old working directory
+	char				**path; // $PATH variable split to double array, probably for execution
+	 char 				**export_env;      // Environment variables for export
+	t_values			*vals; // contains all the elements in env
+	 t_command    *command;
+	t_command *head;        // Head of the linked list for unset
+
 }	t_environment;
 
 typedef struct s_values
 {
-	char		*key;
-	char		*value;
-	char		*envstr;
-	t_values	*next;
+	char				*key; // before "=" (eg; USER)
+	char				*value; // after "=" (eg; lalwafi)
+	// char				*envstr; // the whole line (eg; USER = lalwafi) probably will delete
+	t_values			*next;
 } t_values;
-
-
-typedef struct s_command
-{
-	char				**cmd_args; // the command, flag and command line
-	char				*cmd_line; // just a temp that i will be using for parsing, you can use it if you want
-	int					no_args;
-	int					no_redirs;
-	int					int_temp; // just like the char temp
-	int					redir_amount; // the amount of redirects there are in this command
-	t_direct			*redir; // redirects
-} t_command;
 
 typedef struct s_direct
 {
 	char				*file; // file name
 	t_state				*direct; // what do to with the files
+	t_direct			*next;
 }	t_direct;
 
-typedef enum e_mini_state
+// typedef struct s_token
+// {
+//     char *str;             // for normal text aisha
+//     char *blockers;       // the bolcks withe the text will stop aisha
+// 	char *dupl_block;
+// 	char *s_block;
+//    	int len;               //  text len aisha
+//     bool convert;          // if the text need to convert or not aisha
+// } t_token;
+
+typedef enum e_state
 {
 	RE_INPUT, // <
 	RE_OUTPUT, // >
@@ -102,10 +108,7 @@ typedef enum e_mini_state
 	APPEND // >>
 }	t_state;
 
-typedef struct s_bulid
-{
-	t_list *env_p;
-}t_bulid;
+// ================================================================================== //
 
 // functions lyall
 
@@ -114,20 +117,70 @@ void		get_env(t_shell *shell, char **env);
 char		*key_time(char *env);
 void		make_values_node(char *key, char *envline, t_shell *shell);
 void		minishell(t_shell *shell);
+char		**split_pipes(char const *s, char c);
+char		**make_letters(char **result, char const *s, char c, int count);
+int			make_words(char const *s, char c);
+char		**one_word(char const *s, char **result);
+char		**free_array(char **result);
+int			skip_quotes(const char *str, int i);
+char		*rmv_extra_spaces(char *str);
+void		expand_vars(char *str, t_environment *env);
+void		parse_it(t_shell *shell);
+int			open_quote_or_no(char *str);
+int			count_pipes(char *str);
+int			check_pipes(char *input);
+char		*rmv_invalid_vars(char *str, t_environment *env);
+// char	*rmv_invalid_vars(char *str, char **keys);
 
-// utils
+
+char		*ft_remove_chunk(char *str, int start, int len);
+// char		*ft_remove_chunk(char *str, size_t start, size_t len);
+
+// utils lyall
 
 char		*ft_strdup(const char *s1);
 int			ft_strncmp_lyall(const char *s1, const char *s2, size_t n);
 int			ft_lstsize_v(t_values *lst);
 t_values	*ft_lstlast_values(t_values *lst);
 void		ft_lstadd_back_values(t_values **lst, t_values *new);
-void		ft_lstclear_values(t_values **lst, void (*del)(void *));
-void		ft_lstdelone_values(t_values *lst, void (*del)(void *));
+void		ft_lstclear_values(t_values *lst);
+void		ft_lstdelone_values(t_values *lst);
+
+// tokenize lyall
+
+int	operators_check(char *str, int i);
+void    tokenize_it(t_shell *shell);
+
+
+// ================================================================================== //
 
 //aisha erros 
+
 int print_error(t_shell *shell, const char *cmd, const char *msg, const char *arg);
-//aisha
-void    initialize_command(t_command *meow);
-int ft_cd(t_shell *shell, int cmd_num);
+// aisha utils
+bool is_valid_env(const char *env_var);
+int env_add(char *content, char ***env);
+int is_in_env(char **export_env, char *content);
+//aisha bulid_in
+t_command *creat_command(char *cmd);
+void add_command(t_command **command, t_command *new);
+int my_cd(t_environment *env, char *path);
+int  my_unset(t_command **head, char *args);
+void print_list(t_command *head) ;
+t_command *create_node(char *cmd);
+void add_node(t_command **head, char *cmd);
+int my_echo(char **command,t_command *cmd);
+int 	ms_pwd(void);
+char *getcopyenv(char *str, t_command **env);
+void    exit_shell(t_command *command);
+char  *add_quotes(char *value);
+void	print_env(char  **env, bool export);
+int env_add(char *value, char ***env);
+bool ft_export(t_command *cmd,  char **export_env);
+int     exec_bulidin(t_command *cmd,t_environment *env);
+int ft_env(t_command *env);
+bool  run_bulidin(t_command *cmd, t_environment *env);
+bool  is_bulidin(t_command *is_cmd);
+void final_exec(t_command *cmd,t_environment *path, int cmd_cnt);
+
 #endif

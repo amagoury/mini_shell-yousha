@@ -1,24 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/30 19:50:30 by aishamagour       #+#    #+#             */
-/*   Updated: 2024/12/01 00:13:35 by aishamagour      ###   ########.fr       */
+/*   Created: 2025/01/28 15:45:07 by aishamagour       #+#    #+#             */
+/*   Updated: 2025/01/28 15:48:18 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
-void    initialize_command(t_command *meow)
+void    exit_shell(t_command *command)
 {
-    meow->cmd_args[1][4] = "HOME";
-    meow->cmd_line = NULL;
-    meow->no_args = 69;
-    meow->no_redirs = 0;
-    meow->int_temp = 0;
-    meow->redir_amount = 0;
-    meow->redir = NULL;
+	t_command *tmp;
+
+	tmp = command;
+	while (tmp)
+	{
+		command = tmp->next;
+		free(tmp->cmd);
+		free(tmp);
+		tmp = command;
+	}
+	exit(0);
 }
+
+// int main(void)
+// {
+// 	t_command *command;
+// 	t_command *new;
+
+// 	command = NULL;
+// 	new = creat_command("exit");
+// 	add_command(&command, new);
+// 	exit_shell(command);
+// 	return (0);
+// }

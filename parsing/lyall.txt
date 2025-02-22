@@ -1,16 +1,35 @@
 notes to myself:
 - hardoc
 - $?
-- how do we use fork, for multiple commands, for shlvl for just the commands themselves???
 - does it only have to be ./minishell or with arguments and we ignore them?
+- how do we use fork, for multiple commands, for shlvl for just the commands themselves???
 - what parts of env do i keep or all of it?
 - deal with history
 - why global variable
 - env doesnt work twice for some reason
+- echo hello world > meow.txt | ls -la | wc -l
+- echo "hello" > out.txt | cat -e < in.txt >> out2.txt | grep hello >> final.txt
+- echo hello | echo world
+- bash ececutes from the end to the start (world hello)
+- echo hello | meow world (nope)
+- pipe changes fd from output to input
+- echo hello | wc
+- try only '|' in bash (all operators actually dont work)
+- hel"lo my fri"end (quotes have to close, eg this wont work (hel"lo world)) (oh btw its one word)
+- (echo he'll say no) doesnt work, quotes have to close
+- parse fail = 1 for rdp (for > | or "hello'\)
+- (echo "hello' y | es") is one word
+- expand variables in parsing ($USER) (not for single speechmarks but double yes)
+- echo he"llo' frie"nd > fi"le he'l"l.txt
+	- echo
+	- hello' friend
+	- >
+	- file he'll.txt
 
 learn:
 - tokenization
-- 
+- recursive_decent_parsing
+- execv!!!!
 
 to do:
 - handle header
@@ -29,16 +48,47 @@ steps:
 - first check arguments if its only ./minishell
 - initialize the structs
 - initialize env (check what parts of env i need to keep)
-- handle signals
+------------------------------------------------------------- handle signals
 - start loop
-- handle shlvl
+------------------------------------------------------------- handle shlvl
 - parse input
-- add everything needed to structs
+	- tokenize and check syntax errors
+	- rdp parsing 
+	- any errors handle them, free, print the error, then continue loop without going to Execution
+	- add everything needed to structs
+
+	- again
+	- separate by pipes, ignoring quotes
+	- check if pipe at the end or beginning, if not
+	- separate the words by spaces, redirects, quotes make sure are one word
+	- add the command to cmd, arguments to cmd_args, redirects to the lists, yadda yadda
+	- free pipe_split_L and cmd_line_L and whatever for parsing
+	- go to execution
 - go to Execution
-- go one by one in commands to execute them
 - go back to while (1) waiting for input
 
 
+QUESTIONS
+- Description: A redirection leads to multiple or ambiguous targets.
+	Example: echo hello > file1 > file2
+	Error: "Ambiguous redirect."
+
+
+minishell> ^C
+minishell> ^C
+minishell> ^C
+minishell> ^C
+minishell> ^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
+minishell> kuyfrutyfoluyf^C
 
 
 =============================================================================================================
@@ -164,3 +214,4 @@ void	ft_env_init(t_shell *shell, char *tenv[]);
 
 #endif
 =============================================================================================================
+

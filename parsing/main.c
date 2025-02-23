@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/22 22:23:54 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/24 00:15:55 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	initialize_shell(t_shell *shell)
 	shell->input_L = NULL;
 	shell->commands->cmd_args = NULL;
 	shell->exit_code = 0;
+	shell->parse_fail = 0;
 	shell->commands->cmd_line_L = NULL;
 	shell->commands->num_of_redir = -1;
 	shell->commands->redir = NULL;
@@ -50,23 +51,23 @@ void	get_env(t_shell *shell, char **env)
 		if (ft_strlen(key) == 4 && ft_strncmp_lyall(key, "PATH", 4) == 0)
 			shell->environment->path = ft_split(getenv(key), ':');
 		make_values_node(key, env[i], shell);
-		// free(key);
+		free(key);
 	}
-	t_values	*temp = shell->environment->vals;
-	printf("---------PATH---------\n");
-	i = -1;
-	while (shell->environment->path[++i])
-	{
-		printf("#%s#\n", shell->environment->path[i]);
-	}
-	printf("---------PATH---------\n");
-	printf("---------env---------\n");
-	while (temp->next)
-	{
-		printf("#%s=%s#\n", temp->key, temp->value);
-		temp = temp->next;
-	}
-	printf("---------env---------\n\n");
+	// t_values	*temp = shell->environment->vals;
+	// printf("---------PATH---------\n");
+	// i = -1;
+	// while (shell->environment->path[++i])
+	// {
+	// 	printf("#%s#\n", shell->environment->path[i]);
+	// }
+	// printf("---------PATH---------\n");
+	// printf("---------env---------\n");
+	// while (temp->next)
+	// {
+	// 	printf("#%s=%s#\n", temp->key, temp->value);
+	// 	temp = temp->next;
+	// }
+	// printf("---------env---------\n\n");
 }
 
 char *key_time(char *env)
@@ -96,7 +97,7 @@ void	make_values_node(char *key, char *envline, t_shell *shell)
 		printf("issue in make values node\n");
 	// temp->envstr = ft_strdup(envline);
 	temp->key = ft_strdup(key);
-	temp->value = ft_strdup(getenv(temp->key));
+	temp->value = getenv(temp->key);
 	temp->next = NULL;
 	ft_lstadd_back_values(&shell->environment->vals, temp);
 }
@@ -137,12 +138,13 @@ void	minishell(t_shell *shell)
 					while (shell->pipe_split_L[++i] != NULL)
 						printf("#%s#\n", shell->pipe_split_L[i]);
 				}
+				tokenize_it(shell);
 			}
-			int i = 0;
-			for (t_command * store = shell->commands; store; store = store->next)
-				i++;
-			shell->commands->cmd = "pwd";
-			final_exec(shell->commands, shell->environment, i);
+			// int i = 0;
+			// for (t_command * store = shell->commands; store; store = store->next)
+			// 	i++;
+			// shell->commands->cmd = "pwd";
+			// final_exec(shell->commands, shell->environment, i);
 			// execution(shell); this is where you start execution aisha - lyall
 		}
 		else if (shell->input_L[0] == '\0')
@@ -185,7 +187,16 @@ void	free_all(t_shell *shell)
 		// free(shell->pipe_split_L);
 		free_array(shell->pipe_split_L);
 	}
-	free(shell->commands);
+	if (shell->commands)
+	{
+		while (shell->commands->next)
+		{
+			free_array(shell->commands->cmd_args);
+			free(shell->commands->cmd_line_L);
+			shell->commands = shell->commands->next;
+		}
+		free(shell->commands);
+	}
 	// free(shell);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 20:11:55 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/22 19:04:22 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/23 17:46:47 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,11 @@ char	*expand_them_vars(char *str, t_environment *env, t_shell *shell)
 				while (str[i + len] != '\0' && (ft_isalpha(str[i + len]) || 
 					str[i + len] == '_' || ft_isdigit(str[i + len]) == 1))
 					len++;
+				len = return_var_length_temp(str, i, len, env);
 				var = return_var(str, i, len, env);
 			}
+			// len = ft_strlen(var);
+			printf("var = %s, len = %ld\n", var, ft_strlen(var));
 			str = string_but_string(str,var,--i,len + 1);
 			i--;
 		}
@@ -116,6 +119,37 @@ char	*return_var(char *str, int start, int len, t_environment *env)
 	}
 	free(var);
 	return (ft_strdup(""));
+}
+
+
+int	return_var_length_temp(char *str, int start, int len, t_environment *env) // temporary fix change later
+{
+	t_values *temp;
+	char *var;
+	int i;
+
+	var = ft_substr(str, start, len);
+	if (!var)
+		return (0);
+	// printf("var = #%s#\n", var);
+	i = 0;
+	temp = env->vals;
+	while (temp->next != NULL)
+	{
+		// printf("current key = #%s#\n", temp->key);
+		if (ft_strlen(temp->key) >= ft_strlen(var))
+			i = ft_strlen(var);
+		else
+			i = ft_strlen(temp->key);
+		if (ft_strncmp_lyall(temp->key, var, i) == 0)
+		{
+			len = ft_strlen(temp->key);
+			return (len);
+		}
+		temp = temp->next;
+	}
+	free(var);
+	return (0);
 }
 // locate the $
 // count length while checking if a valid name

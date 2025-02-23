@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:29:27 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/22 19:03:27 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/24 00:16:24 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_lstsize_v(t_values *lst)
 		current = current->next;
 		count++;
 	}
-	printf("size  = %d\n", count);
+	// printf("size  = %d\n", count);
 	return (count);
 }
 
@@ -45,7 +45,7 @@ t_values	*ft_lstlast_values(t_values *lst)
 		temp = temp->next;
 		// i--;
 	}
-	printf("------- lstlastvalues key = %s\n", temp->key);
+	// printf("------- lstlastvalues key = %s\n", temp->key);
 	return (temp);
 }
 
@@ -57,12 +57,12 @@ void	ft_lstadd_back_values(t_values **lst, t_values *new)
 	{
 		last = ft_lstlast_values(*lst);
 		last->next = new;
-		printf("last = #%s#\nnew = #%s#\nnext node = %s\n\n", last->key, new->key, last->next->key);
+		// printf("last = #%s#\nnew = #%s#\nnext node = %s\n\n", last->key, new->key, last->next->key);
 	}
 	else
 	{
 		*lst = new;
-		printf("edewdwedewdwedwdwdwelse\n");
+		// printf("edewdwedewdwedwdwdwelse\n");
 	}
 }
 

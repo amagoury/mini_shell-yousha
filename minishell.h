@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/22 22:20:39 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/23 21:54:36 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,15 @@ typedef struct	s_environment	t_environment;
 typedef struct	s_shell			t_shell;
 typedef struct	s_values		t_values;
 typedef struct	s_command		t_command;
-typedef struct	s_direct		t_direct;
 typedef enum	e_state			t_state;
+typedef struct	s_direct		t_direct;
 
 typedef struct s_shell
 {
 	int				exit_code; // exit code i think im not sure
 	char			*input_L; // the input line
 	char			**pipe_split_L; // input split by pipes
+	int				parse_fail; // 0 for pass, -1 for fail
 	int				num_of_pipes;
 	t_command		*commands;
 	t_environment	*environment;
@@ -53,9 +54,9 @@ typedef struct s_shell
 
 typedef struct s_command
 {
-	char				**words_L; // words split
-	char				*cmd; // the command                                           echo
-	char				**cmd_args; // double array of arguments for command;		   {hello} , 
+	// char				**words_L; // words split
+	char				*cmd; // the command (dont use anymore i will keep the command in cmd_args[0])
+	char				**cmd_args; // double array of arguments in command line including cmd;
 	char				*cmd_line_L; // the pipe split line to parse
 	int					num_of_redir; // number of redirects in the line
 	t_direct			*redir; // redirects
@@ -83,10 +84,18 @@ typedef struct s_values
 	t_values			*next;
 } t_values;
 
+typedef enum e_state
+{
+	RE_INPUT, // <
+	RE_OUTPUT, // >
+	HERE_DOC, // <<
+	APPEND // >>
+}	t_state;
+
 typedef struct s_direct
 {
 	char				*file; // file name
-	t_state				*direct; // what do to with the files
+	t_state				direct; // what do to with the files
 	t_direct			*next;
 }	t_direct;
 
@@ -100,13 +109,6 @@ typedef struct s_direct
 //     bool convert;          // if the text need to convert or not aisha
 // } t_token;
 
-typedef enum e_state
-{
-	RE_INPUT, // <
-	RE_OUTPUT, // >
-	HERE_DOC, // <<
-	APPEND // >>
-}	t_state;
 
 // ================================================================================== //
 
@@ -148,11 +150,14 @@ void		ft_lstdelone_values(t_values *lst);
 
 // tokenize lyall
 
-int	operators_check(char *str, int i);
 void    tokenize_it(t_shell *shell);
 char	*expand_them_vars(char *str, t_environment *env, t_shell *shell);
 char	*string_but_string(char *pushed, char *pusher, int start, int rmv);
 char	*return_var(char *str, int start, int len, t_environment *env);
+int		return_var_length_temp(char *str, int start, int len, t_environment *env);
+void	operator_tokens(t_command *cmds , int i);
+char	*copy_file(char *str, int i, t_command *cmds);
+t_state	operators_check(char *str, int i);
 
 
 // ================================================================================== //

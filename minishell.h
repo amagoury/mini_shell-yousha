@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/23 21:54:36 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/24 22:16:16 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include "aish_libft/libft.h"
 
-# include <readline/readline.h>
-# include <readline/history.h>
+# include "readline/readline.h"
+# include "readline/history.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdint.h>
@@ -115,6 +115,7 @@ typedef struct s_direct
 // functions lyall
 
 void		initialize_shell(t_shell *shell);
+t_command	*initialize_commands(void);
 void		get_env(t_shell *shell, char **env);
 char		*key_time(char *env);
 void		make_values_node(char *key, char *envline, t_shell *shell);
@@ -147,18 +148,25 @@ t_values	*ft_lstlast_values(t_values *lst);
 void		ft_lstadd_back_values(t_values **lst, t_values *new);
 void		ft_lstclear_values(t_values *lst);
 void		ft_lstdelone_values(t_values *lst);
+int			ft_lstsize_cmds(t_command *lst);
+t_command	*ft_lstlast_cmds(t_command *lst);
+void		ft_lstadd_back_cmds(t_command *lst, t_command *new);
+int			ft_lstsize_redir(t_direct *lst);
+t_direct	*ft_lstlast_redir(t_direct *lst);
+void		ft_lstadd_back_redir(t_direct **lst, t_direct *new);
 
 // tokenize lyall
 
-void    tokenize_it(t_shell *shell);
+void    tokenize_it(t_shell *shell, char *str);
 char	*expand_them_vars(char *str, t_environment *env, t_shell *shell);
 char	*string_but_string(char *pushed, char *pusher, int start, int rmv);
 char	*return_var(char *str, int start, int len, t_environment *env);
 int		return_var_length_temp(char *str, int start, int len, t_environment *env);
 void	operator_tokens(t_command *cmds , int i);
-char	*copy_file(char *str, int i, t_command *cmds);
+char	*copy_file(char *str, int i, t_command *cmds, int start);
 t_state	operators_check(char *str, int i);
-
+void	print_commands(t_command *cmds);
+void	print_enum(t_state en);
 
 // ================================================================================== //
 

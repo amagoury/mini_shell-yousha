@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/24 00:15:55 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/24 22:17:00 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,25 @@
 
 void	initialize_shell(t_shell *shell)
 {
-	shell->commands = malloc(sizeof(t_command));
-	if (!shell->commands)
-		(printf("command malloc fail\n"), exit(EXIT_FAILURE));
 	shell->pipe_split_L = NULL;
 	shell->input_L = NULL;
-	shell->commands->cmd_args = NULL;
 	shell->exit_code = 0;
 	shell->parse_fail = 0;
-	shell->commands->cmd_line_L = NULL;
-	shell->commands->num_of_redir = -1;
-	shell->commands->redir = NULL;
-	shell->commands->next = NULL;
+	shell->commands = initialize_commands();
+}
+
+t_command	*initialize_commands(void)
+{
+	t_command	*cmd;
+	cmd = malloc(sizeof(t_command));
+	if (!cmd)
+		(printf("command malloc fail\n"), exit(EXIT_FAILURE));
+	cmd->cmd_args = NULL;
+	cmd->cmd_line_L = NULL;
+	cmd->num_of_redir = 0;
+	cmd->redir = NULL;
+	cmd->next = NULL;
+	return (cmd);
 }
 
 void	get_env(t_shell *shell, char **env)
@@ -104,6 +111,9 @@ void	make_values_node(char *key, char *envline, t_shell *shell)
 
 void	minishell(t_shell *shell)
 {
+	int	i;
+
+	i = 0;
 	while (1)
 	{
 		shell->input_L = readline("minishell> ");
@@ -138,7 +148,8 @@ void	minishell(t_shell *shell)
 					while (shell->pipe_split_L[++i] != NULL)
 						printf("#%s#\n", shell->pipe_split_L[i]);
 				}
-				tokenize_it(shell);
+				while (shell->pipe_split_L[i])
+					tokenize_it(shell, ft_strdup(shell->pipe_split_L[i++]));
 			}
 			// int i = 0;
 			// for (t_command * store = shell->commands; store; store = store->next)
@@ -158,8 +169,8 @@ void	handle_signal(int signal)
 	if (signal == SIGINT)
 	{
 		write(1, "\n", 1);
-		// rl_replace_line("", 0); // fix later
 		rl_on_new_line();
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:56:21 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/25 13:20:04 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/25 19:59:09 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ void    tokenize_it(t_shell *shell, char *str)
 		printf("failed cmd_line_L ft_strdup\n");
 	while (ctemp->cmd_line_L[i])
 	{
-		printf("------------------------------ i = %d\n", i);
+		// printf("------------------------------ 1 i = %d\n", i);
 		if (ctemp->cmd_line_L[i] == '\"' || 
 			ctemp->cmd_line_L[i] == '\'')
 		{
-			printf("in quotes\n");
+			// printf("in quotes\n");
 			i = skip_quotes(ctemp->cmd_line_L, i);
 			// if " worry about variables then keep all of it as one word
 			// if ' just blindly copy all of it as one word
@@ -48,7 +48,7 @@ void    tokenize_it(t_shell *shell, char *str)
 		if (ctemp->cmd_line_L[i] == '>' ||
 			ctemp->cmd_line_L[i] == '<')
 		{
-			printf("in operators\n");
+			// printf("in operators\n");
 			operator_tokens(ctemp, i);
 			// copy the string too into redir and set next to null... deal with it idk
 			// substr the rest away
@@ -59,21 +59,24 @@ void    tokenize_it(t_shell *shell, char *str)
 			// finish the word and substr it then restart???
 			// idk figure it out how the i count is gonna look like
 			// ctemp->cmd_args
-			printf("BEFORE   words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
+			// printf("BEFORE   words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
 			words = ft_strjoin(words, ft_substr(ctemp->cmd_line_L, 0, i + 1));
 			ctemp->cmd_line_L = ft_substr(ctemp->cmd_line_L, i + 1, \
 				ft_strlen(ctemp->cmd_line_L + 2));
-			printf("AFTER    words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
+			// printf("AFTER    words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
 			i = 0;
 		}
 		else 
 			i++;
-		printf("------------------------------ i = %d\n", i);
+		// printf("------------------------------ 2i = %d\n", i);
 	}
 	ctemp->cmd_args = split_pipes(ft_strtrim(rmv_extra_spaces(words), " "), ' ');  // REMOVE SPEECH MARKSSSS!!!
 	ctemp->next = NULL;
-	print_commands(ctemp);
-	ft_lstadd_back_cmds(shell->commands, ctemp);
+	// print_commands(shell->commands);
+	// print_commands(ctemp);
+	// printf("<%p>\n", shell->commands);
+	ft_lstadd_back_cmds(&shell->commands, ctemp);
+	// print_commands(shell->commands);
 	// free(words);
 }
 

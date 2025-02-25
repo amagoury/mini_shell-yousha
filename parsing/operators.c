@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operators.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:49:04 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/25 13:18:30 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/25 19:19:36 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ void	operator_tokens(t_command *cmds , int i)
 	t_direct	*temp;
 	int			start;
 
-	printf("=======OPERATORS======\n");
+	// printf("=======OPERATORS======\n");
 	start = i;
-	printf("rn on = #%c#, i = %d\n", cmds->cmd_line_L[i], i);
+	// printf("rn on = #%c#, i = %d\n", cmds->cmd_line_L[i], i);
 	temp = malloc(sizeof(t_direct));
 	if (!temp)
 		printf("redir allocation fail\n");
 	temp->direct = operators_check(cmds->cmd_line_L, i);
-	print_enum(temp->direct);
+	// print_enum(temp->direct);
 	if (temp->direct == HERE_DOC || temp->direct == APPEND)
 		i += 2;
 	else if (temp->direct == RE_INPUT || temp->direct == RE_OUTPUT)
@@ -38,7 +38,7 @@ void	operator_tokens(t_command *cmds , int i)
 	cmds->num_of_redir += 1;
 	temp->next = NULL;
 	ft_lstadd_back_redir(&cmds->redir, temp);
-	printf("=======OPERATORS======\n");
+	// printf("=======OPERATORS======\n");
 }
 
 char	*copy_file(char *str, int i, t_command *cmds, int start) // MAKE IT FAIL IF NO FILE NAME i took care in operator tokens i think
@@ -48,7 +48,7 @@ char	*copy_file(char *str, int i, t_command *cmds, int start) // MAKE IT FAIL IF
 	char *cmp = " <>|";
 	len = 0;
 	
-	printf("copy_file char = #%c# , i+len = %d\n", str[i + len], i + len);
+	// printf("copy_file char = #%c# , i+len = %d\n", str[i + len], i + len);
 	while (str[i + len] != '\0' && ft_strchr(cmp, str[i + len]) == NULL)
 	{
 		if (str[i + len] == '\'' || str[i + len] == '\"')
@@ -56,15 +56,15 @@ char	*copy_file(char *str, int i, t_command *cmds, int start) // MAKE IT FAIL IF
 		else
 			len++;
 	}
-	printf("copy_file char = #%c# , i+len = %d\n", str[i + len], i + len);
+	// printf("copy_file char = #%c# , i+len = %d\n", str[i + len], i + len);
 	if (len == 0)
 		printf("len shouldnt be 0\n");
-	printf("before cmdline = #%s#\n", cmds->cmd_line_L);
+	// printf("before cmdline = #%s#\n", cmds->cmd_line_L);
 	result = ft_substr(str, i, len);
 	// if (str[i + len] == ' ')
 	// 	len++;
 	cmds->cmd_line_L = string_but_string(cmds->cmd_line_L, ft_strdup(""), start, len + i - start);
-	printf("        result = #%s#\n      cmd_line = #%s#\n", result, cmds->cmd_line_L);
+	// printf("        result = #%s#\n      cmd_line = #%s#\n", result, cmds->cmd_line_L);
 	return (result);
 }
 

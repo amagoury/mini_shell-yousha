@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_stuff_v2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 20:11:55 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/23 17:46:47 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/25 19:15:47 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*expand_them_vars(char *str, t_environment *env, t_shell *shell)
 				var = return_var(str, i, len, env);
 			}
 			// len = ft_strlen(var);
-			printf("var = %s, len = %ld\n", var, ft_strlen(var));
+			// printf("var = %s, len = %ld\n", var, ft_strlen(var));
 			str = string_but_string(str,var,--i,len + 1);
 			i--;
 		}

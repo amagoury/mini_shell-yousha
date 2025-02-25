@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/25 13:10:55 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/25 19:59:26 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	initialize_shell(t_shell *shell)
 	shell->input_L = NULL;
 	shell->exit_code = 0;
 	shell->parse_fail = 0;
-	shell->commands = initialize_commands();
+	// shell->commands = initialize_commands();
 }
 
 t_command	*initialize_commands(void)
@@ -137,20 +137,22 @@ void	minishell(t_shell *shell)
 				shell->input_L = rmv_extra_spaces(shell->input_L);
 				if (shell->pipe_split_L)
 				free_array(shell->pipe_split_L);
-				// shell->num_of_pipes = count_pipes(shell->input_L); // check if it counts inside quotes
+				shell->num_of_cmds = count_pipes(shell->input_L) + 1; // check if it counts inside quotes
+				// printf("num_of_cmd = %d\n", shell->num_of_cmds);
 				shell->pipe_split_L = split_pipes(shell->input_L, '|');
 				if (!shell->pipe_split_L)
-				printf("pipe oopsie\n");
-				else
-				{
-					int i = -1;
-					while (shell->pipe_split_L[++i] != NULL)
-					printf("#%s#\n", shell->pipe_split_L[i]);
-				}
+					printf("pipe oopsie\n");
+				// else
+				// {
+				// 	int i = -1;
+				// 	while (shell->pipe_split_L[++i] != NULL)
+				// 	printf("#%s#\n", shell->pipe_split_L[i]);
+				// }
 				i = 0;
 				while (shell->pipe_split_L[i])
 					tokenize_it(shell, ft_strdup(shell->pipe_split_L[i++]));
 			}
+			final_exec(shell->commands, shell->environment, shell->num_of_cmds);
 			// start_execution(shell);
 		}
 		else if (shell->input_L[0] == '\0')

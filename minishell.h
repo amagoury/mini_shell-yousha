@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/25 13:05:58 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/25 20:13:00 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_shell
 	char			*input_L; // the input line
 	char			**pipe_split_L; // input split by pipes
 	int				parse_fail; // 0 for pass, -1 for fail
-	int				num_of_pipes;
+	int				num_of_cmds;
 	t_command		*commands;
 	t_environment	*environment;
 } t_shell;
@@ -150,7 +150,7 @@ void		ft_lstclear_values(t_values *lst);
 void		ft_lstdelone_values(t_values *lst);
 int			ft_lstsize_cmds(t_command *lst);
 t_command	*ft_lstlast_cmds(t_command *lst);
-void		ft_lstadd_back_cmds(t_command *lst, t_command *new);
+void		ft_lstadd_back_cmds(t_command **lst, t_command *new);
 int			ft_lstsize_redir(t_direct *lst);
 t_direct	*ft_lstlast_redir(t_direct *lst);
 void		ft_lstadd_back_redir(t_direct **lst, t_direct *new);
@@ -194,11 +194,11 @@ void	print_env(char  **env, bool export);
 int env_add(char *value, char ***env);
 bool ft_export(t_command *cmd,  char **export_env);
 int     exec_bulidin(t_command *cmd,t_environment *env);
-int ft_env(t_command *env);
+int ft_env(t_values *env);
 bool  run_bulidin(t_command *cmd, t_environment *env);
 bool  is_bulidin(t_command *is_cmd);
 void final_exec(t_command *cmd,t_environment *path, int cmd_cnt);
-
+int	ft_strcmp(char *s1, char *s2);
 
 
 void	start_execution(t_shell *shell); //start execution here

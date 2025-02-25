@@ -3,28 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 18:37:59 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/01/27 16:08:58 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/02/25 20:12:33 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int ft_env(t_command *env)
+int ft_env(t_values *env)
 {
     if (!env)
         return (1); // Return an error code if the list is empty or invalid
-
-    t_command *tmp = env;
-    while (tmp)
+    while (env)
     {
-        if (tmp->cmd) // Check if cmd is not NULL
-            printf("%s\n", tmp->cmd);
-        else
-            printf("(null)\n"); // Handle case where cmd is NULL
-        tmp = tmp->next;
+        printf("#%s=%s#\n", env->key, env->value);
+        env = env->next;
     }
     return (0); // Return success
 }

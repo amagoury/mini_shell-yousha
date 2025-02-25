@@ -6,7 +6,7 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:39:51 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/21 23:00:16 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/02/25 20:02:37 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void final_exec(t_command *cmd,t_environment *path, int cmd_cnt)
 	pid_t last_pid;
 	pid_t pid;
 	// int run_bulidin;
+	// print_commands(cmd);
 	while(++i < cmd_cnt)
 	{
 		if(pipe(fd) == -1)
@@ -40,6 +41,7 @@ void final_exec(t_command *cmd,t_environment *path, int cmd_cnt)
 			close(fd[1]);
 			dup2(fd[0],STDIN_FILENO);
 			close(fd[0]);
+			// printf("%s\n",cmd->cmd_args[0]);
 			if(is_bulidin(cmd) == true &&cmd_cnt == 1)
 				cmd->save_statues = run_bulidin(cmd, path);
 		}

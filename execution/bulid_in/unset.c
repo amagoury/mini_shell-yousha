@@ -6,7 +6,7 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 20:14:19 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/21 21:43:29 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/02/25 20:17:10 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void add_node(t_command **head, char *cmd) {
 }
 
 // Your unset function
-int my_unset(t_command **head, char *args) {
-    t_command *tmp = *head;
-    t_command *prev = NULL;
+int my_unset(t_environment **head, char *args) {
+    t_environment *tmp = *head;
+    t_environment *prev = NULL;
 
     while (tmp) {
         if (strcmp(tmp->cmd, args) == 0) {

@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:56:21 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/24 22:17:18 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/25 13:20:04 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void    tokenize_it(t_shell *shell, char *str)
 			// substr the rest away
 			i = 0;
 		}
-		else if (ctemp->cmd_line_L[i] == ' ' || ctemp->cmd_line_L[i] == '\0' || ctemp->cmd_line_L[i + 1] == '\0')
+		else if (i > 0 && (ctemp->cmd_line_L[i] == ' ' || ctemp->cmd_line_L[i] == '\0' || ctemp->cmd_line_L[i + 1] == '\0'))
 		{
 			// finish the word and substr it then restart???
 			// idk figure it out how the i count is gonna look like

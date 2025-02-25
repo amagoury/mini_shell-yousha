@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:21:30 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/18 03:30:20 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/25 13:25:39 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ char	**free_array(char **result)
 	int	i;
 
 	i = 0;
-	while (result[i])
+	if (!result)
+		return (NULL);
+	while (result && result[i])
 	{
 		free (result[i]);
 		i++;

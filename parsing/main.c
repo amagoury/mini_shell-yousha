@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/24 22:17:00 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/25 13:10:55 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,50 +113,45 @@ void	minishell(t_shell *shell)
 {
 	int	i;
 
-	i = 0;
 	while (1)
 	{
 		shell->input_L = readline("minishell> ");
 		if (shell->input_L && shell->input_L[0] != '\0')
-			add_history(shell->input_L);
+		add_history(shell->input_L);
 		if (!shell->input_L)	// ctrl-D
-			break ;
+		break ;
 		else if (shell->input_L[0] != '\0')
 		{
 			// parse_it(shell);
 			shell->input_L = ft_strtrim(shell->input_L, " ");
 			if (!shell->input_L || shell->input_L[0] == '\0')
-				write(1, "only spaces\n", 12);
+			write(1, "only spaces\n", 12);
 			else if (open_quote_or_no(shell->input_L) == 1)
-				write(1, "open quotes :(\n", 15);
+			write(1, "open quotes :(\n", 15);
 			else if (check_pipes(shell->input_L) == 1)
-				write(2, "syntax error: pipes\n", 13);
+			write(2, "syntax error: pipes\n", 13);
 			else
 			{
 				shell->input_L = ft_strtrim(expand_them_vars(shell->input_L, shell->environment, shell), " ");
 				// shell->input_L = rmv_invalid_vars(shell->input_L, shell->environment);
 				shell->input_L = rmv_extra_spaces(shell->input_L);
 				if (shell->pipe_split_L)
-					free_array(shell->pipe_split_L);
+				free_array(shell->pipe_split_L);
 				// shell->num_of_pipes = count_pipes(shell->input_L); // check if it counts inside quotes
 				shell->pipe_split_L = split_pipes(shell->input_L, '|');
 				if (!shell->pipe_split_L)
-					printf("pipe oopsie\n");
+				printf("pipe oopsie\n");
 				else
 				{
 					int i = -1;
 					while (shell->pipe_split_L[++i] != NULL)
-						printf("#%s#\n", shell->pipe_split_L[i]);
+					printf("#%s#\n", shell->pipe_split_L[i]);
 				}
+				i = 0;
 				while (shell->pipe_split_L[i])
 					tokenize_it(shell, ft_strdup(shell->pipe_split_L[i++]));
 			}
-			// int i = 0;
-			// for (t_command * store = shell->commands; store; store = store->next)
-			// 	i++;
-			// shell->commands->cmd = "pwd";
-			// final_exec(shell->commands, shell->environment, i);
-			// execution(shell); this is where you start execution aisha - lyall
+			// start_execution(shell);
 		}
 		else if (shell->input_L[0] == '\0')
 			write(1, "empty line\n", 11);
@@ -200,8 +195,9 @@ void	free_all(t_shell *shell)
 	}
 	if (shell->commands)
 	{
-		while (shell->commands->next)
+		while (shell->commands)
 		{
+			printf("free cmds\n");
 			free_array(shell->commands->cmd_args);
 			free(shell->commands->cmd_line_L);
 			shell->commands = shell->commands->next;

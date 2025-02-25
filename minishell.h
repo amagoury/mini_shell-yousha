@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/24 22:16:16 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/25 13:05:58 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,5 +198,13 @@ int ft_env(t_command *env);
 bool  run_bulidin(t_command *cmd, t_environment *env);
 bool  is_bulidin(t_command *is_cmd);
 void final_exec(t_command *cmd,t_environment *path, int cmd_cnt);
+
+
+
+void	start_execution(t_shell *shell); //start execution here
+
+
+
+
 
 #endif

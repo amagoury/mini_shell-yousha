@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/25 19:59:26 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/02/25 20:25:10 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ void	minishell(t_shell *shell)
 				while (shell->pipe_split_L[i])
 					tokenize_it(shell, ft_strdup(shell->pipe_split_L[i++]));
 			}
-			final_exec(shell->commands, shell->environment, shell->num_of_cmds);
+			// final_exec(shell->commands, shell->environment, shell->num_of_cmds);
 			// start_execution(shell);
 		}
 		else if (shell->input_L[0] == '\0')

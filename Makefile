@@ -13,12 +13,12 @@ CFLAGS  += -g3 -fsanitize=address
 #i saw ur srcs were different so i just made SRCS_L for what i use
 SRCS_L    =  $(addprefix parsing/, main.c parsing_2.c syntax_stuff.c \
 			variable_stuff_v2.c tokenize.c operators.c) \
-			$(addprefix parsing/utils/, ft_strdup.c \
+			$(addprefix parsing/utils/, ft_strdup.c remove_quotes.c\
 			ft_strncmp.c list_stuff_values.c list_stuff_cmds.c list_stuff_redir.c split_pipes.c) \
 			start_exec.c \
-			$(addprefix execution/utils/, utils.c env_utils.c) \
-			$(addprefix execution/, exec_bulidin.c final_exec.c) \
-			$(addprefix execution/bulid_in/, cd.c   echo.c env.c  exit.c  export.c  pwd.c  unset.c)\
+			#$(addprefix execution/utils/, utils.c env_utils.c) \
+			#$(addprefix execution/, exec_bulidin.c final_exec.c) \
+			#$(addprefix execution/bulid_in/, cd.c   echo.c env.c  exit.c  export.c  pwd.c  unset.c)\
 
 OBJ     = $(SRCS_L:.c=.o)
 

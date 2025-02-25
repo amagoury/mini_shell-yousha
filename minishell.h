@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/25 20:13:00 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/02/25 21:27:30 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,8 @@ void		ft_lstadd_back_cmds(t_command **lst, t_command *new);
 int			ft_lstsize_redir(t_direct *lst);
 t_direct	*ft_lstlast_redir(t_direct *lst);
 void		ft_lstadd_back_redir(t_direct **lst, t_direct *new);
+char		*rmv_quotes(char *str);
+int			count_rmv_quotes(char *str , int i, int len);
 
 // tokenize lyall
 
@@ -201,7 +203,7 @@ void final_exec(t_command *cmd,t_environment *path, int cmd_cnt);
 int	ft_strcmp(char *s1, char *s2);
 
 
-void	start_execution(t_shell *shell); //start execution here
+// void	start_execution(t_shell *shell); //start execution here
 
 
 

@@ -6,7 +6,7 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 20:14:19 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/25 20:17:10 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:16:56 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,31 @@ void add_node(t_command **head, char *cmd) {
 }
 
 // Your unset function
-int my_unset(t_environment **head, char *args) {
-    t_environment *tmp = *head;
-    t_environment *prev = NULL;
-
-    while (tmp) {
-        if (strcmp(tmp->cmd, args) == 0) {
-            if (prev) {
-                prev->next = tmp->next;
-            } else {
-                *head = tmp->next;
-            }
-            free(tmp->cmd);
-            free(tmp);
-            return 1;
+int my_unset(t_values **head, char *args) 
+{
+    t_values  *tmp = *head;
+    t_values    *prev;
+    // t_values *prev = NULL;
+    while (tmp && tmp->next) {
+        if (strcmp(tmp->key, args) == 0)
+        {
+            printf("FOUND KEY\n");
+            ft_lstdelone_values(prev, tmp, tmp->next);
+            break ;
         }
         prev = tmp;
-        tmp = tmp->next;
+        tmp= tmp->next;
     }
+    
     return(0);
 }
 
 // Function to print the linked list (for debugging)
-void print_list(t_command *head) {
-    t_command *tmp = head;
-    while (tmp) {
+void print_list(t_command *head)
+{
+   t_command *tmp = head;
+    while (tmp)
+    {
         printf("%s\n", tmp->cmd);
         tmp = tmp->next;
     }

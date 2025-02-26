@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_stuff.c                                       :+:      :+:    :+:   */
+/*   list_stuff_values.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:29:27 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/24 00:16:24 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/26 17:13:17 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,14 @@ void	ft_lstclear_values(t_values *lst)
 	// lst = NULL;
 }
 
-void	ft_lstdelone_values(t_values *lst)
+void	ft_lstdelone_values(t_values *prev, t_values *del, t_values *nxt)
 {
-	if (lst)
+	prev->next = nxt;
+	if (del)
 	{
-		free(lst->key);
-		free(lst->value);
-		// free(lst->envstr);
-		free(lst);
+		free(del->key);
+		// free(del->value);
+		// free(del->envstr);
+		free(del);
 	}
 }

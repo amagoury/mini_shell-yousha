@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/25 21:27:30 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/26 17:18:57 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ typedef struct s_environment
 	 char 				**export_env;      // Environment variables for export
 	t_values			*vals; // contains all the elements in env
 	 t_command    *command;
-	t_command *head;        // Head of the linked list for unset
-
 }	t_environment;
 
 typedef struct s_values
@@ -147,7 +145,7 @@ int			ft_lstsize_v(t_values *lst);
 t_values	*ft_lstlast_values(t_values *lst);
 void		ft_lstadd_back_values(t_values **lst, t_values *new);
 void		ft_lstclear_values(t_values *lst);
-void		ft_lstdelone_values(t_values *lst);
+void		ft_lstdelone_values(t_values *prev, t_values *del, t_values *nxt);
 int			ft_lstsize_cmds(t_command *lst);
 t_command	*ft_lstlast_cmds(t_command *lst);
 void		ft_lstadd_back_cmds(t_command **lst, t_command *new);
@@ -183,7 +181,7 @@ int is_in_env(char **export_env, char *content);
 t_command *creat_command(char *cmd);
 void add_command(t_command **command, t_command *new);
 int my_cd(t_environment *env, char *path);
-int  my_unset(t_command **head, char *args);
+int my_unset(t_values **head, char *args);
 void print_list(t_command *head) ;
 t_command *create_node(char *cmd);
 void add_node(t_command **head, char *cmd);

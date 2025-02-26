@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/25 20:25:10 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/26 18:09:49 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,22 @@ void	minishell(t_shell *shell)
 				while (shell->pipe_split_L[i])
 					tokenize_it(shell, ft_strdup(shell->pipe_split_L[i++]));
 			}
-			// final_exec(shell->commands, shell->environment, shell->num_of_cmds);
+			final_exec(shell->commands, shell->environment, shell->num_of_cmds);
+			// t_values	*temp = shell->environment->vals;
+			// printf("---------PATH---------\n");
+			// i = -1;
+			// while (shell->environment->path[++i])
+			// {
+			// 	printf("#%s#\n", shell->environment->path[i]);
+			// }
+			// printf("---------PATH---------\n");
+			// printf("---------env---------\n");
+			// while (temp->next)
+			// {
+			// 	printf("#%s=%s#\n", temp->key, temp->value);
+			// 	temp = temp->next;
+			// }
+			// printf("---------env---------\n\n");
 			// start_execution(shell);
 		}
 		else if (shell->input_L[0] == '\0')

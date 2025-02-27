@@ -11,7 +11,7 @@ CFLAGS  += -g3 -fsanitize=address
 			ft_strncmp.c list_stuff.c) $(addprefix execution/bulid_in/,cd.c \ errors.c \utils.c)
 
 #i saw ur srcs were different so i just made SRCS_L for what i use
-SRCS_L    =  $(addprefix parsing/, main.c parsing_2.c syntax_stuff.c \
+SRCS_L    =  $(addprefix parsing/, main.c parsing_2.c syntax_stuff.c free_all.c \
 			variable_stuff_v2.c tokenize.c operators.c) \
 			$(addprefix parsing/utils/, ft_strdup.c remove_quotes.c\
 			ft_strncmp.c list_stuff_values.c list_stuff_cmds.c list_stuff_redir.c split_pipes.c) \

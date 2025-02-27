@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:56:21 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/25 21:36:52 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/27 16:19:32 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,11 @@
 
 void    tokenize_it(t_shell *shell, char *str)
 {
-	// shell->pipe_split_L into shell.commands.cmd_line_L
-	// tokenize, parse, and expand variables at the same time
-	// for now probably spread to structs
 	int		i;
-	// int		len;
 	char	*words;
 	t_command	*ctemp;
 	
 	i = 0;
-	// len = 0;
 	
 	ctemp = initialize_commands();
 	ctemp->cmd_line_L = str;
@@ -36,40 +31,32 @@ void    tokenize_it(t_shell *shell, char *str)
 		printf("failed cmd_line_L ft_strdup\n");
 	while (ctemp->cmd_line_L[i])
 	{
-		printf("------------------------------ i = %d\n", i);
+		// printf("------------------------------ i = %d\n", i);
 		if (ctemp->cmd_line_L[i] == '\"' || 
 			ctemp->cmd_line_L[i] == '\'')
 		{
-			printf("in quotes\n");
+			// printf("in quotes\n");
 			i = skip_quotes(ctemp->cmd_line_L, i);
-			// if " worry about variables then keep all of it as one word
-			// if ' just blindly copy all of it as one word
-			// variable expansion is already handled just skip quotes
 		}
 		if (ctemp->cmd_line_L[i] == '>' ||
 			ctemp->cmd_line_L[i] == '<')
 		{
-			printf("in operators\n");
+			// printf("in operators\n");
 			operator_tokens(ctemp, i);
-			// copy the string too into redir and set next to null... deal with it idk
-			// substr the rest away
 			i = 0;
 		}
 		else if (i > 0 && (ctemp->cmd_line_L[i] == ' ' || ctemp->cmd_line_L[i] == '\0' || ctemp->cmd_line_L[i + 1] == '\0'))
 		{
-			// finish the word and substr it then restart???
-			// idk figure it out how the i count is gonna look like
-			// ctemp->cmd_args
-			printf("BEFORE   words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
+			// printf("BEFORE   words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
 			words = ft_strjoin(words, ft_substr(ctemp->cmd_line_L, 0, i + 1));
 			ctemp->cmd_line_L = ft_substr(ctemp->cmd_line_L, i + 1, \
 				ft_strlen(ctemp->cmd_line_L + 2));
-			printf("AFTER    words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
+			// printf("AFTER    words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
 			i = 0;
 		}
 		else 
 			i++;
-		printf("------------------------------ i = %d\n", i);
+		// printf("------------------------------ i = %d\n", i);
 	}
 	ctemp->cmd_args = split_pipes(ft_strtrim(rmv_extra_spaces(words), " "), ' ');  // REMOVE SPEECH MARKSSSS!!!
 	ctemp->next = NULL;
@@ -86,23 +73,27 @@ void    tokenize_it(t_shell *shell, char *str)
 
 void	print_commands(t_command *cmds)
 {
-	if (cmds->cmd_line_L)
-		printf("cmd_line = #%s#\n", cmds->cmd_line_L);
-	if (cmds->cmd_args)
+	t_command	*ctemp = cmds;
+	while (ctemp)
 	{
-		int i = -1;
-		while (cmds->cmd_args[++i])
-			printf("cmd_args[%d] = #%s#\n", i, cmds->cmd_args[i]);
-	}
-	printf("num_of_redir = %d\n", cmds->num_of_redir);
-	t_direct *temp = cmds->redir;
-	while (temp)
-	{
-		printf("node 1\n");
-		printf("file = #");
-		print_enum(temp->direct);
-		printf(" %s#\n", temp->file);
-		temp = temp->next;
+		if (cmds->cmd_line_L)
+			printf("cmd_line = #%s#\n", cmds->cmd_line_L);
+		if (cmds->cmd_args)
+		{
+			int i = -1;
+			while (cmds->cmd_args[++i])
+				printf("cmd_args[%d] = #%s#\n", i, cmds->cmd_args[i]);
+		}
+		printf("num_of_redir = %d\n", cmds->num_of_redir);
+		t_direct *temp = cmds->redir;
+		while (temp)
+		{
+			printf("node 1\n");
+			print_enum(temp->direct);
+			printf("-- file =  #%s#\n", temp->file);
+			temp = temp->next;
+		}
+		ctemp = ctemp->next;
 	}
 	
 }

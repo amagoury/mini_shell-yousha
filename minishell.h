@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/26 17:18:57 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/02/27 14:37:39 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_shell
 	int				exit_code; // exit code i think im not sure
 	char			*input_L; // the input line
 	char			**pipe_split_L; // input split by pipes
-	int				parse_fail; // 0 for pass, -1 for fail
+	int				parse_fail_L; // 0 for pass, -1 for fail
 	int				num_of_cmds;
 	t_command		*commands;
 	t_environment	*environment;
@@ -55,7 +55,7 @@ typedef struct s_shell
 typedef struct s_command
 {
 	// char				**words_L; // words split
-	char				*cmd; // the command (dont use anymore i will keep the command in cmd_args[0])
+	// char				*cmd; // the command (dont use anymore i will keep the command in cmd_args[0])
 	char				**cmd_args; // double array of arguments in command line including cmd;
 	char				*cmd_line_L; // the pipe split line to parse
 	int					num_of_redir; // number of redirects in the line
@@ -126,7 +126,7 @@ char		**free_array(char **result);
 int			skip_quotes(const char *str, int i);
 char		*rmv_extra_spaces(char *str);
 void		expand_vars(char *str, t_environment *env);
-void		parse_it(t_shell *shell);
+// void		parse_it(t_shell *shell);
 int			open_quote_or_no(char *str);
 int			count_pipes(char *str);
 int			check_pipes(char *input);
@@ -154,6 +154,8 @@ t_direct	*ft_lstlast_redir(t_direct *lst);
 void		ft_lstadd_back_redir(t_direct **lst, t_direct *new);
 char		*rmv_quotes(char *str);
 int			count_rmv_quotes(char *str , int i, int len);
+void		free_all(t_shell *shell);
+void		free_cmds(t_shell	*shell);
 
 // tokenize lyall
 

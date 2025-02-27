@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:21:30 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/25 13:25:39 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/27 20:52:56 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ char	**free_array(char **result)
 		return (NULL);
 	while (result && result[i])
 	{
-		free (result[i]);
+		free(result[i]);
 		i++;
 	}
-	free (result);
+	free(result);
 	return (NULL);
 }
 
@@ -95,7 +95,7 @@ char	**make_letters(char **result, char const *s, char c, int count)
 
 char	**one_word(char const *s, char **result)
 {
-	result[0] = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	result[0] = ft_calloc(sizeof(char), (ft_strlen(s) + 1));
 	if (!result[0])
 		return (NULL);
 	result[0] = ft_strdup(s);
@@ -108,7 +108,7 @@ char	**split_pipes(char const *s, char c)
 	int		count;
 
 	count = make_words(s, c);
-	result = (char **)malloc(sizeof(char *) * (count + 1));
+	result = ft_calloc(sizeof(char *), (count + 1));
 	if (!result)
 		return (NULL);
 	if (count == 1)

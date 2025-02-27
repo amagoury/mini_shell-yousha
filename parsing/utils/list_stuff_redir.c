@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 17:25:27 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/24 19:42:55 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/27 19:27:03 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,18 @@ void	ft_lstadd_back_redir(t_direct **lst, t_direct *new)
 		*lst = new;
 		// printf("edewdwedewdwedwdwdwelse\n");
 	}
+}
+
+void	ft_lstclear_redir(t_direct *lst)
+{
+	t_direct	*a;
+
+	while (lst)
+	{
+		a = lst->next;
+		free(lst->file);
+		free(lst);
+		lst = a;
+	}
+	// lst = NULL;
 }

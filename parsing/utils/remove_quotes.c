@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 20:48:03 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/25 21:35:34 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/27 19:53:33 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*rmv_quotes(char *str)
 			result[j++] = str[i++];
 	}
 	result[j] = '\0';
-	// free(str);
+	free(str);
 	return (result);
 }
 

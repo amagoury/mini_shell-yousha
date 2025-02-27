@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/27 14:37:39 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/27 20:33:58 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,8 @@ typedef struct s_environment
 	char				*cwd; // current working directory
 	char				*owd; // old working directory
 	char				**path; // $PATH variable split to double array, probably for execution
-	 char 				**export_env;      // Environment variables for export
+	 char 				**export_env;      // Environment variables for export (what is this for?? -lyall)
 	t_values			*vals; // contains all the elements in env
-	 t_command    *command;
 }	t_environment;
 
 typedef struct s_values
@@ -140,6 +139,9 @@ char		*ft_remove_chunk(char *str, int start, int len);
 // utils lyall
 
 char		*ft_strdup(const char *s1);
+char 		*ft_substr_free(char *s, unsigned int start, size_t len);
+char		*ft_strtrim_free(char *s1, char const *set);
+char		*ft_strjoin_free(char *s1, char *s2, int flag);
 int			ft_strncmp_lyall(const char *s1, const char *s2, size_t n);
 int			ft_lstsize_v(t_values *lst);
 t_values	*ft_lstlast_values(t_values *lst);
@@ -152,10 +154,12 @@ void		ft_lstadd_back_cmds(t_command **lst, t_command *new);
 int			ft_lstsize_redir(t_direct *lst);
 t_direct	*ft_lstlast_redir(t_direct *lst);
 void		ft_lstadd_back_redir(t_direct **lst, t_direct *new);
+void		ft_lstclear_redir(t_direct *lst);
 char		*rmv_quotes(char *str);
 int			count_rmv_quotes(char *str , int i, int len);
 void		free_all(t_shell *shell);
 void		free_cmds(t_shell	*shell);
+void		free_env(t_environment *env);
 
 // tokenize lyall
 

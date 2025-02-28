@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/27 20:33:58 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/28 22:44:43 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,17 +188,17 @@ t_command *creat_command(char *cmd);
 void add_command(t_command **command, t_command *new);
 int my_cd(t_environment *env, char *path);
 int my_unset(t_values **head, char *args);
-void print_list(t_command *head) ;
-t_command *create_node(char *cmd);
+void print_list(t_environment *head) ;
+t_values*create_node(char *cmd);
 void add_node(t_command **head, char *cmd);
 int my_echo(char **command,t_command *cmd);
 int 	ms_pwd(void);
-char *getcopyenv(char *str, t_command **env);
+char  *getcopyenv(char *str, t_environment **env);
 void    exit_shell(t_command *command);
 char  *add_quotes(char *value);
-void	print_env(char  **env, bool export);
+void	print_env(t_values *env, bool export);
 int env_add(char *value, char ***env);
-bool ft_export(t_command *cmd,  char **export_env);
+bool ft_export(t_command *cmd, t_values *env);
 int     exec_bulidin(t_command *cmd,t_environment *env);
 int ft_env(t_values *env);
 bool  run_bulidin(t_command *cmd, t_environment *env);

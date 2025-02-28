@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:45:07 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/01/28 15:48:18 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/02/28 20:10:28 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void    exit_shell(t_command *command)
 	while (tmp)
 	{
 		command = tmp->next;
-		free(tmp->cmd);
+		free(tmp->cmd_args);
 		free(tmp);
 		tmp = command;
 	}

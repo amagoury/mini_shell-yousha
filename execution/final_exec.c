@@ -6,7 +6,7 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 19:39:51 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/26 18:35:06 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/02/28 22:49:55 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void final_exec(t_command *cmd,t_environment *path, int cmd_cnt)
 			close(fd[1]);
 			if(is_bulidin(cmd) == true && cmd_cnt > 1)
 				cmd->save_statues = run_bulidin(cmd, path);
-			else if(is_bulidin(cmd) ==  false && execve(cmd->cmd,cmd->cmd_args,path->path) == -1)
+			else if(is_bulidin(cmd) ==  false && execve(cmd->cmd_args[0],cmd->cmd_args,path->path) == -1) // replace path->path with a string array version of the values (environment variable) list.
 					exit(1);
 			exit(0);
 		}

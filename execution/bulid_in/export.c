@@ -6,13 +6,13 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 19:45:26 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/21 22:54:31 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/02/28 22:45:55 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static char	*ft_strjoin_free(char *s1, const char *s2)
+static char	*ft_strjoin_free_a(char *s1, const char *s2)
 {
 	char	*result;
 
@@ -33,33 +33,35 @@ char  *add_quotes(char *value)
 	if(*(equal_sign + 1)== '\"')
 		return (ft_strdup(value));
 	// Construct the new string with quotes
-	new_value = ft_strjoin_free(ft_strdup(value), "\"");
-	new_value = ft_strjoin_free(new_value, equal_sign + 1);
-	new_value = ft_strjoin_free(new_value, "\"");
+	new_value = ft_strjoin_free_a(ft_strdup(value), "\"");
+	new_value = ft_strjoin_free_a(new_value, equal_sign + 1);
+	new_value = ft_strjoin_free_a(new_value, "\"");
 	return (new_value);
 }
 
-void	print_env(char  **env, bool export)
+void	print_env(t_values *env, bool export) //
 {
 	int i;
     char *quoted_value;
 
+    (void)export;
     if (!env)
         return;
-
     i = 0;
-    while (env[i])
+    while (env) // iterate through the t_values LIST
     {
-        if (export)
-        {
+        // if (export)
+        // {
             ft_putstr_fd("declare -x ", 1);
-            quoted_value = add_quotes(env[i]);
+            ft_putstr_fd(env->key, 1);
+            ft_putstr_fd("=",1);
+            quoted_value = add_quotes(env->value);
             ft_putendl_fd(quoted_value, 1);
             free(quoted_value);
-        }
-        else
-            ft_putendl_fd(env[i], 1);
-        i++;
+        // }
+        // else
+        //     ft_putendl_fd(env, 1);
+        env= env->next;
 	}
 }
 
@@ -90,13 +92,13 @@ int env_add(char *value, char ***env)
     return (1);
 }
 
-bool ft_export(t_command *cmd,  char **export_env)
+bool ft_export(t_command *cmd, t_values *env)
 {
     int i;
 
-    if (!cmd->cmd_args[0])
+    if (!cmd->cmd_args[1]) ///
     {
-        print_env(export_env, true);
+        print_env(env, true);
         return (true);
     }
     i = -1;

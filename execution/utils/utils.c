@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 19:50:30 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/01/18 21:58:27 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/02/28 19:21:31 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@
 // }
 
 
- static char *find_env_recursive(t_command *command, const char *str) 
+ static char *find_env_recursive(t_values *vls, const char *str) 
 {
-	if(!command)
+	if(!vls)
 		return (NULL);
-	if(ft_strncmp(command->cmd,str,ft_strlen(str)) == 0)
-		return (command->cmd);
-	return (find_env_recursive(command->next, str));
+	if(ft_strncmp(vls->key,str,ft_strlen(str)) == 0)
+		return (vls->value);
+	return (find_env_recursive(vls->next, str));
 }
 
-char *getcopyenv(char *str, t_command **env)
+char *getcopyenv(char *str, t_environment **env)
 {
-    return find_env_recursive(*env, str);
+    return find_env_recursive((*env)->vals, str);
 }

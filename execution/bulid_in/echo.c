@@ -6,7 +6,7 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:30:37 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/21 19:45:28 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/02/28 20:44:24 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int my_echo(char **command,t_command *cmd)
 			write(1, " ", 1);
 		i++;
 	}
-	if(!flag)
+	if(flag == false)
 		write(1, "\n", 1);
 	return(0);
 }

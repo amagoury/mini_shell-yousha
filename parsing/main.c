@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/28 14:43:52 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/28 21:01:52 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_command	*initialize_commands(void)
 	cmd->cmd_args = NULL;
 	cmd->cmd_line_L = NULL;
 	cmd->num_of_redir = 0;
+	cmd->save_statues = 0;
 	cmd->redir = NULL;
 	cmd->next = NULL;
 	return (cmd);
@@ -142,17 +143,31 @@ void	minishell(t_shell *shell)
 				shell->pipe_split_L = split_pipes(shell->input_L, '|');
 				if (!shell->pipe_split_L)
 					printf("pipe oopsie\n");
-				// else
-				// {
-				// 	int i = -1;
-				// 	while (shell->pipe_split_L[++i] != NULL)
-				// 	printf("#%s#\n", shell->pipe_split_L[i]);
-				// }
+				else
+				{
+					int i = -1;
+					while (shell->pipe_split_L[++i] != NULL)
+					printf("#%s#\n", shell->pipe_split_L[i]);
+				}
 				i = 0;
 				while (shell->pipe_split_L[i])
 					tokenize_it(shell, shell->pipe_split_L[i++]);
+				// shell->num_of_cmds = 2;
+				// shell->commands = initialize_commands();
+				// shell->commands->cmd_args = malloc(sizeof(char *) * 3);
+				// shell->commands->cmd_args[0] = ft_strdup("cd");
+				// shell->commands->cmd_args[1] = ft_strdup("parsing");
+				// shell->commands->cmd_args[2] = NULL;
+				// shell->commands->next = initialize_commands();
+				// shell->commands->next->cmd_args = malloc(sizeof(char *) * 2);
+				// shell->commands->next->cmd_args[0] = ft_strdup("pwd");
+				// shell->commands->next->cmd_args[1] = NULL;
 			}
-			// final_exec(shell->commands, shell->environment, shell->num_of_cmds);
+			// printf("cwd = %s\n", shell->environment->cwd);
+			// printf("owd = %s\n", shell->environment->owd);
+			final_exec(shell->commands, shell->environment, shell->num_of_cmds);
+			// printf("cwd = %s\n", shell->environment->cwd);
+			// printf("owd = %s\n", shell->environment->owd);
 			// start_execution(shell);
 			print_commands(shell->commands);
 		}

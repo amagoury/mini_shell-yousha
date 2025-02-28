@@ -6,7 +6,7 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 20:14:19 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/26 17:16:56 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/02/28 20:31:22 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 
 // Function to create a new node in the linked list
-t_command *create_node(char *cmd) {
-    t_command *new_node = (t_command *)malloc(sizeof(t_command));
-    if (!new_node) {
-        printf("malloc");
-        exit(EXIT_FAILURE);
-    }
-    new_node->cmd = ft_strdup(cmd); // Duplicate the string
-    new_node->next = NULL;
-    return new_node;
-}
+// t_values*create_node(char *cmd) {
+//     t_values *new_node = (t_values*)malloc(sizeof(t_values));
+//     if (!new_node) {
+//         printf("malloc");
+//         exit(EXIT_FAILURE);
+//     }
+//     new_node->next = ft_strdup(cmd); // Duplicate the string
+//     new_node->next= NULL;
+//     return new_node;
+// }
 
 // Function to add a node to the linked list
-void add_node(t_command **head, char *cmd) {
-    t_command *new_node = create_node(cmd);
-    new_node->next = *head;
-    *head = new_node;
-}
+// void add_node(t_environment **head, char *cmd) {
+//     t_environment *new_node = create_node(cmd);
+//     new_node->next = *head;
+//     *head = new_node;
+// }
 
 // Your unset function
 int my_unset(t_values **head, char *args) 
@@ -53,13 +53,13 @@ int my_unset(t_values **head, char *args)
 }
 
 // Function to print the linked list (for debugging)
-void print_list(t_command *head)
+void print_list(t_environment *head)
 {
-   t_command *tmp = head;
+   t_environment*tmp = head;
     while (tmp)
     {
-        printf("%s\n", tmp->cmd);
-        tmp = tmp->next;
+        printf("%s\n", tmp->vals->key);
+        tmp->vals = tmp->vals->next;
     }
 }
 

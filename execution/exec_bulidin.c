@@ -6,7 +6,7 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:09:53 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/26 17:38:49 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/02/28 22:43:57 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int exec_bulidin(t_command *is_cmd, t_environment *env)
     else if (ft_strcmp(is_cmd->cmd_args[0], "pwd") == 0)
         return ms_pwd();
     else if (ft_strcmp(is_cmd->cmd_args[0], "export") == 0)
-        return ft_export(is_cmd, env->export_env); // Pass the environment's export_env
+        return ft_export(is_cmd, env->vals);//env->export_env); // Pass the environment's export_env
     else if (ft_strcmp(is_cmd->cmd_args[0], "unset") == 0)
         return my_unset(&env->vals, is_cmd->cmd_args[1]); // Pass the head of the linked list
     else if (ft_strcmp(is_cmd->cmd_args[0], "ENV") == 0 || ft_strcmp(is_cmd->cmd_args[0], "env") == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_stuff_v2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 20:11:55 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/25 19:15:47 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/02/28 22:55:37 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,21 @@
 
 char	*expand_them_vars(char *str, t_environment *env, t_shell *shell)
 {
-	// locate $
-	// find end of variable name
-	//		if starts with number, only one char and thats it, same with ?
-	//		if starts with letter or '_' , numbers letters and '_' are valid, anything else nah
-	//		otherwise its just another word to keep 
-	//		(eg: "$-USER" -> "$-USER") , ("$USER" -> "lalwafi") , ("$1USER" , "USER")
 	int i;   // itterate
 	int len; // length of variable starting $
 	char *var;
 
 	i = -1;
-	while (str[++i]) // oops handle single quotes
+	while (str[++i]) // oops handle single quotes HANDLED
 	{
 		if (str[i] == '\'')
 			i = skip_quotes(str, i) - 1;
 		else if (str[i] == '$')
 		{
+			if (str[i + 1] == '\0')
+				break ;
 			i++;
-			len = 1; //probably should add 1 cuz '$' i did nvm
+			len = 1; //probably should add 1 cuz '$'   i did nvm 
 			if (str[i] == '?')
 				var = ft_itoa(shell->exit_code);
 			else if (ft_isdigit(str[i]) == 1)
@@ -47,14 +43,19 @@ char	*expand_them_vars(char *str, t_environment *env, t_shell *shell)
 			else if (ft_isalpha(str[i]) || str[i] == '_')
 			{
 				len = 0;
-				while (str[i + len] != '\0' && (ft_isalpha(str[i + len]) || 
+				while (str[i + len] != '\0' && (ft_isalpha(str[i + len]) == 1|| 
 					str[i + len] == '_' || ft_isdigit(str[i + len]) == 1))
 					len++;
 				len = return_var_length_temp(str, i, len, env);
 				var = return_var(str, i, len, env);
 			}
+			else
+				len = 0;
 			// len = ft_strlen(var);
 			// printf("var = %s, len = %ld\n", var, ft_strlen(var));
+			printf("len = %d, i = %d\n", len, i);
+			// if (str[i] != '\0' && (ft_isalpha(str[i]) == 1|| 
+			// 	str[i] == '_' || ft_isdigit(str[i]) == 1))
 			str = string_but_string(str,var,--i,len + 1);
 			i--;
 		}
@@ -89,8 +90,10 @@ char	*string_but_string(char *pushed, char *pusher, int start, int rmv)
 			result[j++] = pushed[i];
 	}
 	result[j] = '\0';
-	free(pushed);
-	free(pusher);
+	if (pushed)
+		free(pushed);
+	if (pusher)
+		free(pusher);
 	return (result);
 }
 
@@ -103,13 +106,13 @@ char	*return_var(char *str, int start, int len, t_environment *env)
 	var = ft_substr(str, start, len);
 	if (!var)
 		return (ft_strdup(""));
-	// printf("var = #%s#\n", var);
+	printf("var = #%s#\n", var);
 	i = 0;
 	temp = env->vals;
 	while (temp->next != NULL)
 	{
 		// printf("current key = #%s#\n", temp->key);
-		if (ft_strlen(temp->key) >= ft_strlen(var))
+		if (ft_strlen(temp->key) == ft_strlen(var))
 			i = ft_strlen(var);
 		else
 			i = ft_strlen(temp->key);
@@ -131,7 +134,7 @@ int	return_var_length_temp(char *str, int start, int len, t_environment *env) //
 	var = ft_substr(str, start, len);
 	if (!var)
 		return (0);
-	// printf("var = #%s#\n", var);
+	printf("var = #%s#\n", var);
 	i = 0;
 	temp = env->vals;
 	while (temp->next != NULL)

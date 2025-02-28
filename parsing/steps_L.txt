@@ -154,7 +154,8 @@ test
 - cat < file.txt | grep "pattern" >> result.txt
 - echo "foo 'bar" | cat -e
 - grep "test" file1 file2
-- 
+- echo $$USER_A
+- cd -
 
 
 

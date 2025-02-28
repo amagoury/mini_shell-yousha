@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/27 20:56:22 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:43:52 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ void	minishell(t_shell *shell)
 		else if (shell->input_L[0] == '\0')
 			write(1, "empty line\n", 11);
 		free(shell->input_L);
+		free_cmds(shell);
 	}
 }
 

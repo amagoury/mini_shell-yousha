@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:56:21 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/27 20:44:25 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:47:06 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void    tokenize_it(t_shell *shell, char *str)
 		{
 			// printf("in quotes\n");
 			i = skip_quotes(ctemp->cmd_line_L, i);
+			printf("i = %d\n", i);
 		}
 		if (ctemp->cmd_line_L[i] == '>' ||
 			ctemp->cmd_line_L[i] == '<')
@@ -76,8 +77,12 @@ void    tokenize_it(t_shell *shell, char *str)
 void	print_commands(t_command *cmds)
 {
 	t_command	*ctemp = cmds;
+	int			i;
+
+	i = 0;
 	while (ctemp)
 	{
+		printf("----- commands %i -----\n", i++);
 		if (ctemp->cmd_line_L)
 			printf("cmd_line = #%s#\n", ctemp->cmd_line_L);
 		if (ctemp->cmd_args)
@@ -90,27 +95,26 @@ void	print_commands(t_command *cmds)
 		t_direct *temp = ctemp->redir;
 		while (temp)
 		{
-			printf("node 1\n");
 			print_enum(temp->direct);
 			printf(" , file =  #%s#\n", temp->file);
 			temp = temp->next;
 		}
 		ctemp = ctemp->next;
 	}
-	
+	printf("-----------------------\n");
 }
 
 
 void	print_enum(t_state en)
 {
 	if (en == RE_INPUT)
-		printf("direct = <");
+		printf("redirect = <");
 	else if (en == RE_OUTPUT)
-		printf("direct = >");
+		printf("redirect = >");
 	else if (en == HERE_DOC)
-		printf("direct = <<");
+		printf("redirect = <<");
 	else if (en == APPEND)
-		printf("direct = >>");
+		printf("redirect = >>");
 }
 
 

@@ -149,5 +149,13 @@ pipe changes fd from output to input
 check error codes
 - 
 
+test
+- echo hello | grep h | wc -l
+- cat < file.txt | grep "pattern" >> result.txt
+- echo "foo 'bar" | cat -e
+- grep "test" file1 file2
+- 
+
+
 
 ✅❌

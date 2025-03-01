@@ -6,13 +6,13 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:21:30 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/27 20:52:56 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/01 17:34:32 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char	**free_array(char **result)
+char	**free_array(char **result) // see if neccessary to have char **
 {
 	int	i;
 

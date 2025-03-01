@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/28 21:01:52 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/01 17:33:58 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_command	*initialize_commands(void)
 	cmd->cmd_args = NULL;
 	cmd->cmd_line_L = NULL;
 	cmd->num_of_redir = 0;
-	cmd->save_statues = 0;
 	cmd->redir = NULL;
 	cmd->next = NULL;
 	return (cmd);
@@ -39,6 +38,7 @@ t_command	*initialize_commands(void)
 void	get_env(t_shell *shell, char **env)
 {
 	int	i;
+	int	j;
 	char	*key;
 
 	i = -1;
@@ -61,6 +61,14 @@ void	get_env(t_shell *shell, char **env)
 		make_values_node(key, env[i], shell);
 		free(key);
 	}
+	shell->environment->export_env = malloc(sizeof(char *) * (i + 1));
+	if (!shell->environment->export_env)
+		(write(2, "malloc fail\n", 12), free_all(shell), exit(EXIT_FAILURE));
+	i = 0;
+	j = 0;
+	while (env[i])
+		shell->environment->export_env[j++] = ft_strdup(env[i++]);
+	shell->environment->export_env[j] = NULL;
 	// t_values	*temp = shell->environment->vals;
 	// printf("---------PATH---------\n");
 	// i = -1;
@@ -69,6 +77,11 @@ void	get_env(t_shell *shell, char **env)
 	// 	printf("#%s#\n", shell->environment->path[i]);
 	// }
 	// printf("---------PATH---------\n");
+	// printf("---------export_env--------\n");
+	// i = -1;
+	// while (shell->environment->export_env[++i])
+	// 	printf("#%s#\n", shell->environment->export_env[i]);
+	// printf("---------export_env--------\n");
 	// printf("---------env---------\n");
 	// while (temp->next)
 	// {
@@ -131,6 +144,7 @@ void	minishell(t_shell *shell)
 				write(1, "open quotes :(\n", 15);
 			else if (check_pipes(shell->input_L) == 1)
 				write(2, "syntax error: pipes\n", 13);
+			// else if (operators valid) // MAKE SURE YOU CHECK THEM HERE SO IT DOESNT MAKE IT HORRIBLE
 			else
 			{
 				shell->input_L = ft_strtrim_free(expand_them_vars(shell->input_L, shell->environment, shell), " ");
@@ -143,31 +157,17 @@ void	minishell(t_shell *shell)
 				shell->pipe_split_L = split_pipes(shell->input_L, '|');
 				if (!shell->pipe_split_L)
 					printf("pipe oopsie\n");
-				else
-				{
-					int i = -1;
-					while (shell->pipe_split_L[++i] != NULL)
-					printf("#%s#\n", shell->pipe_split_L[i]);
-				}
+				// else
+				// {
+				// 	int i = -1;
+				// 	while (shell->pipe_split_L[++i] != NULL)
+				// 	printf("#%s#\n", shell->pipe_split_L[i]);
+				// }
 				i = 0;
 				while (shell->pipe_split_L[i])
 					tokenize_it(shell, shell->pipe_split_L[i++]);
-				// shell->num_of_cmds = 2;
-				// shell->commands = initialize_commands();
-				// shell->commands->cmd_args = malloc(sizeof(char *) * 3);
-				// shell->commands->cmd_args[0] = ft_strdup("cd");
-				// shell->commands->cmd_args[1] = ft_strdup("parsing");
-				// shell->commands->cmd_args[2] = NULL;
-				// shell->commands->next = initialize_commands();
-				// shell->commands->next->cmd_args = malloc(sizeof(char *) * 2);
-				// shell->commands->next->cmd_args[0] = ft_strdup("pwd");
-				// shell->commands->next->cmd_args[1] = NULL;
 			}
-			// printf("cwd = %s\n", shell->environment->cwd);
-			// printf("owd = %s\n", shell->environment->owd);
-			final_exec(shell->commands, shell->environment, shell->num_of_cmds);
-			// printf("cwd = %s\n", shell->environment->cwd);
-			// printf("owd = %s\n", shell->environment->owd);
+			// final_exec(shell->commands, shell->environment, shell->num_of_cmds);
 			// start_execution(shell);
 			print_commands(shell->commands);
 		}
@@ -233,6 +233,11 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	if (ac != 1)
 		return (printf("'./minishell' only, no arguments\n"));
+	// int i = -1;
+	// printf("---------ENV OG--------\n");
+	// while (env[++i])
+	// 	printf("#%s#\n", env[i]);
+	// printf("---------ENV OG--------\n");
 	ft_bzero(&shell, sizeof(t_shell));
 	initialize_shell(&shell);
 	// change_shlvl();

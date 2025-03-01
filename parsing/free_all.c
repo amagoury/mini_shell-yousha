@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:19:39 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/27 20:48:14 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/01 17:33:42 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	free_env(t_environment *env)
 		free(env->cwd);
 		free(env->owd);
 		free_array(env->path);
-		// if (env->export_env)
-		// 	free_array(env->export_env);
+		if (env->export_env)
+			free_arrray(env->export_env);
 		free(env);
 	}
 }

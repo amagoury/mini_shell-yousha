@@ -2,18 +2,14 @@ NAME    = minishell
 CC      = cc
 
 #CFLAGS  = -Wall -Werror -Wextra -g3  -I /Users/$(USER)/.brew/opt/readline/include -fsanitize=address
-# CFLAGS  = -Wall -Werror -Wextra 
+CFLAGS  = -Wall -Werror -Wextra 
 CFLAGS	+= -I/opt/vagrant/embedded/include/readline -I/opt/vagrant/embedded/include
 CFLAGS	+= -I.
 CFLAGS	+= -g3
 # CFLAGS	+= -fsanitize=address
 # CFLAGS  += -L/opt/vagrant/embedded/lib/ -lreadline -I/opt/vagrant/embedded/include/readline -I/opt/vagrant/embedded/include
 
-#SRCS    =  $(addprefix parsing/, main.c) $(addprefix parsing/utils/, ft_strdup.c \
-			ft_strncmp.c list_stuff.c) $(addprefix execution/bulid_in/,cd.c \ errors.c \utils.c)
-
-#i saw ur srcs were different so i just made SRCS_L for what i use
-SRCS_L    =  $(addprefix parsing/, main.c parsing_2.c syntax_stuff.c free_all.c \
+SRCS    =  $(addprefix parsing/, main.c parsing_2.c syntax_stuff.c free_all.c \
 			variable_stuff_v2.c tokenize.c operators.c) \
 			$(addprefix parsing/utils/, ft_strdup.c remove_quotes.c ft_strtrim_free.c ft_substr_free.c \
 			ft_strjoin_free.c \
@@ -24,7 +20,7 @@ SRCS_L    =  $(addprefix parsing/, main.c parsing_2.c syntax_stuff.c free_all.c 
 			$(addprefix execution/, exec_bulidin.c final_exec.c) \
 			$(addprefix execution/bulid_in/, cd.c   echo.c env.c  exit.c  export.c  pwd.c  unset.c)\
 
-OBJ     = $(SRCS_L:.c=.o)
+OBJ     = $(SRCS:.c=.o)
 
 LIBFT   = aish_libft/libft.a
 

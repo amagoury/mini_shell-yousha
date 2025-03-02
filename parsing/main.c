@@ -6,11 +6,13 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/02 04:46:04 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/02 20:16:28 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
+
+int g_sig = 0;
 
 void	initialize_shell(t_shell *shell)
 {
@@ -131,6 +133,7 @@ void	minishell(t_shell *shell)
 
 	while (1)
 	{
+		// SIGNAL HANDLER
 		shell->input_L = readline("meowshell> ");
 		if (shell->input_L && shell->input_L[0] != '\0')
 			add_history(shell->input_L);
@@ -159,6 +162,11 @@ void	minishell(t_shell *shell)
 			// else if (operators valid) // MAKE SURE YOU CHECK THEM HERE SO IT DOESNT MAKE IT HORRIBLE
 			else
 			{
+				if (g_sig != 0)
+				{
+					shell->exit_code = 1;
+					g_sig = 0;
+				}
 				shell->input_L = ft_strtrim_free(expand_them_vars(shell->input_L, shell->environment, shell), " ");
 				// shell->input_L = rmv_invalid_vars(shell->input_L, shell->environment);
 				shell->input_L = rmv_extra_spaces(shell->input_L);
@@ -177,7 +185,8 @@ void	minishell(t_shell *shell)
 				while (shell->pipe_split_L[i])
 					tokenize_it(shell, shell->pipe_split_L[i++]);
 			}
-			final_exec(shell->commands, shell->environment, shell->num_of_cmds);
+			// final_exec(shell->commands, shell->environment, shell->num_of_cmds);
+			execution(shell, shell->environment->export_env);
 			// start_execution(shell);
 			print_commands(shell->commands);
 			if (shell->pipe_split_L)
@@ -194,6 +203,7 @@ void	handle_signal(int signal)
 {
 	if (signal == SIGINT)
 	{
+		g_sig = SIGINT;
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);

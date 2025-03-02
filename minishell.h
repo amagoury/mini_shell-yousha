@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/28 22:44:43 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/02 19:47:37 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct	s_command		t_command;
 typedef enum	e_state			t_state;
 typedef struct	s_direct		t_direct;
 
+extern int g_sig;
+
 typedef struct s_shell
 {
 	int				exit_code; // exit code i think im not sure
@@ -69,7 +71,7 @@ typedef struct s_environment
 	char				*cwd; // current working directory
 	char				*owd; // old working directory
 	char				**path; // $PATH variable split to double array, probably for execution
-	 char 				**export_env;      // Environment variables for export (what is this for?? -lyall)
+	char 				**export_env;      // Environment variables for export (what is this for?? -lyall)
 	t_values			*vals; // contains all the elements in env
 }	t_environment;
 
@@ -95,6 +97,17 @@ typedef struct s_direct
 	t_state				direct; // what do to with the files
 	t_direct			*next;
 }	t_direct;
+
+typedef struct s_context
+{
+	int					inputfd;
+	int					outputfd;
+	char				**args;
+	char				*cmd;
+	int					error;
+	struct s_context	*next;
+}	t_context;
+
 
 // typedef struct s_token
 // {
@@ -210,7 +223,7 @@ int	ft_strcmp(char *s1, char *s2);
 // void	start_execution(t_shell *shell); //start execution here
 
 
-
+void execution(t_shell *shell, char **env);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:49:04 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/27 20:27:04 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/02 17:18:11 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	operator_tokens(t_command *cmds , int i)
 	if (!temp)
 		printf("redir allocation fail\n");
 	temp->direct = operators_check(cmds->cmd_line_L, i);
-	print_enum(temp->direct);
+	// print_enum(temp->direct);
 	if (temp->direct == HERE_DOC || temp->direct == APPEND)
 		i += 2;
 	else if (temp->direct == RE_INPUT || temp->direct == RE_OUTPUT)

@@ -157,6 +157,8 @@ test
 - echo $$USER_A
 - cd -
 
-
+test for execution
+- echo hello world | echo meow
+- 
 
 ✅❌

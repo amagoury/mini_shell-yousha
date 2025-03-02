@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:56:21 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/28 14:47:06 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/02 02:04:04 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void    tokenize_it(t_shell *shell, char *str)
 	ctemp->cmd_line_L = ft_strdup(str);
 	words = ft_strdup("");
 	if (!ctemp->cmd_line_L)
-		printf("failed cmd_line_L ft_strdup\n");
+		(free_all(shell), write(2, "Error: malloc fail\n", 19), exit(EXIT_FAILURE));
 	while (ctemp->cmd_line_L[i])
 	{
 		// printf("------------------------------ i = %d\n", i);

@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 20:11:55 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/28 22:55:37 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/01 23:34:07 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ char	*expand_them_vars(char *str, t_environment *env, t_shell *shell)
 			printf("len = %d, i = %d\n", len, i);
 			// if (str[i] != '\0' && (ft_isalpha(str[i]) == 1|| 
 			// 	str[i] == '_' || ft_isdigit(str[i]) == 1))
-			str = string_but_string(str,var,--i,len + 1);
+			if (len > 0)
+				str = string_but_string(str,var,--i,len + 1);
 			i--;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/01 17:33:58 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/02 04:46:04 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_command	*initialize_commands(void)
 	t_command	*cmd;
 	cmd = ft_calloc(sizeof(t_command), 1);
 	if (!cmd)
-		(printf("command malloc fail\n"), exit(EXIT_FAILURE));
+		(write(2, "\033[0;31mError: command malloc fail\033[0m\n", 36), exit(EXIT_FAILURE));
 	cmd->cmd_args = NULL;
 	cmd->cmd_line_L = NULL;
 	cmd->num_of_redir = 0;
@@ -43,6 +43,8 @@ void	get_env(t_shell *shell, char **env)
 
 	i = -1;
 	shell->environment = malloc(sizeof(t_environment));
+	if (!shell->environment)
+		(write(2, "\033[0;31mError: environment malloc fail\033[0m\n", 36), exit(EXIT_FAILURE));
 	// shell->environment->exit = 0;
 	shell->environment->cwd = getcwd(NULL, 0);
 	shell->environment->owd = getcwd(NULL, 0);
@@ -63,7 +65,7 @@ void	get_env(t_shell *shell, char **env)
 	}
 	shell->environment->export_env = malloc(sizeof(char *) * (i + 1));
 	if (!shell->environment->export_env)
-		(write(2, "malloc fail\n", 12), free_all(shell), exit(EXIT_FAILURE));
+		(write(2, "\033[0;31mError: environment malloc fail\033[0m\n", 36), exit(EXIT_FAILURE));
 	i = 0;
 	j = 0;
 	while (env[i])
@@ -129,50 +131,60 @@ void	minishell(t_shell *shell)
 
 	while (1)
 	{
-		shell->input_L = readline("minishell> ");
+		shell->input_L = readline("meowshell> ");
 		if (shell->input_L && shell->input_L[0] != '\0')
-		add_history(shell->input_L);
+			add_history(shell->input_L);
 		if (!shell->input_L)	// ctrl-D
-		break ;
+			break ;
 		else if (shell->input_L[0] != '\0')
 		{
-			// parse_it(shell);
 			shell->input_L = ft_strtrim_free(shell->input_L, " ");
-			if (!shell->input_L || shell->input_L[0] == '\0')
-				write(1, "only spaces\n", 12);
+			if (!shell->input_L || shell->input_L[0] == '\0') // spaces only
+			{
+				free(shell->input_L);
+				continue ;
+			}
 			else if (open_quote_or_no(shell->input_L) == 1)
-				write(1, "open quotes :(\n", 15);
+			{
+				write(2, "Error: open quotes\n", 19);
+				free(shell->input_L);
+				continue ;
+			}
 			else if (check_pipes(shell->input_L) == 1)
-				write(2, "syntax error: pipes\n", 13);
+			{
+				write(2, "Error: syntax error near unexpected token '|'\n", 46);
+				free(shell->input_L);
+				continue ;
+			}
 			// else if (operators valid) // MAKE SURE YOU CHECK THEM HERE SO IT DOESNT MAKE IT HORRIBLE
 			else
 			{
 				shell->input_L = ft_strtrim_free(expand_them_vars(shell->input_L, shell->environment, shell), " ");
 				// shell->input_L = rmv_invalid_vars(shell->input_L, shell->environment);
 				shell->input_L = rmv_extra_spaces(shell->input_L);
-				if (shell->pipe_split_L)
-					free_array(shell->pipe_split_L);
 				shell->num_of_cmds = count_pipes(shell->input_L) + 1; // check if it counts inside quotes
 				// printf("num_of_cmd = %d\n", shell->num_of_cmds);
 				shell->pipe_split_L = split_pipes(shell->input_L, '|');
 				if (!shell->pipe_split_L)
-					printf("pipe oopsie\n");
+				(free_all(shell), write(2, "\033[0;31mError: malloc fail\033[0m\n", 24), exit(EXIT_FAILURE));
 				// else
 				// {
-				// 	int i = -1;
-				// 	while (shell->pipe_split_L[++i] != NULL)
-				// 	printf("#%s#\n", shell->pipe_split_L[i]);
+					// 	int i = -1;
+					// 	while (shell->pipe_split_L[++i] != NULL)
+					// 	printf("#%s#\n", shell->pipe_split_L[i]);
 				// }
 				i = 0;
 				while (shell->pipe_split_L[i])
 					tokenize_it(shell, shell->pipe_split_L[i++]);
 			}
-			// final_exec(shell->commands, shell->environment, shell->num_of_cmds);
+			final_exec(shell->commands, shell->environment, shell->num_of_cmds);
 			// start_execution(shell);
 			print_commands(shell->commands);
+			if (shell->pipe_split_L)
+				free_array(shell->pipe_split_L);
 		}
 		else if (shell->input_L[0] == '\0')
-			write(1, "empty line\n", 11);
+			write(2, "empty line\n", 11);
 		free(shell->input_L);
 		free_cmds(shell);
 	}
@@ -238,7 +250,7 @@ int	main(int ac, char **av, char **env)
 	// while (env[++i])
 	// 	printf("#%s#\n", env[i]);
 	// printf("---------ENV OG--------\n");
-	ft_bzero(&shell, sizeof(t_shell));
+	ft_bzero(&shell, sizeof(t_shell)); // why
 	initialize_shell(&shell);
 	// change_shlvl();
 	get_env(&shell, env);
@@ -252,3 +264,8 @@ int	main(int ac, char **av, char **env)
 
 //    echo    hello   " my   friend   "
 // j = 28  i = 33
+
+// \033[1;31m	               7 (Escape sequence for red)
+// 	environment malloc fail	   24 (Plain text)
+// 	\033[0m             	   4 (Reset color)
+// 	\n	                       1 (Newline)

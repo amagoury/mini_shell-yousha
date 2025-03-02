@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 21:11:32 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/02 21:11:34 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/02 22:58:33 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,7 @@ void	free_context_list(t_context *context)
 	}
 }
 
-t_context	*create_context_list(t_command *commands, char **env)
+t_context	*create_context_list(t_command *commands, t_environment *env)
 {
 	t_context	*context;
 
@@ -274,7 +274,7 @@ t_context	*create_context_list(t_command *commands, char **env)
 	return context;
 }
 
-int	execute_command(t_context *context, char **env)
+int	execute_command(t_context *context, t_environment *env)
 {
 	if (context->next)
 		free_context_list(context->next);
@@ -282,19 +282,32 @@ int	execute_command(t_context *context, char **env)
 	if (context->error != 0)
 		return (context->error);
 	if (context->inputfd != -1)
+	{
+		printf("her is the issue11\n");
 		(dup2(context->inputfd, 0), close(context->inputfd));
+	}
 	if (context->outputfd != -1)
+	{
+		printf("her is the issue22\n");
 		(dup2(context->outputfd, 1), close(context->outputfd));
+	}
 	// if (context->cmd == NULL)
 	// 	return (free_context(context), ft_putstr_fd("Command not found\n", 2), 127);
-	execve(context->cmd, context->args, env);
-	ft_putstr_fd(context->args[0], 2);
-	ft_putstr_fd(": Error executing\n", 2);
+	if(run_bulidin(context,env) == false)
+	{
+	    printf("her is the issue\n");
+		if (execve(context->cmd, context->args, env->export_env) == -1)
+		{
+			ft_putstr_fd(context->args[0], 2);
+			ft_putstr_fd(": Error executing\n", 2);
+		}
+		
+	}
 	// TODO check error type and print appropriate msg
 	return (127); //TODO Return with correct error msg
 }
 
-int	execute_context(t_shell *shell, t_context *context, char **env)
+int	execute_context(t_shell *shell, t_context *context, t_environment *env)
 {
 	int			pid;
 	t_context	*temp;
@@ -317,7 +330,7 @@ int	execute_context(t_shell *shell, t_context *context, char **env)
 	return (pid);
 }
 
-void	execution(t_shell *shell, char **env)
+void	execution(t_shell *shell, t_environment *env)
 {
 	t_context	*context;
 	int			pid;
@@ -331,6 +344,7 @@ void	execution(t_shell *shell, char **env)
 	waitpid(pid, &status, 0);
 	while (wait(NULL) != -1)
 		;
+	
 	shell->exit_code = WEXITSTATUS(status);
 }
 

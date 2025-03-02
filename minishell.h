@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/02 19:47:37 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/02 22:27:06 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ int my_unset(t_values **head, char *args);
 void print_list(t_environment *head) ;
 t_values*create_node(char *cmd);
 void add_node(t_command **head, char *cmd);
-int my_echo(char **command,t_command *cmd);
+int my_echo(char **command);
 int 	ms_pwd(void);
 char  *getcopyenv(char *str, t_environment **env);
 void    exit_shell(t_command *command);
@@ -212,9 +212,9 @@ char  *add_quotes(char *value);
 void	print_env(t_values *env, bool export);
 int env_add(char *value, char ***env);
 bool ft_export(t_command *cmd, t_values *env);
-int     exec_bulidin(t_command *cmd,t_environment *env);
+int exec_bulidin(t_context *cntx, t_environment *env);
 int ft_env(t_values *env);
-bool  run_bulidin(t_command *cmd, t_environment *env);
+bool  run_bulidin(t_context *context, t_environment *env);
 bool  is_bulidin(t_command *is_cmd);
 void final_exec(t_command *cmd,t_environment *path, int cmd_cnt);
 int	ft_strcmp(char *s1, char *s2);
@@ -223,7 +223,7 @@ int	ft_strcmp(char *s1, char *s2);
 // void	start_execution(t_shell *shell); //start execution here
 
 
-void execution(t_shell *shell, char **env);
+void	execution(t_shell *shell, t_environment *env);
 
 
 #endif

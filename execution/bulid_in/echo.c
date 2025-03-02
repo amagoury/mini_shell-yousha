@@ -6,7 +6,7 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:30:37 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/28 20:44:24 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/02 22:26:45 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ static char is_n(char *str)
 	return (0);
 }
 
-int my_echo(char **command,t_command *cmd)
+int my_echo(char **command)
 {
-	(void)cmd;
 	int i;
 	int j;
 	bool flag;

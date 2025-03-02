@@ -6,7 +6,7 @@ CFLAGS  = -Wall -Werror -Wextra
 CFLAGS	+= -I/opt/vagrant/embedded/include/readline -I/opt/vagrant/embedded/include
 CFLAGS	+= -I.
 CFLAGS	+= -g3
-# CFLAGS	+= -fsanitize=address
+CFLAGS	+= -fsanitize=address
 # CFLAGS  += -L/opt/vagrant/embedded/lib/ -lreadline -I/opt/vagrant/embedded/include/readline -I/opt/vagrant/embedded/include
 
 SRCS    =  $(addprefix parsing/, main.c parsing_2.c syntax_stuff.c free_all.c \
@@ -16,7 +16,7 @@ SRCS    =  $(addprefix parsing/, main.c parsing_2.c syntax_stuff.c free_all.c \
 			ft_strncmp.c list_stuff_values.c list_stuff_cmds.c list_stuff_redir.c split_pipes.c) \
 			start_exec.c \
 			execution/new/execution.c\
-			#$(addprefix execution/utils/, utils.c env_utils.c) \
+			$(addprefix execution/utils/, utils.c env_utils.c) \
 			$(addprefix execution/, exec_bulidin.c final_exec.c) \
 			$(addprefix execution/bulid_in/, cd.c   echo.c env.c  exit.c  export.c  pwd.c  unset.c)\
 

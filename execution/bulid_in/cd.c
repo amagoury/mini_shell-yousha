@@ -6,7 +6,7 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 17:43:01 by amagoury          #+#    #+#             */
-/*   Updated: 2025/02/28 20:08:47 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/02 22:36:55 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,16 @@
 //     }
 //     tmp->next = new;
 // }
-
+ char *ft_get_env(char * key,t_values *env)
+ {
+    while(env)
+    {
+        if (ft_strcmp(key, env->key) == 0)
+            return (env->value);
+        env = env->next;
+    }
+    return (NULL);
+ }
 int my_cd(t_environment *env, char *path)
 {
     char current_dir[PATH_MAX];
@@ -77,7 +86,7 @@ int my_cd(t_environment *env, char *path)
     // Handle HOME directory
     if (!path || !*path)
     {
-        new_path = getenv("HOME");
+        new_path = ft_get_env("HOME",env->vals);
         if (!new_path)
         {
             ft_putendl_fd("cd: HOME not set", STDERR_FILENO);
@@ -87,7 +96,7 @@ int my_cd(t_environment *env, char *path)
     // Handle previous directory
     else if (path[0] == '-' && !path[1])
     {
-        new_path = getenv("OLDPWD");
+        new_path = ft_get_env("OLDPWD",env->vals);
         if (!new_path)
         {
             ft_putendl_fd("cd: OLDPWD not set", STDERR_FILENO);
@@ -117,6 +126,7 @@ int my_cd(t_environment *env, char *path)
         env->owd = ft_strdup(env->cwd);  // Save old directory
         free(env->cwd);  // Free the current working directory if it exists
         env->cwd = ft_strdup(current_dir);  // Update current directory
+        // update env for the keys
     }
     else
     {

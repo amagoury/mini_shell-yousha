@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/02 22:27:06 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/03 02:21:21 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ void    exit_shell(t_command *command);
 char  *add_quotes(char *value);
 void	print_env(t_values *env, bool export);
 int env_add(char *value, char ***env);
-bool ft_export(t_command *cmd, t_values *env);
+bool ft_export(t_context *cntx, t_values *env);
 int exec_bulidin(t_context *cntx, t_environment *env);
 int ft_env(t_values *env);
 bool  run_bulidin(t_context *context, t_environment *env);

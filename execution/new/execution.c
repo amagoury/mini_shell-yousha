@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 21:11:32 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/02 22:58:33 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/03 02:19:52 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,7 +270,7 @@ t_context	*create_context_list(t_command *commands, t_environment *env)
 
 	context = handle_heredocs(commands, -1);
 	// TODO handle failure
-	handle_everything(context, commands, env);
+	handle_everything(context, commands, env->export_env);
 	return context;
 }
 

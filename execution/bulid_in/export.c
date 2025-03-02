@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 19:45:26 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/03/02 19:09:38 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/03 02:20:59 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,20 +92,20 @@ int env_add(char *value, char ***env)
     return (1);
 }
 
-bool ft_export(t_command *cmd, t_values *env)
+bool ft_export(t_context *cntx, t_values *env)
 {
     int i;
 
-    if (!cmd->cmd_args[1]) ///
+    if (!cntx->args[1]) ///
     {
         print_env(env, true);
         return (true);
     }
     i = -1;
-    while (cmd->cmd_args[++i])
+    while (cntx->args[++i])
     {
         // Now is_valid_env is properly declared
-        if (!is_valid_env(cmd->cmd_args[i]))
+        if (!is_valid_env(cntx->args[i]))
             return (false);
             
         // ...existing code...

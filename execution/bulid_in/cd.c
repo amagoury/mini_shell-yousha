@@ -6,60 +6,12 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 17:43:01 by amagoury          #+#    #+#             */
-/*   Updated: 2025/03/02 22:36:55 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/03 17:04:14 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-
-// t_command *creat_command(char *cmd)
-// {
-//     t_command *new;
-
-//     new = malloc(sizeof(t_command));
-//     if (!new)
-//         return (NULL);
-//     new->cmd = ft_strdup(cmd);
-//     new->next = NULL;
-//     return (new);
-// }
-
-// void add_command(t_environment **env ,t_command *new)
-// {
-//     t_command *tmp;
-//     char *value;
-//     if (!command || !new)
-//         return;
-//     tmp = *command;
-//     if(!tmp)
-//     {
-//         *command = new;
-//         return ;
-//     }
-//     while(tmp)
-//     {
-//         if(ft_strncmp(tmp->cmd, new->cmd, ft_strlen(new->cmd)) == 0)
-//         {
-//             value = ft_strdup(new->cmd);
-//             if (!value)
-//             {
-//                 ft_putendl_fd("Memory allocation failed", STDERR_FILENO);
-//                 return;
-//             }
-//             free(new->cmd);
-//             new->cmd = value;
-//             new->next = tmp->next;
-//             free(tmp);
-//             *command = new;
-//             return;
-//         }
-//         if(!tmp->next)
-//             break;
-//         tmp = tmp->next;
-//     }
-//     tmp->next = new;
-// }
  char *ft_get_env(char * key,t_values *env)
  {
     while(env)
@@ -106,19 +58,21 @@ int my_cd(t_environment *env, char *path)
     }
     else
         new_path = path;
-
     // Change directory
     if (chdir(new_path) == -1)
     {
         ft_putendl_fd("cd: no such file or directory", STDERR_FILENO);
         return (1);
     }
-
     // Update environment
-    // new_cmd = creat_command(current_dir);
-    // if (new_cmd)
-    //     add_command(&env->command, new_cmd);
-
+   printf("before:  %s\n", new_path);
+   new_path = ft_get_env("PWD",env->vals);
+   printf("after:  %s\n", new_path);
+   if(!new_path)
+   {
+        ft_putendl_fd("cd :PWD not set",STDERR_FILENO);
+        return(1);
+   }
     // Update current and old working directories
     if (getcwd(current_dir, PATH_MAX) != NULL)
     {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 21:11:32 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/03 15:18:35 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/03 16:28:48 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,7 +295,7 @@ int	execute_command(t_context *context, t_environment *env)
 	// 	return (free_context(context), ft_putstr_fd("Command not found\n", 2), 127);
 	if(run_bulidin(context,env) == false)
 	{
-	    printf("her is the issue\n");
+	    // printf("her is the issue\n");
 		if (execve(context->cmd, context->args, env->export_env) == -1)
 		{
 			ft_putstr_fd(context->args[0], 2);

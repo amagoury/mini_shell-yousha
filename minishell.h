@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/03 02:21:21 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/03 15:10:43 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ typedef struct s_context
 // ================================================================================== //
 
 // functions lyall
-
+void		handle_signal(int signal);
 void		initialize_shell(t_shell *shell);
 t_command	*initialize_commands(void);
 void		get_env(t_shell *shell, char **env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 18:37:59 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/02/28 20:41:52 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/03 15:35:45 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int ft_env(t_values *env)
 {
-    printf("meow\n");
+    // printf("meow\n");
     if (!env)
         return (1); // Return an error code if the list is empty or invalid
     while (env)
     {
-        printf("%s=%s\n", env->key, env->value);
+        printf("%s=%s\n", env->key, env->value); // should use write and put the OUTPUT_STD
         env = env->next;
     }
     return (0); // Return success

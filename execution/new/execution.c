@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 21:11:32 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/03 02:19:52 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/03 15:18:35 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,6 +303,8 @@ int	execute_command(t_context *context, t_environment *env)
 		}
 		
 	}
+	else
+		printf("buildin work\n");
 	// TODO check error type and print appropriate msg
 	return (127); //TODO Return with correct error msg
 }
@@ -319,6 +321,7 @@ int	execute_context(t_shell *shell, t_context *context, t_environment *env)
 		if (pid == 0)
 		{
 			status = execute_command(context, env);
+			free_all(shell);
 			// TODO FREE SHELL ENV AND WHATEVER U NEED
 			free_context_list(context);
 			exit(status);

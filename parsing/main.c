@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/02 22:30:29 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/03 15:16:27 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,8 @@ void	minishell(t_shell *shell)
 			// final_exec(shell->commands, shell->environment, shell->num_of_cmds);
 			execution(shell, shell->environment);
 			// start_execution(shell);
+			signal(SIGQUIT, SIG_IGN);
+			signal(SIGINT, handle_signal);
 			// print_commands(shell->commands);
 			if (shell->pipe_split_L)
 				free_array(shell->pipe_split_L);

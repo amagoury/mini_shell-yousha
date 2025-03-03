@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:30:37 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/03/02 22:26:45 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/03 15:27:28 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char is_n(char *str)
 {
 	int i;
 
-	i = 0;
+	i = 1;
 	while(str[i])
 	{
 		if(str[i] != 'n')
@@ -34,10 +34,9 @@ int my_echo(char **command)
 	bool flag;
 	flag = false;
 	i = 1;
-	while(command[i] && command[i][0] == '-' && command[i][1] == 'n')
+	while(command[i] && command[i][0] == '-' && command[i][1] == 'n' && is_n(command[i]) == 0)
 	{
-		if(is_n(command[i]) == 0)
-			flag = true;
+		flag = true;
 		i++;
 	}
 	while(command[i])

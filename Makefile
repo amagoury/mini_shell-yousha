@@ -2,7 +2,7 @@ NAME    = minishell
 CC      = cc
 
 #CFLAGS  = -Wall -Werror -Wextra -g3  -I /Users/$(USER)/.brew/opt/readline/include -fsanitize=address
-CFLAGS  = -Wall -Werror -Wextra 
+# CFLAGS  = -Wall -Werror -Wextra 
 CFLAGS	+= -I/opt/vagrant/embedded/include/readline -I/opt/vagrant/embedded/include
 CFLAGS	+= -I.
 CFLAGS	+= -g3
@@ -27,11 +27,11 @@ LIBFT   = aish_libft/libft.a
 
 READLINE	=	-L/opt/vagrant/embedded/lib/ -lreadline 
 
-CFLAGS		=
-# CFLAGS		=	-Wall -Wextra -Werror
-CFLAGS		+=	-Ilibft -I./ -I/opt/vagrant/embedded/include/readline -I/opt/vagrant/embedded/include
-CFLAGS		+=	-g3 
-NAME		=	minishell
+# CFLAGS		=
+# # CFLAGS		=	-Wall -Wextra -Werror
+# CFLAGS		+=	-Ilibft -I./ -I/opt/vagrant/embedded/include/readline -I/opt/vagrant/embedded/include
+# CFLAGS		+=	-g3 
+# NAME		=	minishell
 
 all			:	${NAME}
 

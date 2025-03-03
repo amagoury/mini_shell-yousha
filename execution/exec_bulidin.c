@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_bulidin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:09:53 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/03/02 22:56:50 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/03 15:16:19 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int exec_bulidin(t_context *cntx, t_environment *env)
         return ft_env(env->vals); // Pass the environment
     else if (ft_strcmp(cntx->args[0], "exit") == 0)
         exit_shell(cntx);
-    return 0; // Default return value
+    return (1); // Default return value
 }
 // bool  is_bulidin(t_command *is_cmd)
 // {

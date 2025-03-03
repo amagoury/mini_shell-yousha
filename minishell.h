@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/03 15:10:43 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/03 17:46:04 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,20 +143,22 @@ int			open_quote_or_no(char *str);
 int			count_pipes(char *str);
 int			check_pipes(char *input);
 char		*rmv_invalid_vars(char *str, t_environment *env);
-// char	*rmv_invalid_vars(char *str, char **keys);
-
-
 char		*ft_remove_chunk(char *str, int start, int len);
-// char		*ft_remove_chunk(char *str, size_t start, size_t len);
+char		**remake_env(t_environment *env);
+char		**remake_path(t_environment *env);
+char		*find_value(char *key, t_values *env);
+
 
 // utils lyall
 
+int			ft_strcmp_l(char *s1, char *s2);
 char		*ft_strdup(const char *s1);
 char 		*ft_substr_free(char *s, unsigned int start, size_t len);
 char		*ft_strtrim_free(char *s1, char const *set);
 char		*ft_strjoin_free(char *s1, char *s2, int flag);
 int			ft_strncmp_lyall(const char *s1, const char *s2, size_t n);
-int			ft_lstsize_v(t_values *lst);
+// int			ft_lstsize_v(t_values *lst);
+int			values_size(t_values *vals);
 t_values	*ft_lstlast_values(t_values *lst);
 void		ft_lstadd_back_values(t_values **lst, t_values *new);
 void		ft_lstclear_values(t_values *lst);
@@ -176,16 +178,17 @@ void		free_env(t_environment *env);
 
 // tokenize lyall
 
-void    tokenize_it(t_shell *shell, char *str);
-char	*expand_them_vars(char *str, t_environment *env, t_shell *shell);
-char	*string_but_string(char *pushed, char *pusher, int start, int rmv);
-char	*return_var(char *str, int start, int len, t_environment *env);
-int		return_var_length_temp(char *str, int start, int len, t_environment *env);
-void	operator_tokens(t_command *cmds , int i);
-char	*copy_file(char *str, int i, t_command *cmds, int start);
-t_state	operators_check(char *str, int i);
-void	print_commands(t_command *cmds);
-void	print_enum(t_state en);
+void		tokenize_it(t_shell *shell, char *str);
+char		*expand_them_vars(char *str, t_environment *env, t_shell *shell);
+char		*string_but_string(char *pushed, char *pusher, int start, int rmv);
+char		*return_var(char *str, int start, int len, t_environment *env);
+int			return_var_length_temp(char *str, int start, int len, t_environment *env);
+void		operator_tokens(t_command *cmds , int i);
+char		*copy_file(char *str, int i, t_command *cmds, int start);
+t_state		operators_check(char *str, int i);
+void		print_commands(t_command *cmds);
+void		print_enum(t_state en);
+
 
 // ================================================================================== //
 

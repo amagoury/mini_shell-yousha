@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/03 15:16:27 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/03 17:46:59 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,9 @@ void	minishell(t_shell *shell)
 			signal(SIGINT, handle_signal);
 			// print_commands(shell->commands);
 			if (shell->pipe_split_L)
-				free_array(shell->pipe_split_L);
+				shell->pipe_split_L = free_array(shell->pipe_split_L);
+			shell->environment->export_env = remake_env(shell->environment);  // MAKE SURE THESE WORK!!
+			shell->environment->path = remake_path(shell->environment);       // MAKE SURE THESE WORK!!
 		}
 		else if (shell->input_L[0] == '\0')
 			write(2, "empty line\n", 11);

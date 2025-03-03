@@ -144,10 +144,10 @@ Commands That Should Fail Parsing
 
 
 notes
-bash ececutes from the end to the start (world hello)
-pipe changes fd from output to input
-check error codes
-- 
+- bash ececutes from the end to the start (world hello)
+- pipe changes fd from output to input
+- check error codes
+- variable expansion should work, but break it
 
 test
 - echo hello | grep h | wc -l

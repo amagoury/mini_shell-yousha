@@ -3,31 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   list_stuff_values.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:29:27 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/26 17:13:17 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/03 17:48:45 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_lstsize_v(t_values *lst)
-{
-	t_values	*current;
-	int			count;
+// int	ft_lstsize_v(t_values *lst)
+// {
+// 	t_values	*current;
+// 	int			count;
 
-	count = 0;
-	if (!lst)
-		return (0);
-	current = lst;
-	while (current->next != NULL)
+// 	count = 0;
+// 	if (!lst)
+// 		return (0);
+// 	current = lst;
+// 	while (current->next != NULL)
+// 	{
+// 		current = current->next;
+// 		count++;
+// 	}
+// 	// printf("size  = %d\n", count);
+// 	return (count);
+// }
+
+int	values_size(t_values *vals)
+{
+	t_values	*temp;
+	int			i;
+
+	i = 0;
+	temp = vals;
+	while (temp)
 	{
-		current = current->next;
-		count++;
+		i++;
+		temp = temp->next;
 	}
-	// printf("size  = %d\n", count);
-	return (count);
+	return (i);
 }
 
 t_values	*ft_lstlast_values(t_values *lst)

@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:23:21 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/03 17:40:57 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/04 01:21:59 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ char	**remake_env(t_environment *env)
 	temp = env->vals;
 	while (temp)
 	{
-		new_env[i++] = ft_strjoin_free(\
-		ft_strjoin_free(ft_strdup(temp->key), "=", 1),\ 
+		new_env[i++] = ft_strjoin_free(
+		ft_strjoin_free(ft_strdup(temp->key), "=", 1),
 		ft_strdup(temp->value), 3);
 		temp = temp->next;
 	}
@@ -55,7 +55,7 @@ char	*find_value(char *key, t_values *env)
 {
 	while(env)
 	{
-		if (ft_strcmp(key, env->key) == 0)
+		if (ft_strcmp_l(key, env->key) == 0)
 			return (env->value);
 		env = env->next;
 	}

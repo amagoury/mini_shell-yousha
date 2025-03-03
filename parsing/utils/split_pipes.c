@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:21:30 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/01 17:34:32 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/04 01:28:24 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,6 @@ char	**make_letters(char **result, char const *s, char c, int count)
 
 char	**one_word(char const *s, char **result)
 {
-	result[0] = ft_calloc(sizeof(char), (ft_strlen(s) + 1));
-	if (!result[0])
-		return (NULL);
 	result[0] = ft_strdup(s);
 	result[1] = NULL;
 	return(result);

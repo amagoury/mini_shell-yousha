@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 19:45:26 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/03/03 02:20:59 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/04 21:43:16 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,55 +92,60 @@ int env_add(char *value, char ***env)
     return (1);
 }
 
+char    *value_time(char *str)
+{
+    int i;
+    int j;
+    char    *value;
+    i = 0;
+    j = 0;
+    while (str[i] != '=')
+        i++;
+    i++;
+    while (str[i + j])
+        j++;
+    value = ft_calloc(sizeof(char), (j + 1));
+    j = 0;
+    while (str[i + j])
+    {
+        value[j] = str[j + i];
+        j++;
+    }
+    return (value);
+}
+
+
+void    add_to_env_export(char *new, t_values *vals)
+{
+    char     *key;
+    char     *value;
+    t_values    *temp;
+
+    temp = malloc(sizeof(t_values));
+	if (!temp)
+		printf("issue in make values node\n");
+	temp->key = key_time(new);
+	temp->value = value_time(new);
+	temp->next = NULL;
+	ft_lstadd_back_values(&vals, temp);}
+
 bool ft_export(t_context *cntx, t_values *env)
 {
     int i;
 
-    if (!cntx->args[1]) ///
+    if (!cntx->args[1]) 
     {
         print_env(env, true);
         return (true);
     }
-    i = -1;
+    i = 0;
     while (cntx->args[++i])
     {
-        // Now is_valid_env is properly declared
         if (!is_valid_env(cntx->args[i]))
             return (false);
-            
+        else
+            add_to_env_export(cntx->args[i], env);
         // ...existing code...
     }
     return (true);
 }
-
-// int main(void)
-// {
-// 	char **env;
-// 	char **export_env;
-// 	t_command *cmd;
-
-// 	env = malloc(sizeof(char *) * 4);
-// 	if (!env)
-// 		return (1);
-// 	env[0] = ft_strdup("VAR1=value1");
-// 	env[1] = ft_strdup("VAR2=value2");
-// 	env[2] = ft_strdup("VAR3=value3");
-// 	env[3] = NULL;
-
-// 	export_env = malloc(sizeof(char *) * 4);
-// 	if (!export_env)
-// 		return (1);
-// 	export_env[0] = ft_strdup("VAR1=value1");
-// 	export_env[1] = ft_strdup("VAR2=value2");
-// 	export_env[2] = ft_strdup("VAR3=value3");
-// 	export_env[3] = NULL;
-
-// 	cmd = creat_command("export");
-// 	add_command(&cmd, creat_command("VAR4=value4"));
-// 	add_command(&cmd, creat_command("VAR5=value5"));
-// 	add_command(&cmd, creat_command("VAR6=value6"));
-
-// 	ft_export(cmd, &env, &export_env);
-
-// 	return (0);
-// }

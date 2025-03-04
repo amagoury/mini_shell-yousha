@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:30:37 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/03/03 15:27:28 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/04 19:58:55 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,3 @@ int my_echo(char **command)
 		write(1, "\n", 1);
 	return(0);
 }
-//  int main()
-//  {
-// 	 char *command[] = {"echo", "-n", "hello", "world", NULL};
-// 	 my_echo(command, NULL);
-// 	 return 0;
-//  }

@@ -6,7 +6,7 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 21:11:32 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/03 16:28:48 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/04 21:58:01 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_context	*create_context()
 		return (NULL);
 	context->args = NULL;
 	context->cmd = NULL;
-	context->inputfd = -1;
-	context->outputfd = -1;
+	context->inputfd = 0; //lets change to 0 to test
+	context->outputfd = 1; //lets change to 1 to test
 	context->error = 0;
 	context->next = NULL;
 	return (context);
@@ -246,7 +246,10 @@ void	handle_everything(t_context *context, t_command *commands, char **env)
 {
 	context->args = copy_strs(commands->cmd_args);
 	//! we did not handle failure
-	context->cmd = find_path(commands->cmd_args[0], env);
+	if (is_bulidin(commands->cmd_args[0]))
+		context->cmd = ft_strdup(commands->cmd_args[0]);
+	else if (commands->cmd_args[0] != NULL)
+		context->cmd = find_path(commands->cmd_args[0], env);
 	handle_redirects(context, commands);
 	if (commands->next)
 		handle_everything(context->next, commands->next, env);
@@ -274,7 +277,7 @@ t_context	*create_context_list(t_command *commands, t_environment *env)
 	return context;
 }
 
-int	execute_command(t_context *context, t_environment *env)
+int	execute_command( t_shell *shell ,t_context *context, t_environment *env)
 {
 	if (context->next)
 		free_context_list(context->next);
@@ -283,25 +286,27 @@ int	execute_command(t_context *context, t_environment *env)
 		return (context->error);
 	if (context->inputfd != -1)
 	{
-		printf("her is the issue11\n");
+		// printf("her is the issue11\n");
 		(dup2(context->inputfd, 0), close(context->inputfd));
+		context->inputfd = -1;
 	}
 	if (context->outputfd != -1)
 	{
-		printf("her is the issue22\n");
+		// printf("her is the issue22\n");
 		(dup2(context->outputfd, 1), close(context->outputfd));
+		context->outputfd = -1;
 	}
 	// if (context->cmd == NULL)
 	// 	return (free_context(context), ft_putstr_fd("Command not found\n", 2), 127);
-	if(run_bulidin(context,env) == false)
+	if (context->cmd == NULL)
+		return (0);
+	if (is_bulidin(context->cmd))
+		return(run_bulidin(shell, context, env));
+    // printf("her is the issue\n");
+	if (execve(context->cmd, context->args, env->export_env) == -1)
 	{
-	    // printf("her is the issue\n");
-		if (execve(context->cmd, context->args, env->export_env) == -1)
-		{
-			ft_putstr_fd(context->args[0], 2);
-			ft_putstr_fd(": Error executing\n", 2);
-		}
-		
+		ft_putstr_fd(context->args[0], 2);
+		ft_putstr_fd(": Error executing\n", 2);
 	}
 	else
 		printf("buildin work\n");
@@ -320,7 +325,7 @@ int	execute_context(t_shell *shell, t_context *context, t_environment *env)
 		pid = fork();
 		if (pid == 0)
 		{
-			status = execute_command(context, env);
+			status = execute_command(shell, context, env);
 			free_all(shell);
 			// TODO FREE SHELL ENV AND WHATEVER U NEED
 			free_context_list(context);
@@ -342,12 +347,17 @@ void	execution(t_shell *shell, t_environment *env)
 	// TODO check error
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
+	if (context->next == NULL && is_bulidin(context->cmd))
+	{
+		shell->exit_code = exec_bulidin(shell, context, env);
+		return ;
+	}
 	pid = execute_context(shell, context, env);
 	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
 	while (wait(NULL) != -1)
 		;
-	
+	// TODO check if status is signaled
 	shell->exit_code = WEXITSTATUS(status);
 }
 

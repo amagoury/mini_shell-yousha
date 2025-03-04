@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/04 20:28:15 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/04 23:53:01 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,20 +143,23 @@ void	minishell(t_shell *shell)
 			shell->input_L = ft_strtrim_free(shell->input_L, " ");
 			if (!shell->input_L || shell->input_L[0] == '\0') // spaces only
 			{
-				free(shell->input_L);
-				continue ;
+				// free(shell->input_L);
+				// continue ;
+				shell->parse_fail_L = 1;
 			}
 			else if (open_quote_or_no(shell->input_L) == 1)
 			{
-				write(2, "Error: open quotes\n", 19);
-				free(shell->input_L);
-				continue ;
+				// write(2, "Error: open quotes\n", 19);
+				// free(shell->input_L);
+				// continue ;
+				shell->parse_fail_L = 1;
 			}
 			else if (check_pipes(shell->input_L) == 1)
 			{
-				write(2, "Error: syntax error near unexpected token '|'\n", 46);
-				free(shell->input_L);
-				continue ;
+				// write(2, "Error: syntax error near unexpected token '|'\n", 46);
+				// free(shell->input_L);
+				// continue ;
+				shell->parse_fail_L = 1;
 			}
 			// else if (operators valid) // MAKE SURE YOU CHECK THEM HERE SO IT DOESNT MAKE IT HORRIBLE
 			else
@@ -184,16 +187,26 @@ void	minishell(t_shell *shell)
 				while (shell->pipe_split_L[i])
 					tokenize_it(shell, shell->pipe_split_L[i++]);
 			}
-			// final_exec(shell->commands, shell->environment, shell->num_of_cmds);
-			// execution(shell, shell->environment);
-			// start_execution(shell);
-			// signal(SIGQUIT, SIG_IGN);
-			// signal(SIGINT, handle_signal);
-			print_commands(shell->commands);
-			if (shell->pipe_split_L)
-				shell->pipe_split_L = free_array(shell->pipe_split_L);
-			shell->environment->export_env = remake_env(shell->environment);  // MAKE SURE THESE WORK!!
-			shell->environment->path = remake_path(shell->environment);       // MAKE SURE THESE WORK!!
+			if (shell->parse_fail_L != 0)
+			{
+				write(2, "Parse fail\n", 11);
+				shell->exit_code = shell->parse_fail_L;
+				shell->parse_fail_L = 0;
+				continue ;
+			}
+			else
+			{
+				// final_exec(shell->commands, shell->environment, shell->num_of_cmds);
+				// execution(shell, shell->environment); // MAKE SURE EXIT CODE IS UPDATED APPROPRIATELY!!!!!!
+				// start_execution(shell);
+				// signal(SIGQUIT, SIG_IGN);
+				// signal(SIGINT, handle_signal);
+				print_commands(shell->commands);
+				if (shell->pipe_split_L)
+					shell->pipe_split_L = free_array(shell->pipe_split_L);
+				shell->environment->export_env = remake_env(shell->environment);  // MAKE SURE THESE WORK!!
+				shell->environment->path = remake_path(shell->environment);       // MAKE SURE THESE WORK!!
+			}
 		}
 		else if (shell->input_L[0] == '\0')
 			write(2, "empty line\n", 11);

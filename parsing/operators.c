@@ -6,13 +6,13 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:49:04 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/02 17:18:11 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/04 23:47:45 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	operator_tokens(t_command *cmds , int i)
+void	operator_tokens(t_shell *shell, t_command *cmds , int i)
 {
 	char *cmp = " <>|";
 	t_direct	*temp;
@@ -33,7 +33,7 @@ void	operator_tokens(t_command *cmds , int i)
 	while (cmds->cmd_line_L[i] == ' ')
 		i++;
 	if (ft_strchr(cmp, cmds->cmd_line_L[i]) != NULL)
-		printf("operators fail\n");
+		shell->parse_fail_L = 1;
 	temp->file = copy_file(cmds->cmd_line_L, i, cmds, start);
 	cmds->num_of_redir += 1;
 	temp->next = NULL;

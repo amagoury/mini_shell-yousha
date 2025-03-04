@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/03 17:46:04 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/04 23:27:13 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void		initialize_shell(t_shell *shell);
 t_command	*initialize_commands(void);
 void		get_env(t_shell *shell, char **env);
 char		*key_time(char *env);
-void		make_values_node(char *key, char *envline, t_shell *shell);
+void		make_values_node(char *key, t_shell *shell);
 void		minishell(t_shell *shell);
 char		**split_pipes(char const *s, char c);
 char		**make_letters(char **result, char const *s, char c, int count);
@@ -183,7 +183,7 @@ char		*expand_them_vars(char *str, t_environment *env, t_shell *shell);
 char		*string_but_string(char *pushed, char *pusher, int start, int rmv);
 char		*return_var(char *str, int start, int len, t_environment *env);
 int			return_var_length_temp(char *str, int start, int len, t_environment *env);
-void		operator_tokens(t_command *cmds , int i);
+void		operator_tokens(t_shell *shell, t_command *cmds , int i);
 char		*copy_file(char *str, int i, t_command *cmds, int start);
 t_state		operators_check(char *str, int i);
 void		print_commands(t_command *cmds);

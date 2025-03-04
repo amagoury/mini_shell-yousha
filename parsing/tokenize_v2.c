@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:56:21 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/03/04 20:28:27 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/04 23:45:40 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 // echo hel"lo    $USERaaa loll"lll > file.txt >hel"lo world.t"xt   |    '  echo     $USERRR jasjnkad    sss    ' | cat    -eeee  
 // echo hello>"file    .txt" haha
 // echo he"l'lo w'orld"'' > fi"l'e   '.t"xt
-
+// >tes"ting ""| test"
+// a"e"a"e"''a''
 void    tokenize_it(t_shell *shell, char *str)
 {
 	int		i;
@@ -38,12 +39,21 @@ void    tokenize_it(t_shell *shell, char *str)
 			printf("in quotes\n");
 			i = skip_quotes(ctemp->cmd_line_L, i);
 			printf("i = %d\n", i);
+			if (ctemp->cmd_line_L[i] == '\0')
+			{
+				printf("BEFORE   words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
+				words = ft_strjoin_free(words, ft_substr(ctemp->cmd_line_L, 0, i), 3); // make sure it frees
+				ctemp->cmd_line_L = ft_substr_free(ctemp->cmd_line_L, i, \
+					ft_strlen(ctemp->cmd_line_L + 2));
+				printf("AFTER    words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
+				i = 0;
+			}
 		}
-		if (ctemp->cmd_line_L[i] == '>' ||
+		else if (ctemp->cmd_line_L[i] == '>' ||
 			ctemp->cmd_line_L[i] == '<')
 		{
 			printf("in operators\n");
-			operator_tokens(ctemp, i);
+			operator_tokens(shell, ctemp, i);
 			i = 0;
 		}
 		else if (i > 0 && (ctemp->cmd_line_L[i] == ' ' || \
@@ -61,10 +71,19 @@ void    tokenize_it(t_shell *shell, char *str)
 			i++;
 		printf("------------------------------ i = %d\n", i);
 	}
+	if (ctemp->cmd_line_L[i] == '\0' && i > 0)
+	{
+		printf("BEFORE   words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
+		words = ft_strjoin_free(words, ft_substr(ctemp->cmd_line_L, 0, i), 3); // make sure it frees
+		ctemp->cmd_line_L = ft_substr_free(ctemp->cmd_line_L, i, \
+			ft_strlen(ctemp->cmd_line_L + 1));
+		printf("AFTER    words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
+		i = 0;
+	}
 	printf("before trim words = #%s#\n", words);
 	cut = ft_strtrim_free(rmv_extra_spaces(words), " ");
 	printf("after trim words = #%s#\n", cut);
-	ctemp->cmd_args = split_pipes(cut, ' ');  // REMOVE SPEECH MARKSSSS!!!
+	ctemp->cmd_args = split_pipes(cut, ' ');  // REMOVE SPEECH MARKSSSS!!! done
 	free(cut);
 	ctemp->next = NULL;
 	// print_commands(ctemp);

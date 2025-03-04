@@ -162,6 +162,8 @@ test
 
 test for execution
 - echo hello world | echo meow
+- echo woof > file123
+- meow
 - 
 
 ✅❌

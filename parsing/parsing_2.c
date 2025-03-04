@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:17:23 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/19 14:39:00 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/04 22:38:36 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	skip_quotes(const char *str, int i)
 
 	if (str[i] == '"' || str[i] == '\'')
 	{
-		quote = str[i++];
+		quote = str[i];
+		i++;
 		while (str[i] != '\0' && str[i] != quote)
 			i++;
 		if (str[i] == quote)

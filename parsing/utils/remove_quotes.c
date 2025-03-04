@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 20:48:03 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/27 19:53:33 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/04 23:44:29 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int	count_rmv_quotes(char *str , int i, int len)
 		else if ((str[i] == '\'' || str[i] == '\"') && in_q == TRUE && quote == str[i])
 		{
 			in_q = FALSE;
-			i++;
+			// i++;
 		}
-		if (str[i] && (in_q != TRUE || str[i] != quote))
+		if (str[i] && (in_q == FALSE || str[i] != quote))
 			len++, i++;
 	}
 	return (len);

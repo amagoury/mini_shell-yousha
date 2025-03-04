@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/03 17:46:59 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/04 13:49:16 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ void	minishell(t_shell *shell)
 				// printf("num_of_cmd = %d\n", shell->num_of_cmds);
 				shell->pipe_split_L = split_pipes(shell->input_L, '|');
 				if (!shell->pipe_split_L)
-				(free_all(shell), write(2, "\033[0;31mError: malloc fail\033[0m\n", 24), exit(EXIT_FAILURE));
+					(free_all(shell), write(2, "\033[0;31mError: malloc fail\033[0m\n", 24), exit(EXIT_FAILURE));
 				// else
 				// {
 					// 	int i = -1;
@@ -186,10 +186,10 @@ void	minishell(t_shell *shell)
 					tokenize_it(shell, shell->pipe_split_L[i++]);
 			}
 			// final_exec(shell->commands, shell->environment, shell->num_of_cmds);
-			execution(shell, shell->environment);
+			// execution(shell, shell->environment);
 			// start_execution(shell);
-			signal(SIGQUIT, SIG_IGN);
-			signal(SIGINT, handle_signal);
+			// signal(SIGQUIT, SIG_IGN);
+			// signal(SIGINT, handle_signal);
 			// print_commands(shell->commands);
 			if (shell->pipe_split_L)
 				shell->pipe_split_L = free_array(shell->pipe_split_L);

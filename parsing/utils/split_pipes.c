@@ -6,11 +6,15 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:21:30 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/04 01:28:24 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/04 14:24:12 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+//  echo ""
+// echo m a m a
+// echo "$USER"
 
 char	**free_array(char **result) // see if neccessary to have char **
 {
@@ -64,12 +68,16 @@ char	**make_letters(char **result, char const *s, char c, int count)
 	len = 0;
 	while (s[i] != '\0' && counter < count)
 	{
+		printf("1 s = %c , i = %d\n", s[i], i);
 		while (s[i] == ' ' && s[i] != '\0')
 			i++;
+		printf("2 s = %c , i = %d\n", s[i], i);
 		if (s[i] == '"' || s[i] == '\'')
 			i = skip_quotes(s, i);
+		printf("3 s = %c , i = %d\n", s[i], i);
 		if (s[i] != c)
 		{
+			printf("making word 1 s = %c , i = %d , len+i = %d\n", s[i], i, i + len);
 			while (s[i + len] != '\0' && s[i + len] != c)
 			{
 				if (s[i + len] == '"' || s[i + len] == '\'')
@@ -77,17 +85,21 @@ char	**make_letters(char **result, char const *s, char c, int count)
 				else
 					len++;
 			}
+			printf("making word 2 s = %c , i = %d , len+i = %d\n", s[i], i, i + len);
 			while (s[i + len - 1] != c && s[i + len - 1] == ' ')
 				len--;
+			printf("making word 3 s = %c , i = %d , len+i = %d\n", s[i], i, i + len);
 			result[counter] = ft_substr(s, i, len);
 			if (!result[counter])
 				return (free_array(result));
+			printf("word = #%s#\n", result[counter]);
 			i += len;
 			len = 0;
 			counter++;
 		}
 		else
 			i++;
+		printf("4 s = %c , i = %d\n", s[i], i);
 	}
 	result[counter] = NULL;
 	return (result);
@@ -95,6 +107,7 @@ char	**make_letters(char **result, char const *s, char c, int count)
 
 char	**one_word(char const *s, char **result)
 {
+	printf("in one word\n");
 	result[0] = ft_strdup(s);
 	result[1] = NULL;
 	return(result);

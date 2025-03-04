@@ -156,6 +156,7 @@ test
 - grep "test" file1 file2
 - echo $$USER_A
 - cd -
+- haha|a|ha
 
 test for execution
 - echo hello world | echo meow

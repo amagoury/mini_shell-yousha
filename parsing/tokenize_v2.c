@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:56:21 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/03/04 13:56:27 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/04 20:28:27 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void    tokenize_it(t_shell *shell, char *str)
 	ctemp->cmd_args = split_pipes(cut, ' ');  // REMOVE SPEECH MARKSSSS!!!
 	free(cut);
 	ctemp->next = NULL;
-	print_commands(ctemp);
+	// print_commands(ctemp);
 	// printf("<%p>\n", shell->commands);
 	i = -1;
 	while (ctemp->cmd_args[++i])

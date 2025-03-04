@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:16:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/12 21:37:51 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/04 20:37:28 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,13 @@ int	check_pipes(char *input)
 		return (1);
 	while (input[++i])
 	{
-		if (input[i] == '|' && (input[i + 1] == '|' || input[i + 2] == '|'))
-			return (1);
+		if (input[i] == '|')// && (input[i + 1] == '|' || input[i + 2] == '|'))
+		{
+			while (input[++i] != ' ')
+				;
+			if (input[i] == '|')
+				return (1);
+		}
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/04 13:49:16 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/04 20:28:15 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	get_env(t_shell *shell, char **env)
 			continue;
 		if (ft_strlen(key) == 4 && ft_strncmp_lyall(key, "PATH", 4) == 0)
 			shell->environment->path = ft_split(getenv(key), ':');
-		make_values_node(key, env[i], shell);
+		make_values_node(key, shell);
 		free(key);
 	}
 	shell->environment->export_env = malloc(sizeof(char *) * (i + 1));
@@ -112,11 +112,10 @@ char *key_time(char *env)
 	return (key);
 }
 
-void	make_values_node(char *key, char *envline, t_shell *shell)
+void	make_values_node(char *key, t_shell *shell)
 {
 	t_values	*temp;
 
-	(void)envline;
 	temp = malloc(sizeof(t_values));
 	if (!temp)
 		printf("issue in make values node\n");
@@ -190,7 +189,7 @@ void	minishell(t_shell *shell)
 			// start_execution(shell);
 			// signal(SIGQUIT, SIG_IGN);
 			// signal(SIGINT, handle_signal);
-			// print_commands(shell->commands);
+			print_commands(shell->commands);
 			if (shell->pipe_split_L)
 				shell->pipe_split_L = free_array(shell->pipe_split_L);
 			shell->environment->export_env = remake_env(shell->environment);  // MAKE SURE THESE WORK!!

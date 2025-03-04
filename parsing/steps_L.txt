@@ -148,6 +148,7 @@ notes
 - pipe changes fd from output to input
 - check error codes
 - variable expansion should work, but break it
+- make sure pipe check is working
 
 test
 - echo hello | grep h | wc -l
@@ -156,7 +157,8 @@ test
 - grep "test" file1 file2
 - echo $$USER_A
 - cd -
-- haha|a|ha
+- haha|a|ha   or    a|a|a|a|a
+- 
 
 test for execution
 - echo hello world | echo meow

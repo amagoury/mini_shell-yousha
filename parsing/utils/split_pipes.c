@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:21:30 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/04 14:24:12 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/04 20:38:56 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ char	**make_letters(char **result, char const *s, char c, int count)
 	while (s[i] != '\0' && counter < count)
 	{
 		printf("1 s = %c , i = %d\n", s[i], i);
-		while (s[i] == ' ' && s[i] != '\0')
-			i++;
-		printf("2 s = %c , i = %d\n", s[i], i);
 		if (s[i] == '"' || s[i] == '\'')
 			i = skip_quotes(s, i);
+		printf("2 s = %c , i = %d\n", s[i], i);
+		while (s[i] == ' ' && s[i] != '\0')
+			i++;
 		printf("3 s = %c , i = %d\n", s[i], i);
 		if (s[i] != c)
 		{

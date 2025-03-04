@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_v2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:56:21 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/03/04 23:45:40 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/05 00:17:21 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,27 @@ void    tokenize_it(t_shell *shell, char *str)
 		(free_all(shell), write(2, "Error: malloc fail\n", 19), exit(EXIT_FAILURE));
 	while (ctemp->cmd_line_L[i])
 	{
-		printf("------------------------------ i = %d\n", i);
+		// printf("------------------------------ i = %d\n", i);
 		if (ctemp->cmd_line_L[i] == '\"' || 
 			ctemp->cmd_line_L[i] == '\'')
 		{
-			printf("in quotes\n");
+			// printf("in quotes\n");
 			i = skip_quotes(ctemp->cmd_line_L, i);
-			printf("i = %d\n", i);
+			// printf("i = %d\n", i);
 			if (ctemp->cmd_line_L[i] == '\0')
 			{
-				printf("BEFORE   words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
+				// printf("BEFORE   words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
 				words = ft_strjoin_free(words, ft_substr(ctemp->cmd_line_L, 0, i), 3); // make sure it frees
 				ctemp->cmd_line_L = ft_substr_free(ctemp->cmd_line_L, i, \
 					ft_strlen(ctemp->cmd_line_L + 2));
-				printf("AFTER    words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
+				// printf("AFTER    words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
 				i = 0;
 			}
 		}
 		else if (ctemp->cmd_line_L[i] == '>' ||
 			ctemp->cmd_line_L[i] == '<')
 		{
-			printf("in operators\n");
+			// printf("in operators\n");
 			operator_tokens(shell, ctemp, i);
 			i = 0;
 		}
@@ -60,29 +60,29 @@ void    tokenize_it(t_shell *shell, char *str)
 			ctemp->cmd_line_L[i] == '\0' || \
 			ctemp->cmd_line_L[i + 1] == '\0'))
 		{
-			printf("BEFORE   words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
+			// printf("BEFORE   words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
 			words = ft_strjoin_free(words, ft_substr(ctemp->cmd_line_L, 0, i + 1), 3); // make sure it frees
 			ctemp->cmd_line_L = ft_substr_free(ctemp->cmd_line_L, i + 1, \
 				ft_strlen(ctemp->cmd_line_L + 2));
-			printf("AFTER    words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
+			// printf("AFTER    words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
 			i = 0;
 		}
 		else 
 			i++;
-		printf("------------------------------ i = %d\n", i);
+		// printf("------------------------------ i = %d\n", i);
 	}
 	if (ctemp->cmd_line_L[i] == '\0' && i > 0)
 	{
-		printf("BEFORE   words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
+		// printf("BEFORE   words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
 		words = ft_strjoin_free(words, ft_substr(ctemp->cmd_line_L, 0, i), 3); // make sure it frees
 		ctemp->cmd_line_L = ft_substr_free(ctemp->cmd_line_L, i, \
 			ft_strlen(ctemp->cmd_line_L + 1));
-		printf("AFTER    words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
+		// printf("AFTER    words = #%s#\n      cmd_line = #%s#\n", words, ctemp->cmd_line_L);
 		i = 0;
 	}
-	printf("before trim words = #%s#\n", words);
+	// printf("before trim words = #%s#\n", words);
 	cut = ft_strtrim_free(rmv_extra_spaces(words), " ");
-	printf("after trim words = #%s#\n", cut);
+	// printf("after trim words = #%s#\n", cut);
 	ctemp->cmd_args = split_pipes(cut, ' ');  // REMOVE SPEECH MARKSSSS!!! done
 	free(cut);
 	ctemp->next = NULL;

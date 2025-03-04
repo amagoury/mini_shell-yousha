@@ -34,15 +34,19 @@ char	*expand_them_vars(char *str, t_environment *env, t_shell *shell)
 				len = 0;
 			// len = ft_strlen(var);
 			// printf("var = %s, len = %ld\n", var, ft_strlen(var));
-			printf("len = %d, i = %d\n", len, i);
+			// printf("len = %d, i = %d\n", len, i);
 			// if (str[i] != '\0' && (ft_isalpha(str[i]) == 1|| 
 			// 	str[i] == '_' || ft_isdigit(str[i]) == 1))
 			if (len > 0)
+			{
 				str = string_but_string(str,var,--i,len + 1);
+				if (str == NULL)
+					(write(2, "malloc fail\n", 12), free_all(shell), exit(EXIT_FAILURE));
+			}
 			i--;
 		}
 	}
-	printf("variable str = #%s#\n", str);
+	// printf("variable str = #%s#\n", str);
 	return (str);
 }
 
@@ -54,10 +58,7 @@ char	*string_but_string(char *pushed, char *pusher, int start, int rmv)
 
 	result = malloc(sizeof(char) * (ft_strlen(pushed) + ft_strlen(pusher) - rmv + 1));
 	if (!result)
-	{
-		printf("string_but_string\n");
 		return (NULL);
-	}
 	i = -1;
 	j = 0;
 	while (pushed[++i])
@@ -89,7 +90,7 @@ char	*return_var(char *str, int start, int len, t_environment *env)
 	var = ft_substr(str, start, len);
 	if (!var)
 		return (ft_strdup(""));
-	printf("var = #%s#\n", var);
+	// printf("var = #%s#\n", var);
 	i = 0;
 	temp = env->vals;
 	while (temp->next != NULL)

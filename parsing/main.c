@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/04 23:53:01 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/05 00:21:31 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	make_values_node(char *key, t_shell *shell)
 
 	temp = malloc(sizeof(t_values));
 	if (!temp)
-		printf("issue in make values node\n");
+		(write(2, "malloc fail\n", 12), free_all(shell), exit(EXIT_FAILURE));
 	// temp->envstr = ft_strdup(envline);
 	temp->key = ft_strdup(key);
 	temp->value = getenv(temp->key);
@@ -197,7 +197,7 @@ void	minishell(t_shell *shell)
 			else
 			{
 				// final_exec(shell->commands, shell->environment, shell->num_of_cmds);
-				// execution(shell, shell->environment); // MAKE SURE EXIT CODE IS UPDATED APPROPRIATELY!!!!!!
+				execution(shell, shell->environment); // MAKE SURE EXIT CODE IS UPDATED APPROPRIATELY!!!!!!
 				// start_execution(shell);
 				// signal(SIGQUIT, SIG_IGN);
 				// signal(SIGINT, handle_signal);

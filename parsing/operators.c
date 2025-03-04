@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operators.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:49:04 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/04 23:47:45 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/05 00:16:38 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	operator_tokens(t_shell *shell, t_command *cmds , int i)
 	// printf("rn on = #%c#, i = %d\n", cmds->cmd_line_L[i], i);
 	temp = malloc(sizeof(t_direct));
 	if (!temp)
-		printf("redir allocation fail\n");
+		(write(2, "malloc fail\n", 12), free_all(shell), exit(EXIT_FAILURE));
 	temp->direct = operators_check(cmds->cmd_line_L, i);
 	// print_enum(temp->direct);
 	if (temp->direct == HERE_DOC || temp->direct == APPEND)
@@ -35,6 +35,8 @@ void	operator_tokens(t_shell *shell, t_command *cmds , int i)
 	if (ft_strchr(cmp, cmds->cmd_line_L[i]) != NULL)
 		shell->parse_fail_L = 1;
 	temp->file = copy_file(cmds->cmd_line_L, i, cmds, start);
+	if (temp->file == NULL)
+		shell->parse_fail_L = 1;
 	cmds->num_of_redir += 1;
 	temp->next = NULL;
 	ft_lstadd_back_redir(&cmds->redir, temp);
@@ -58,7 +60,7 @@ char	*copy_file(char *str, int i, t_command *cmds, int start) // MAKE IT FAIL IF
 	}
 	// printf("copy_file char = #%c# , i+len = %d\n", str[i + len], i + len);
 	if (len == 0)
-		printf("len shouldnt be 0\n");
+		return (NULL);
 	// printf("before cmdline = #%s#\n", cmds->cmd_line_L);
 	result = rmv_quotes(ft_substr(str, i, len));
 	// if (str[i + len] == ' ')

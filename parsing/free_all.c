@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:19:39 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/02 02:06:22 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/05 00:13:03 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_all(t_shell *shell)
 {
-	printf("freeing\n");
+	// printf("freeing\n");
 	// int	i;
 	// i = -1;
 	// free(shell->environment->vals);

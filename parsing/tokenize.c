@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:56:21 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/03/02 02:04:04 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/05 00:17:38 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void    tokenize_it(t_shell *shell, char *str)
 		{
 			// printf("in quotes\n");
 			i = skip_quotes(ctemp->cmd_line_L, i);
-			printf("i = %d\n", i);
+			// printf("i = %d\n", i);
 		}
 		if (ctemp->cmd_line_L[i] == '>' ||
 			ctemp->cmd_line_L[i] == '<')

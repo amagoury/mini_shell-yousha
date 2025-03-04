@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/05 00:21:31 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/05 03:22:15 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,8 @@ void	minishell(t_shell *shell)
 				// continue ;
 				shell->parse_fail_L = 1;
 			}
-			// else if (operators valid) // MAKE SURE YOU CHECK THEM HERE SO IT DOESNT MAKE IT HORRIBLE
+			else if (operator_valid(shell->input_L) == FALSE)
+				shell->parse_fail_L = 1;
 			else
 			{
 				if (g_sig != 0)
@@ -197,7 +198,7 @@ void	minishell(t_shell *shell)
 			else
 			{
 				// final_exec(shell->commands, shell->environment, shell->num_of_cmds);
-				execution(shell, shell->environment); // MAKE SURE EXIT CODE IS UPDATED APPROPRIATELY!!!!!!
+				// execution(shell, shell->environment); // MAKE SURE EXIT CODE IS UPDATED APPROPRIATELY!!!!!!
 				// start_execution(shell);
 				// signal(SIGQUIT, SIG_IGN);
 				// signal(SIGINT, handle_signal);

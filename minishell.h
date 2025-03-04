@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/05 00:10:12 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/05 03:20:49 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ int			count_rmv_quotes(char *str , int i, int len);
 void		free_all(t_shell *shell);
 void		free_cmds(t_shell	*shell);
 void		free_env(t_environment *env);
+bool		operator_valid(char *input);
 
 // tokenize lyall
 

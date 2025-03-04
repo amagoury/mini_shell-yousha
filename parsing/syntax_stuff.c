@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:16:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/04 23:15:51 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/05 03:20:35 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,39 @@ int	check_pipes(char *input)
 	return (0);
 }
 
-// char	*expand_those_vars(char *str)
+bool	operator_valid(char *input)
+{
+	int		i;
+	char	*cmp = " <>|";
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == '\'' || input[i] == '\"')
+			i = skip_quotes(input, i);
+		if (input[i] == '<' || input[i] == '>')
+		{
+			if ((input[i] == '<' && input[i + 1] == '<') ||
+				(input[i] == '>' && input[i + 1] == '>'))
+				i += 2;
+			else
+				i++;
+			while (input[i] && input[i] == ' ')
+				i++;
+			if (input[i] == '\0' || ft_strchr(cmp, input[i]) != NULL)
+				return (FALSE);
+		}
+		else
+			i++;
+	}
+	return (TRUE);
+}
+
+// int main(void)
 // {
-	
+// 	char *a = "echo >>> file";
+// 	if (operator_valid(a) == TRUE)
+// 		printf("pass\n");
+// 	else
+// 		printf("fail\n");
 // }

@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:23:21 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/04 01:21:59 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/05 20:06:01 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ char	**remake_env(t_environment *env)
 char	**remake_path(t_environment *env)
 {
 	char	*path;
-	char	**new_path;
-	int		i;
 	
 	path = find_value("PATH", env->vals);
 	if (path == NULL)

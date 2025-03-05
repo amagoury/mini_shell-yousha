@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   variable_stuff_v3.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/05 21:04:17 by lalwafi           #+#    #+#             */
+/*   Updated: 2025/03/05 21:04:34 by lalwafi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*expand_them_vars(char *str, t_environment *env, t_shell *shell)
@@ -93,7 +105,7 @@ char	*return_var(char *str, int start, int len, t_environment *env)
 	// printf("var = #%s#\n", var);
 	i = 0;
 	temp = env->vals;
-	while (temp->next != NULL)
+	while (temp)
 	{
 		// printf("current key = #%s#\n", temp->key);
 		if (ft_strcmp_l(temp->key, var) == 0)

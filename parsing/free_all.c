@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:19:39 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/05 00:13:03 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/05 23:00:20 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 
 void	free_all(t_shell *shell)
 {
-	// printf("freeing\n");
-	// int	i;
-	// i = -1;
-	// free(shell->environment->vals);
 	if (shell->input_L)
 		free(shell->input_L);
 	if (shell->pipe_split_L)
@@ -26,8 +22,6 @@ void	free_all(t_shell *shell)
 		free_cmds(shell);
 	if (shell->environment)
 		free_env(shell->environment);
-	// if (shell)
-	// 	free(shell);
 }
 
 void	free_env(t_environment *env)
@@ -47,19 +41,14 @@ void	free_env(t_environment *env)
 void	free_cmds(t_shell	*shell)
 {
 	t_command	*temp;
-	
+
 	if (shell->commands)
 	{
 		while (shell->commands)
 		{
 			temp = shell->commands->next;
-			// printf("to be freed ----------------------\n");
-			// print_commands(shell->commands);
-			// printf("to be freed ----------------------\n");
-			// printf("free cmds\n");
 			free_array(shell->commands->cmd_args);
 			free(shell->commands->cmd_line_L);
-			// list clear for redirects
 			if (shell->commands->redir)
 				ft_lstclear_redir(shell->commands->redir);
 			free(shell->commands);

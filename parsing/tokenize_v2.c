@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_v2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:56:21 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/03/05 00:17:21 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/05 21:06:51 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 // echo he"l'lo w'orld"'' > fi"l'e   '.t"xt
 // >tes"ting ""| test"
 // a"e"a"e"''a''
+// echo hello > file lolll
+
 void    tokenize_it(t_shell *shell, char *str)
 {
 	int		i;

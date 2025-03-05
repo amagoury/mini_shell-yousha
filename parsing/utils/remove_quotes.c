@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 20:48:03 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/04 23:44:29 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/05 21:01:09 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	*rmv_quotes(char *str)
 	in_q = false;
 	i = 0;
 	j = count_rmv_quotes(str, 0, 0);
+	printf("j = %d\n", j);
 	result = malloc(sizeof(char) * (j + 1));
 	if (!result)
 		return (NULL);
@@ -42,7 +43,7 @@ char	*rmv_quotes(char *str)
 			in_q = FALSE;
 			i++;
 		}
-		if (str[i] && (in_q != TRUE || str[i] != quote))
+		else if (str[i] && (in_q != TRUE || str[i] != quote))
 			result[j++] = str[i++];
 	}
 	result[j] = '\0';

@@ -9,7 +9,7 @@ CFLAGS	+= -g3
 CFLAGS	+= -fsanitize=address
 # CFLAGS  += -L/opt/vagrant/embedded/lib/ -lreadline -I/opt/vagrant/embedded/include/readline -I/opt/vagrant/embedded/include
 
-SRCS    =  $(addprefix parsing/, main.c parsing_2.c syntax_stuff.c free_all.c \
+SRCS    =  $(addprefix parsing/, main.c parsing.c syntax_stuff.c free_all.c \
 			variable_stuff_v3.c tokenize_v2.c operators.c remake_stuff.c) \
 			$(addprefix parsing/utils/, ft_strdup.c remove_quotes.c ft_strtrim_free.c ft_substr_free.c \
 			ft_strjoin_free.c ft_strcmp_l.c\

@@ -6,7 +6,7 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/05 15:36:08 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/05 23:05:56 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,8 @@ int print_error(t_shell *shell, const char *cmd, const char *msg, const char *ar
 bool is_valid_env(const char *env_var);
 int env_add(char *content, char ***env);
 int is_in_env(char **export_env, char *content);
+t_context	*create_context(void);
+void	safe_close(int fd);
 //aisha bulid_in
 t_command *creat_command(char *cmd);
 void add_command(t_command **command, t_command *new);
@@ -214,7 +216,6 @@ t_values*create_node(char *cmd);
 void add_node(t_command **head, char *cmd);
 int my_echo(t_context *context);
 int 	ms_pwd(void);
-// char  *getcopyenv(char *str, t_environment **env);
 void    exit_shell(t_shell *shell,t_context *text);
 char  *add_quotes(char *value);
 void	print_env(t_values *env, bool export);
@@ -227,10 +228,21 @@ bool  is_bulidin(char *str);
 void final_exec(t_command *cmd,t_environment *path, int cmd_cnt);
 int	ft_strcmp(char *s1, char *s2);
 void	free_context_list(t_context *context);
-
-
-// void	start_execution(t_shell *shell); //start execution here
-
+bool	handle_heredoc(t_context *context, char *delim, t_shell *shell);
+int		heredoc_child(int fds[2], char *delim, t_shell *shell);
+void	heredoc_signal(int signum);
+bool	find_heredoc_after(t_direct *direct);
+t_context	*handle_heredocs(t_command *command, int inputfd, t_shell *shell);
+t_context	*create_context_list(t_command *cmd, \
+t_environment *env, t_shell *shell);
+void	free_context(t_context *context);
+void	free_context_list(t_context *context);
+int	execute_context(t_shell *shell, t_context *context, t_environment *env);
+int	execute_command( t_shell *shell ,t_context *context, t_environment *env);
+void	handle_everything(t_context *context, t_command *commands, char **env);
+void	handle_redirects(t_context *context, t_command *command);
+void	handle_output(t_context *context, char *file, bool append);
+void	handle_input(t_context *context, char *file, bool ignore);
 void	execution(t_shell *shell, t_environment *env);
 
 

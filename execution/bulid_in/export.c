@@ -6,7 +6,7 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 19:45:26 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/03/05 15:38:01 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/05 21:14:35 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ char	*value_time(char *str)
 void	add_to_env_export(char *new, t_values *vals, t_shell *shell, \
 t_context *cntx)
 {
-	char		*key;
-	char		*value;
 	t_values	*temp;
 
 	temp = malloc(sizeof(t_values));

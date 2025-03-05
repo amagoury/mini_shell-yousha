@@ -6,7 +6,7 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:15:38 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/03/05 15:22:12 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/05 21:24:38 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ bool	is_valid_env(const char *env_var)
 {
 	int	i;
 
+	i = 0;
 	if (!*env_var)
 		return (false);
 	if (!ft_isalpha(env_var[0]) && env_var[0] != '_')

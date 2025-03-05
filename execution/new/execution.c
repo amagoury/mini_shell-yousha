@@ -301,7 +301,7 @@ int	execute_command( t_shell *shell ,t_context *context, t_environment *env)
 	// if (context->cmd == NULL)
 	// 	return (free_context(context), ft_putstr_fd("Command not found\n", 2), 127);
 	if (context->cmd == NULL)
-		return (0);
+		return (127);
 	if (is_bulidin(context->cmd))
 		return(run_bulidin(shell, context, env));
     // printf("her is the issue\n");
@@ -328,7 +328,6 @@ int	execute_context(t_shell *shell, t_context *context, t_environment *env)
 		if (pid == 0)
 		{
 			status = execute_command(shell, context, env);
-			printf("child status: %d\n", status);
 			free_all(shell);
 			// TODO FREE SHELL ENV AND WHATEVER U NEED
 			free_context_list(context);

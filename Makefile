@@ -3,10 +3,10 @@ CC      = cc
 
 #CFLAGS  = -Wall -Werror -Wextra -g3  -I /Users/$(USER)/.brew/opt/readline/include -fsanitize=address
 # CFLAGS  = -Wall -Werror -Wextra 
-CFLAGS	+= -I/opt/vagrant/embedded/include/readline -I/opt/vagrant/embedded/include
+# CFLAGS	+= -I/opt/vagrant/embedded/include/readline -I/opt/vagrant/embedded/include
 CFLAGS	+= -I.
 CFLAGS	+= -g3
-CFLAGS	+= -fsanitize=address
+# CFLAGS	+= -fsanitize=address
 # CFLAGS  += -L/opt/vagrant/embedded/lib/ -lreadline -I/opt/vagrant/embedded/include/readline -I/opt/vagrant/embedded/include
 
 SRCS    =  $(addprefix parsing/, main.c parsing_2.c syntax_stuff.c free_all.c \
@@ -24,7 +24,7 @@ OBJ     = $(SRCS:.c=.o)
 LIBFT   = aish_libft/libft.a
 
 
-READLINE	=	-L/opt/vagrant/embedded/lib/ -lreadline 
+# READLINE	=	-L/opt/vagrant/embedded/lib/ -lreadline 
 
 # CFLAGS		=
 # # CFLAGS		=	-Wall -Wextra -Werror
@@ -41,7 +41,7 @@ ${LIBFT}	:
 		make -C aish_libft
 
 ${NAME}		:	${LIBFT} ${OBJ}
-		cc ${CFLAGS} ${OBJ} ${READLINE} ${LIBFT} -o ${NAME}
+		cc ${CFLAGS} ${OBJ} ${READLINE} -lreadline ${LIBFT} -o ${NAME}
 
 clean		:
 		make -C aish_libft clean

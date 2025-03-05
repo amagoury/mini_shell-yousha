@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:16:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/05 03:20:35 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/06 02:47:00 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ int	check_pipes(char *input)
 		return (1);
 	while (input[++i])
 	{
-		if (input[i] == '|' && input[i + 1] != '\0') // && (input[i + 1] == '|' || input[i + 2] == '|'))
+		if (input[i] == '|' && input[i + 1] != '\0')
 		{
 			while (input[++i] && input[i] != ' ')
 				;
 			if (input[i] == '|')
 				return (1);
 			else if (input[i] == '\0' || input[i + 1] == '\0')
-				return(0);
+				return (0);
 		}
 	}
 	return (0);
@@ -39,16 +39,17 @@ int	check_pipes(char *input)
 bool	operator_valid(char *input)
 {
 	int		i;
-	char	*cmp = " <>|";
+	char	*cmp;
 
+	cmp = " <>|";
 	i = 0;
 	while (input[i])
 	{
 		if (input[i] == '\'' || input[i] == '\"')
 			i = skip_quotes(input, i);
-		if (input[i] == '<' || input[i] == '>')
+		else if (input[i] == '<' || input[i] == '>')
 		{
-			if ((input[i] == '<' && input[i + 1] == '<') ||
+			if ((input[i] == '<' && input[i + 1] == '<') || \
 				(input[i] == '>' && input[i + 1] == '>'))
 				i += 2;
 			else
@@ -63,12 +64,3 @@ bool	operator_valid(char *input)
 	}
 	return (TRUE);
 }
-
-// int main(void)
-// {
-// 	char *a = "echo >>> file";
-// 	if (operator_valid(a) == TRUE)
-// 		printf("pass\n");
-// 	else
-// 		printf("fail\n");
-// }

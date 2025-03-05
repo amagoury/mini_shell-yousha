@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 21:04:17 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/05 21:04:34 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/06 02:40:11 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 char	*expand_them_vars(char *str, t_environment *env, t_shell *shell)
 {
-	int i;   // itterate
-	int len; // length of variable starting $
-	char *var;
+	int		i;
+	int		len;
+	char	*var;
 
 	i = -1;
-	while (str[++i]) // oops handle single quotes HANDLED
+	while (str[++i])
 	{
 		if (str[i] == '\'')
 			i = skip_quotes(str, i) - 1;
@@ -28,7 +28,7 @@ char	*expand_them_vars(char *str, t_environment *env, t_shell *shell)
 			if (str[i + 1] == '\0')
 				break ;
 			i++;
-			len = 1; //probably should add 1 cuz '$'   i did nvm 
+			len = 1;
 			if (str[i] == '?')
 				var = ft_itoa(shell->exit_code);
 			else if (ft_isdigit(str[i]) == 1)
@@ -36,29 +36,24 @@ char	*expand_them_vars(char *str, t_environment *env, t_shell *shell)
 			else if (ft_isalpha(str[i]) || str[i] == '_')
 			{
 				len = 0;
-				while (str[i + len] != '\0' && (ft_isalpha(str[i + len]) == 1|| 
+				while (str[i + len] != '\0' && \
+					(ft_isalpha(str[i + len]) == 1 || \
 					str[i + len] == '_' || ft_isdigit(str[i + len]) == 1))
 					len++;
-				// len = return_var_length_temp(str, i, len, env);
 				var = return_var(str, i, len, env);
 			}
 			else
 				len = 0;
-			// len = ft_strlen(var);
-			// printf("var = %s, len = %ld\n", var, ft_strlen(var));
-			// printf("len = %d, i = %d\n", len, i);
-			// if (str[i] != '\0' && (ft_isalpha(str[i]) == 1|| 
-			// 	str[i] == '_' || ft_isdigit(str[i]) == 1))
 			if (len > 0)
 			{
-				str = string_but_string(str,var,--i,len + 1);
+				str = string_but_string(str, var, --i, len + 1);
 				if (str == NULL)
-					(write(2, "malloc fail\n", 12), free_all(shell), exit(EXIT_FAILURE));
+					(write(2, "malloc fail\n", 12), \
+					free_all(shell), exit(EXIT_FAILURE));
 			}
 			i--;
 		}
 	}
-	// printf("variable str = #%s#\n", str);
 	return (str);
 }
 
@@ -68,7 +63,8 @@ char	*string_but_string(char *pushed, char *pusher, int start, int rmv)
 	int		i;
 	int		j;
 
-	result = malloc(sizeof(char) * (ft_strlen(pushed) + ft_strlen(pusher) - rmv + 1));
+	result = malloc(sizeof(char) * (ft_strlen(pushed) + \
+			ft_strlen(pusher) - rmv + 1));
 	if (!result)
 		return (NULL);
 	i = -1;
@@ -95,19 +91,15 @@ char	*string_but_string(char *pushed, char *pusher, int start, int rmv)
 
 char	*return_var(char *str, int start, int len, t_environment *env)
 {
-	t_values *temp;
-	char *var;
-	int i;
+	t_values	*temp;
+	char		*var;
 
 	var = ft_substr(str, start, len);
 	if (!var)
 		return (ft_strdup(""));
-	// printf("var = #%s#\n", var);
-	i = 0;
 	temp = env->vals;
 	while (temp)
 	{
-		// printf("current key = #%s#\n", temp->key);
 		if (ft_strcmp_l(temp->key, var) == 0)
 			return (free(var), ft_strdup(temp->value));
 		temp = temp->next;
@@ -115,34 +107,3 @@ char	*return_var(char *str, int start, int len, t_environment *env)
 	free(var);
 	return (ft_strdup(""));
 }
-
-
-// int	return_var_length_temp(char *str, int start, int len, t_environment *env) // temporary fix change later
-// {
-// 	t_values *temp;
-// 	char *var;
-// 	int i;
-
-// 	var = ft_substr(str, start, len);
-// 	if (!var)
-// 		return (0);
-// 	printf("var = #%s#\n", var);
-// 	i = 0;
-// 	temp = env->vals;
-// 	while (temp->next != NULL)
-// 	{
-// 		// printf("current key = #%s#\n", temp->key);
-// 		if (ft_strlen(temp->key) >= ft_strlen(var))
-// 			i = ft_strlen(var);
-// 		else
-// 			i = ft_strlen(temp->key);
-// 		if (ft_strncmp_lyall(temp->key, var, i) == 0)
-// 		{
-// 			len = ft_strlen(temp->key);
-// 			return (len);
-// 		}
-// 		temp = temp->next;
-// 	}
-// 	free(var);
-// 	return (0);
-// }

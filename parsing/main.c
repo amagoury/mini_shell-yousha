@@ -6,13 +6,13 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/05 23:03:25 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/06 02:48:55 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_sig = 0;
+int	g_sig = 0;
 
 void	minishell(t_shell *shell)
 {
@@ -44,12 +44,15 @@ void	minishell(t_shell *shell)
 					shell->exit_code = 1;
 					g_sig = 0;
 				}
-				shell->input_L = ft_strtrim_free(expand_them_vars(shell->input_L, shell->environment, shell), " ");
+				shell->input_L = ft_strtrim_free(expand_them_vars(\
+					shell->input_L, shell->environment, shell), " ");
 				shell->input_L = rmv_extra_spaces(shell->input_L);
-				shell->num_of_cmds = count_pipes(shell->input_L) + 1; // check if it counts inside quotes
+				shell->num_of_cmds = count_pipes(shell->input_L) + 1;
 				shell->pipe_split_L = split_pipes(shell->input_L, '|');
 				if (!shell->pipe_split_L)
-					(free_all(shell), write(2, "\033[0;31mError: malloc fail\033[0m\n", 24), exit(EXIT_FAILURE));
+					(free_all(shell), \
+					write(2, "\033[0;31mError: malloc fail\033[0m\n", 24), \
+					exit(EXIT_FAILURE));
 				i = 0;
 				while (shell->pipe_split_L[i])
 					tokenize_it(shell, shell->pipe_split_L[i++]);
@@ -59,16 +62,15 @@ void	minishell(t_shell *shell)
 				write(2, "Parse fail\n", 11);
 				shell->exit_code = shell->parse_fail_L;
 				shell->parse_fail_L = 0;
-				continue ;
 			}
 			else
 			{
 				print_commands(shell->commands);
-				execution(shell, shell->environment); // MAKE SURE EXIT CODE IS UPDATED APPROPRIATELY!!!!!!
+				execution(shell, shell->environment);
 				if (shell->pipe_split_L)
 					shell->pipe_split_L = free_array(shell->pipe_split_L);
-				shell->environment->export_env = remake_env(shell->environment);  // MAKE SURE THESE WORK!!
-				shell->environment->path = remake_path(shell->environment);       // MAKE SURE THESE WORK!!
+				shell->environment->export_env = remake_env(shell->environment);
+				shell->environment->path = remake_path(shell->environment);
 			}
 		}
 		else if (shell->input_L[0] == '\0')
@@ -92,8 +94,8 @@ void	handle_signal(int signal)
 
 int	main(int ac, char **av, char **env)
 {
-	t_shell shell;
-	
+	t_shell	shell;
+
 	(void)av;
 	if (ac != 1)
 		return (printf("'./minishell' only, no arguments\n"));

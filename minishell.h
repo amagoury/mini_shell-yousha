@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/05 23:05:56 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/06 02:55:37 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ int			return_var_length_temp(char *str, int start, int len, t_environment *env);
 void		operator_tokens(t_shell *shell, t_command *cmds , int i);
 char		*copy_file(char *str, int i, t_command *cmds, int start);
 t_state		operators_check(char *str, int i);
-void		print_commands(t_command *cmds);
+// void		print_commands(t_command *cmds);
 void		print_enum(t_state en);
 
 

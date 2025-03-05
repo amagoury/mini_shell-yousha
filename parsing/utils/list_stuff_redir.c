@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 17:25:27 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/02/27 19:27:03 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/06 03:05:39 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,18 @@ int	ft_lstsize_redir(t_direct *lst)
 		current = current->next;
 		count++;
 	}
-	// printf("size  = %d\n", count);
 	return (count);
 }
 
 t_direct	*ft_lstlast_redir(t_direct *lst)
 {
 	t_direct	*temp;
-	// int		i;
 
 	if (!lst)
 		return (NULL);
 	temp = lst;
-	// i = ft_lstsize_v(temp);
-	// printf("i = %d\n", i);
 	while (temp->next)
-	{
 		temp = temp->next;
-		// i--;
-	}
-	// printf("------- lstlastcmds key = %s\n", temp->key);
 	return (temp);
 }
 
@@ -57,13 +49,9 @@ void	ft_lstadd_back_redir(t_direct **lst, t_direct *new)
 	{
 		last = ft_lstlast_redir(*lst);
 		last->next = new;
-		// printf("last = #%s#\nnew = #%s#\nnext node = %s\n\n", last->key, new->key, last->next->key);
 	}
 	else
-	{
 		*lst = new;
-		// printf("edewdwedewdwedwdwdwelse\n");
-	}
 }
 
 void	ft_lstclear_redir(t_direct *lst)
@@ -77,5 +65,4 @@ void	ft_lstclear_redir(t_direct *lst)
 		free(lst);
 		lst = a;
 	}
-	// lst = NULL;
 }

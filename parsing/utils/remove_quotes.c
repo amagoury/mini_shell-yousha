@@ -6,39 +6,27 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 20:48:03 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/05 21:01:09 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/06 03:16:35 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char	*rmv_quotes(char *str)
+char	*delete_quotes(char *str, int i, int j,	char *result, char quote)
 {
 	bool	in_q;
-	char	quote;
-	char	*result;
-	int		i;
-	int		j;
-	
-	in_q = false;
-	i = 0;
-	j = count_rmv_quotes(str, 0, 0);
-	printf("j = %d\n", j);
-	result = malloc(sizeof(char) * (j + 1));
-	if (!result)
-		return (NULL);
-	in_q = false;
-	i = 0;
-	j = 0;
+
+	in_q = FALSE;
 	while (str[i])
 	{
-		if ((str[i] == '\'' || str[i] == '\"') && in_q == false)
+		if ((str[i] == '\'' || str[i] == '\"') && in_q == FALSE)
 		{
 			quote = str[i];
-			in_q = true;
+			in_q = TRUE;
 			i++;
 		}
-		else if ((str[i] == '\'' || str[i] == '\"') && in_q == TRUE && quote == str[i])
+		else if ((str[i] == '\'' || str[i] == '\"') && \
+			in_q == TRUE && quote == str[i])
 		{
 			in_q = FALSE;
 			i++;
@@ -51,11 +39,25 @@ char	*rmv_quotes(char *str)
 	return (result);
 }
 
-int	count_rmv_quotes(char *str , int i, int len)
+char	*rmv_quotes(char *str)
+{
+	char	quote;
+	char	*result;
+	int		len;
+
+	quote = '\0';
+	len = count_rmv_quotes(str, 0, 0);
+	result = malloc(sizeof(char) * (len + 1));
+	if (!result)
+		return (NULL);
+	return (delete_quotes(str, 0, 0, result, quote));
+}
+
+int	count_rmv_quotes(char *str, int i, int len)
 {
 	bool	in_q;
 	char	quote;
-	
+
 	in_q = false;
 	while (str[i])
 	{
@@ -65,23 +67,26 @@ int	count_rmv_quotes(char *str , int i, int len)
 			in_q = true;
 			i++;
 		}
-		else if ((str[i] == '\'' || str[i] == '\"') && in_q == TRUE && quote == str[i])
-		{
+		else if ((str[i] == '\'' || str[i] == '\"') && \
+			in_q == TRUE && quote == str[i])
 			in_q = FALSE;
-			// i++;
-		}
 		if (str[i] && (in_q == FALSE || str[i] != quote))
-			len++, i++;
+		{
+			len++;
+			i++;
+		}
 	}
 	return (len);
 }
 
-// int main(void)
+// int	main(void)
 // {
-// 	char *a = "   '' \"'\" hel\"lo ' '  worl\"d"      ;
-// 	char *b;
+// 	char	*a = "echo \"hello\"'' meow";
+// 	char	*b;
+
 // 	b = rmv_quotes(a);
 // 	printf("a = #%s#\nb = #%s#\n", a, b);
 // }
 
 // he"ll'o world"
+// echo "hello"'' meow

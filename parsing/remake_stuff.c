@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 16:23:21 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/05 20:06:01 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/06 02:42:55 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ char	**remake_env(t_environment *env)
 	i = values_size(env->vals);
 	new_env = ft_calloc(sizeof(char *), i + 1);
 	if (!new_env)
-		return(NULL);
+		return (NULL);
 	i = 0;
 	temp = env->vals;
 	while (temp)
 	{
 		new_env[i++] = ft_strjoin_free(
-		ft_strjoin_free(ft_strdup(temp->key), "=", 1),
-		ft_strdup(temp->value), 3);
+				ft_strjoin_free(ft_strdup(temp->key), "=", 1),
+				ft_strdup(temp->value), 3);
 		temp = temp->next;
 	}
 	free_array(env->export_env);
@@ -38,7 +38,7 @@ char	**remake_env(t_environment *env)
 char	**remake_path(t_environment *env)
 {
 	char	*path;
-	
+
 	path = find_value("PATH", env->vals);
 	if (path == NULL)
 	{
@@ -51,7 +51,7 @@ char	**remake_path(t_environment *env)
 
 char	*find_value(char *key, t_values *env)
 {
-	while(env)
+	while (env)
 	{
 		if (ft_strcmp_l(key, env->key) == 0)
 			return (env->value);

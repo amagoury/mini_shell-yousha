@@ -6,7 +6,7 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 21:11:32 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/04 21:58:01 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:13:52 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_context	*create_context()
 		return (NULL);
 	context->args = NULL;
 	context->cmd = NULL;
-	context->inputfd = 0; //lets change to 0 to test
-	context->outputfd = 1; //lets change to 1 to test
+	context->inputfd = -1;
+	context->outputfd = -1;
 	context->error = 0;
 	context->next = NULL;
 	return (context);
@@ -43,7 +43,7 @@ void	heredoc_signal(int signum)
 	}
 }
 
-int	heredoc_child(int fds[2], char *delim)
+int	heredoc_child(int fds[2], char *delim, t_shell *shell)
 {
 	char	*str;
 
@@ -52,8 +52,7 @@ int	heredoc_child(int fds[2], char *delim)
 	str = readline("heredoc> ");
 	while (str && ft_strncmp(str, delim, -1) != 0)
 	{
-		// str = find_and_expand(str, env, shell);
-		// TODO handle str expansion
+		str = expand_them_vars(str, shell->environment, shell);
 		ft_putendl_fd(str, fds[1]);
 		free(str);
 		str = readline("heredoc> ");
@@ -64,17 +63,18 @@ int	heredoc_child(int fds[2], char *delim)
 	return (0);
 }
 
-bool	handle_heredoc(t_context *context, char *delim)
+bool	handle_heredoc(t_context *context, char *delim, t_shell *shell)
 {
 	int	fds[2];
 	int	pid;
 	int	status;
+
 	pipe(fds);
 	pid = fork();
 	// TODO handle failure
 	if (pid == 0)
 	{
-		exit(heredoc_child(fds, delim));
+		exit(heredoc_child(fds, delim, shell));
 	}
 	close(fds[1]);
 	signal(SIGINT, SIG_IGN);
@@ -95,7 +95,7 @@ void	free_context(t_context *context)
 	free(context);
 }
 
-t_context	*handle_heredocs(t_command *command, int inputfd)
+t_context	*handle_heredocs(t_command *command, int inputfd, t_shell *shell)
 {
 	t_direct	*temp;
 	t_context	*context;
@@ -107,14 +107,16 @@ t_context	*handle_heredocs(t_command *command, int inputfd)
 	while (temp)
 	{
 		if (temp->direct == HERE_DOC)
-			handle_heredoc(context, temp->file);
-			// TODO handle failure
+		{
+			if (handle_heredoc(context, temp->file, shell) == FALSE)
+				shell->exit_code = 1;
+		}	// TODO handle failure
 		temp = temp->next;
 	}
 	if (command->next)
 	{
 		pipe(fds);
-		context->next = handle_heredocs(command->next, fds[0]);
+		context->next = handle_heredocs(command->next, fds[0], shell);
 		if (context->next == NULL)
 			return (close(fds[0]), close(fds[1]), free_context(context), NULL);
 		context->outputfd = fds[1];
@@ -245,7 +247,6 @@ char	*find_path(char *cmd, char **env)
 void	handle_everything(t_context *context, t_command *commands, char **env)
 {
 	context->args = copy_strs(commands->cmd_args);
-	//! we did not handle failure
 	if (is_bulidin(commands->cmd_args[0]))
 		context->cmd = ft_strdup(commands->cmd_args[0]);
 	else if (commands->cmd_args[0] != NULL)
@@ -267,11 +268,12 @@ void	free_context_list(t_context *context)
 	}
 }
 
-t_context	*create_context_list(t_command *commands, t_environment *env)
+t_context	*create_context_list(t_command *commands, \
+t_environment *env, t_shell *shell)
 {
 	t_context	*context;
 
-	context = handle_heredocs(commands, -1);
+	context = handle_heredocs(commands, -1, shell);
 	// TODO handle failure
 	handle_everything(context, commands, env->export_env);
 	return context;
@@ -326,6 +328,7 @@ int	execute_context(t_shell *shell, t_context *context, t_environment *env)
 		if (pid == 0)
 		{
 			status = execute_command(shell, context, env);
+			printf("child status: %d\n", status);
 			free_all(shell);
 			// TODO FREE SHELL ENV AND WHATEVER U NEED
 			free_context_list(context);
@@ -343,7 +346,8 @@ void	execution(t_shell *shell, t_environment *env)
 	t_context	*context;
 	int			pid;
 	int			status;
-	context = create_context_list(shell->commands, env);
+
+	context = create_context_list(shell->commands, env, shell);
 	// TODO check error
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -354,14 +358,12 @@ void	execution(t_shell *shell, t_environment *env)
 	}
 	pid = execute_context(shell, context, env);
 	signal(SIGINT, SIG_IGN);
-	waitpid(pid, &status, 0);
-	while (wait(NULL) != -1)
+	// waitpid(pid, &status, 0);
+	while (wait(&status) != -1)
 		;
 	// TODO check if status is signaled
 	shell->exit_code = WEXITSTATUS(status);
 }
-
-
 /*
 	if error != 0, dont execute anything, free and exit with error code
 	if cmd == NULL, then command not found free and exit with 127

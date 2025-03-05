@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/05 03:22:15 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/05 16:54:57 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ void	minishell(t_shell *shell)
 	while (1)
 	{
 		// SIGNAL HANDLER
+		signal(SIGINT, handle_signal);
 		shell->input_L = readline("meowshell> ");
 		if (shell->input_L && shell->input_L[0] != '\0')
 			add_history(shell->input_L);
@@ -198,11 +199,11 @@ void	minishell(t_shell *shell)
 			else
 			{
 				// final_exec(shell->commands, shell->environment, shell->num_of_cmds);
-				// execution(shell, shell->environment); // MAKE SURE EXIT CODE IS UPDATED APPROPRIATELY!!!!!!
+				// print_commands(shell->commands);
+				execution(shell, shell->environment); // MAKE SURE EXIT CODE IS UPDATED APPROPRIATELY!!!!!!
 				// start_execution(shell);
 				// signal(SIGQUIT, SIG_IGN);
 				// signal(SIGINT, handle_signal);
-				print_commands(shell->commands);
 				if (shell->pipe_split_L)
 					shell->pipe_split_L = free_array(shell->pipe_split_L);
 				shell->environment->export_env = remake_env(shell->environment);  // MAKE SURE THESE WORK!!

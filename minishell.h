@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/05 03:20:49 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/05 15:36:08 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,22 +204,24 @@ int is_in_env(char **export_env, char *content);
 t_command *creat_command(char *cmd);
 void add_command(t_command **command, t_command *new);
 int my_cd(t_environment *env, char *path);
+char	*get_new_path(t_environment *env, char *path);
+int	update_env(t_environment *env, char *current_dir);
  void set_env_var(t_environment *env,  char *key, char *value);
 char *ft_get_env(char *key, t_values *env);
 int my_unset(t_values **head, char *args);
 void print_list(t_environment *head) ;
 t_values*create_node(char *cmd);
 void add_node(t_command **head, char *cmd);
-int my_echo(char **command);
+int my_echo(t_context *context);
 int 	ms_pwd(void);
-char  *getcopyenv(char *str, t_environment **env);
+// char  *getcopyenv(char *str, t_environment **env);
 void    exit_shell(t_shell *shell,t_context *text);
 char  *add_quotes(char *value);
 void	print_env(t_values *env, bool export);
 int env_add(char *value, char ***env);
-bool ft_export(t_context *cntx, t_values *env);
+bool	ft_export(t_context *cntx, t_values *env, t_shell *shell);
 int exec_bulidin( t_shell *shell,t_context *cntx, t_environment *env);
-int ft_env(t_values *env,t_context *text);
+int	ft_env(t_values *env, t_context *context);
 bool  run_bulidin( t_shell *shell,t_context *context, t_environment *env);
 bool  is_bulidin(char *str);
 void final_exec(t_command *cmd,t_environment *path, int cmd_cnt);

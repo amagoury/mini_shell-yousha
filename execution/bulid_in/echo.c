@@ -6,52 +6,57 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:30:37 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/03/04 19:58:55 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/05 14:59:00 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-
-static char is_n(char *str)
+static char	is_n(char *str)
 {
-	int i;
+	int	i;
 
 	i = 1;
-	while(str[i])
+	while (str[i])
 	{
-		if(str[i] != 'n')
+		if (str[i] != 'n')
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
-int my_echo(char **command)
+int	my_echo(t_context *context)
 {
-	int i;
-	int j;
-	bool flag;
+	int		i;
+	int		j;
+	bool	flag;
+	int		fd;
+
 	flag = false;
 	i = 1;
-	while(command[i] && command[i][0] == '-' && command[i][1] == 'n' && is_n(command[i]) == 0)
+	fd = context->outputfd;
+	if (fd == -1)
+		fd = 1;
+	while (context->args[i] && context->args[i][0] == '-' &&
+			context->args[i][1] == 'n' && is_n(context->args[i]) == 0)
 	{
 		flag = true;
 		i++;
 	}
-	while(command[i])
+	while (context->args[i])
 	{
 		j = 0;
-		while(command[i][j])
+		while (context->args[i][j])
 		{
-			write(1, &command[i][j], 1);
+			write(fd, &context->args[i][j], 1);
 			j++;
 		}
-		if(command[i + 1])
-			write(1, " ", 1);
+		if (context->args[i + 1])
+			write(fd, " ", 1);
 		i++;
 	}
-	if(flag == false)
-		write(1, "\n", 1);
-	return(0);
+	if (flag == false)
+		write(fd, "\n", 1);
+	return (0);
 }

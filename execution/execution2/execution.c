@@ -6,7 +6,7 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 21:11:32 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/05 23:05:09 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/06 16:16:18 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**copy_strs(char **strs)
 			return (free_array(new), NULL);
 		i++;
 	}
-	return (new);	
+	return (new);
 }
 
 char	*find_path(char *cmd, char **env)
@@ -72,7 +72,7 @@ void	handle_everything(t_context *context, t_command *commands, char **env)
 		handle_everything(context->next, commands->next, env);
 }
 
-int	execute_command( t_shell *shell ,t_context *context, t_environment *env)
+int	execute_command( t_shell *shell, t_context *context, t_environment *env)
 {
 	if (context->next)
 		free_context_list(context->next);
@@ -92,18 +92,15 @@ int	execute_command( t_shell *shell ,t_context *context, t_environment *env)
 	if (context->cmd == NULL)
 		return (127);
 	if (is_bulidin(context->cmd))
-		return(run_bulidin(shell, context, env));
+		return (run_bulidin(shell, context, env));
 	if (execve(context->cmd, context->args, env->export_env) == -1)
 	{
 		ft_putstr_fd(context->args[0], 2);
 		ft_putstr_fd(": Error executing\n", 2);
 	}
-	else
-		printf("buildin work\n");
 	// TODO check error type and print appropriate msg
 	return (127); //TODO Return with correct error msg
 }
-
 
 void	execution(t_shell *shell, t_environment *env)
 {
@@ -122,7 +119,6 @@ void	execution(t_shell *shell, t_environment *env)
 	}
 	pid = execute_context(shell, context, env);
 	signal(SIGINT, SIG_IGN);
-	// waitpid(pid, &status, 0);
 	while (wait(&status) != -1)
 		;
 	// TODO check if status is signaled

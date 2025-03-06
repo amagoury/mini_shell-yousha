@@ -6,7 +6,7 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 22:33:58 by amagoury          #+#    #+#             */
-/*   Updated: 2025/03/06 15:43:34 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/06 16:14:17 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,19 @@ bool	handle_heredoc(t_context *context, char *delim, t_shell *shell)
 	int	pid;
 	int	status;
 
+	if (pipe(fds) == -1)
+		return (false);
 	pipe(fds);
 	pid = fork();
-	// TODO handle failure
-	if (pid == 0)
+	if (pid == -1)
 	{
-		exit(heredoc_child(fds, delim, shell));
+		perror("fork");
+		close(fds[0]);
+		close(fds[1]);
+		return (false);
 	}
+	if (pid == 0)
+		exit(heredoc_child(fds, delim, shell));
 	close(fds[1]);
 	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 22:33:58 by amagoury          #+#    #+#             */
-/*   Updated: 2025/03/06 20:11:03 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/07 02:31:20 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	heredoc_child(int fds[2], char *delim, t_shell *shell)
 	str = readline("heredoc> ");
 	while (str && ft_strncmp(str, delim, -1) != 0)
 	{
-		str = expand_them_vars(str, shell->environment, shell);
+		str = expand_them_vars(str, shell);
 		ft_putendl_fd(str, fds[1]);
 		free(str);
 		str = readline("heredoc> ");

@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/07 03:26:22 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/07 03:40:16 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ char		*find_value(char *key, t_values *env);
 int			parser(t_shell *shell);
 void		parse_end(t_shell *shell);
 bool		syntax_check(t_shell *shell);
-
+bool		only_spaces(char *str);
 
 // utils lyall
 

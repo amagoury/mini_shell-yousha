@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 23:00:46 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/05 23:09:58 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/06 12:40:30 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	initialize_shell(t_shell *shell)
+void	prep_env(t_environment **env)
 {
-	shell->pipe_split_L = NULL;
-	shell->input_L = NULL;
-	shell->exit_code = 0;
-	shell->parse_fail_L = 0;
-}
-
-t_command	*initialize_commands(void)
-{
-	t_command	*cmd;
-
-	cmd = ft_calloc(sizeof(t_command), 1);
-	if (!cmd)
-		(write(2, "\033[0;31mError: command malloc fail\033[0m\n", 36),
+	(*env) = malloc(sizeof(t_environment));
+	if (!(*env))
+		(write(2, "\033[0;31mError: environment malloc fail\033[0m\n", 36),
 			exit(EXIT_FAILURE));
-	cmd->cmd_args = NULL;
-	cmd->cmd_line_L = NULL;
-	cmd->num_of_redir = 0;
-	cmd->redir = NULL;
-	cmd->next = NULL;
-	return (cmd);
+	(*env)->cwd = getcwd(NULL, 0);
+	(*env)->owd = getcwd(NULL, 0);
+	(*env)->path = NULL;
+	(*env)->vals = NULL;
 }
 
 void	get_env(t_shell *shell, char **env)
@@ -43,14 +31,7 @@ void	get_env(t_shell *shell, char **env)
 	char	*key;
 
 	i = -1;
-	shell->environment = malloc(sizeof(t_environment));
-	if (!shell->environment)
-		(write(2, "\033[0;31mError: environment malloc fail\033[0m\n", 36),
-			exit(EXIT_FAILURE));
-	shell->environment->cwd = getcwd(NULL, 0);
-	shell->environment->owd = getcwd(NULL, 0);
-	shell->environment->path = NULL;
-	shell->environment->vals = NULL;
+	prep_env(&shell->environment);
 	while (env[++i])
 	{
 		key = ft_substr(env[i], 0, ft_strchr(env[i], '=') - env[i]);

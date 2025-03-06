@@ -5,126 +5,70 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/07 20:17:23 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/06 02:41:59 by lalwafi          ###   ########.fr       */
+/*   Created: 2025/03/06 12:16:43 by lalwafi           #+#    #+#             */
+/*   Updated: 2025/03/06 13:18:46 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-int	count_pipes(char *str)
-{
-	int	i;
-	int	pipes;
-
-	i = -1;
-	pipes = 0;
-	while (str[++i])
-	{
-		if (str[i] == '|')
-			pipes++;
-	}
-	return (pipes);
-}
-
-int	skip_quotes(const char *str, int i)
-{
-	char	quote;
-
-	if (str[i] == '"' || str[i] == '\'')
-	{
-		quote = str[i];
-		i++;
-		while (str[i] != '\0' && str[i] != quote)
-			i++;
-		if (str[i] == quote)
-			i++;
-	}
-	return (i);
-}
-
-char	*rmv_extra_spaces(char *str)
-{
-	char	*result;
-	int		i;
-	int		j;
-	char	quote;
-
-	i = -1;
-	j = 0;
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '\"' || str[i] == '\'')
-		{
-			j += skip_quotes(str, i) - i;
-			i = skip_quotes(str, i);
-		}
-		else if (str[i] == ' ')
-		{
-			j++;
-			while (str[i] != '\0' && str[i] == ' ')
-				i++;
-		}
-		else
-		{
-			j++;
-			i++;
-		}
-	}
-	result = malloc(sizeof(char) * (j + 1));
-	if (!result)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '\"' || str[i] == '\'')
-		{
-			quote = str[i];
-			result[j++] = str[i++];
-			while (str[i] != '\0' && str[i] != quote)
-				result[j++] = str[i++];
-			if (str[i] == quote)
-				result[j++] = str[i++];
-		}
-		else if (str[i] == ' ')
-		{
-			result[j++] = str[i];
-			while (str[i] != '\0' && str[i] == ' ')
-				i++;
-		}
-		else
-			result[j++] = str[i++];
-	}
-	result[j] = '\0';
-	free(str);
-	return (result);
-}
-
-int	open_quote_or_no(char *str)
+int	parser(t_shell *shell)
 {
 	int	i;
 
-	i = -1;
-	while (str[++i] != '\0')
+	i = 0;
+	if (syntax_check(shell) == FALSE)
+		return (1);
+	else
 	{
-		if (str[i] == '"')
+		if (g_sig != 0)
 		{
-			i++;
-			while (str[i] != '"' && str[i] != '\0')
-				i++;
-			if (str[i] != '"')
-				return (1);
+			shell->exit_code = 1;
+			g_sig = 0;
 		}
-		if (str[i] == '\'')
-		{
-			i++;
-			while (str[i] != '\'' && str[i] != '\0')
-				i++;
-			if (str[i] != '\'')
-				return (1);
-		}
+		shell->input_L = ft_strtrim_free(expand_them_vars(\
+			shell->input_L, shell->environment, shell), " ");
+		shell->input_L = rmv_extra_spaces(shell->input_L);
+		shell->num_of_cmds = count_pipes(shell->input_L) + 1;
+		shell->pipe_split_L = split_pipes(shell->input_L, '|');
+		if (!shell->pipe_split_L)
+			(free_all(shell), \
+			write(2, "\033[0;31mError: malloc fail\033[0m\n", 24), \
+			exit(EXIT_FAILURE));
+		while (shell->pipe_split_L[i])
+			tokenize_it(shell, shell->pipe_split_L[i++], 0);
 	}
 	return (0);
+}
+
+void	parse_end(t_shell *shell)
+{
+	if (shell->parse_fail_L != 0)
+	{
+		write(2, "Parse fail\n", 11);
+		shell->exit_code = shell->parse_fail_L;
+		shell->parse_fail_L = 0;
+	}
+	else
+	{
+		// execution(shell, shell->environment);
+		if (shell->pipe_split_L)
+			shell->pipe_split_L = free_array(shell->pipe_split_L);
+		shell->environment->export_env = remake_env(shell->environment);
+		shell->environment->path = remake_path(shell->environment);
+	}
+}
+
+bool	syntax_check(t_shell *shell)
+{
+	shell->input_L = ft_strtrim_free(shell->input_L, " ");
+	if (!shell->input_L || shell->input_L[0] == '\0')
+		return (FALSE);
+	else if (open_quote_or_no(shell->input_L) == 1)
+		return (FALSE);
+	else if (check_pipes(shell->input_L) == 1)
+		return (FALSE);
+	else if (operator_valid(shell->input_L) == FALSE)
+		return (FALSE);
+	return (TRUE);
 }

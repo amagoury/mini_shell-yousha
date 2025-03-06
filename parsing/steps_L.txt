@@ -166,4 +166,22 @@ test for execution
 - meow
 - 
 
+------------------------------------------------------
+variables:
+
+	invalid:
+	- export "VAR"=hello  # Syntax error
+	- export 'VAR'=hello  # Syntax error
+	- export VAR"TEST"=hello  # Syntax error
+	- export VAR'TEST'=hello  # Syntax error
+	- export VAR TEST=hello  # Space causes an error
+
+	valid:
+	- export VAR_TEST=hello
+	- export VAR123=hello
+	- export _VAR=hello
+	
+------------------------------------------------------
+
+
 ✅❌

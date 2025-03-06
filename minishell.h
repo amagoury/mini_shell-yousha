@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/06 15:31:44 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/06 15:54:33 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_command
 	// char				*cmd; // the command (dont use anymore i will keep the command in cmd_args[0])
 	char				**cmd_args; // double array of arguments in command line including cmd;
 	char				*cmd_line_L; // the pipe split line to parse
+	char				*words_L; // for parsing
 	int					num_of_redir; // number of redirects in the line
 	t_direct			*redir; // redirects
 	int					save_statues; // save the statues of the command
@@ -137,16 +138,15 @@ char		**one_word(char const *s, char **result);
 char		**free_array(char **result);
 int			skip_quotes(const char *str, int i);
 char		*rmv_extra_spaces(char *str);
-void		expand_vars(char *str, t_environment *env);
-// void		parse_it(t_shell *shell);
 int			open_quote_or_no(char *str);
 int			count_pipes(char *str);
 int			check_pipes(char *input);
-char		*rmv_invalid_vars(char *str, t_environment *env);
-char		*ft_remove_chunk(char *str, int start, int len);
 char		**remake_env(t_environment *env);
 char		**remake_path(t_environment *env);
 char		*find_value(char *key, t_values *env);
+int			parser(t_shell *shell);
+void		parse_end(t_shell *shell);
+bool		syntax_check(t_shell *shell);
 
 
 // utils lyall
@@ -157,7 +157,6 @@ char 		*ft_substr_free(char *s, unsigned int start, size_t len);
 char		*ft_strtrim_free(char *s1, char const *set);
 char		*ft_strjoin_free(char *s1, char *s2, int flag);
 int			ft_strncmp_lyall(const char *s1, const char *s2, size_t n);
-// int			ft_lstsize_v(t_values *lst);
 int			values_size(t_values *vals);
 t_values	*ft_lstlast_values(t_values *lst);
 void		ft_lstadd_back_values(t_values **lst, t_values *new);
@@ -179,16 +178,17 @@ bool		operator_valid(char *input);
 
 // tokenize lyall
 
-void		tokenize_it(t_shell *shell, char *str);
+void		tokenize_it(t_shell *shell, char *str, int i);
+int			tokenize_loop(t_shell *shell, t_command **ctemp, int i);
+int			token_quotes(t_command **ctemp, int i);
 char		*expand_them_vars(char *str, t_environment *env, t_shell *shell);
 char		*string_but_string(char *pushed, char *pusher, int start, int rmv);
 char		*return_var(char *str, int start, int len, t_environment *env);
-int			return_var_length_temp(char *str, int start, int len, t_environment *env);
 void		operator_tokens(t_shell *shell, t_command *cmds , int i);
 char		*copy_file(char *str, int i, t_command *cmds, int start);
 t_state		operators_check(char *str, int i);
-// void		print_commands(t_command *cmds);
 void		print_enum(t_state en);
+void		print_commands(t_command *cmds);
 
 
 // ================================================================================== //

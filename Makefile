@@ -15,7 +15,7 @@ SRCS		=  $(addprefix parsing/, main.c parsing.c syntax_stuff.c free_all.c init.c
 				$(addprefix parsing/utils/, ft_strdup.c remove_quotes.c ft_strtrim_free.c ft_substr_free.c \
 				ft_strjoin_free.c ft_strcmp_l.c\
 				ft_strncmp.c list_stuff_values.c list_stuff_cmds.c list_stuff_redir.c split_pipes.c) \
-				#execution/execution2/execution.c execution/execution2/heredoc.c execution/execution2/context.c execution/execution2/handling.c\
+				execution/execution2/execution.c execution/execution2/heredoc.c execution/execution2/context.c execution/execution2/handling.c\
 				$(addprefix execution/utils/, utils.c env_utils.c) \
 				$(addprefix execution/, exec_bulidin.c) \
 				$(addprefix execution/bulid_in/, cd.c   echo.c env.c  exit.c  export.c  pwd.c  unset.c)\

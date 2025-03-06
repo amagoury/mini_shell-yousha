@@ -6,7 +6,7 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 22:33:58 by amagoury          #+#    #+#             */
-/*   Updated: 2025/03/05 23:04:24 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/06 15:43:34 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ bool	handle_heredoc(t_context *context, char *delim, t_shell *shell)
 	context->inputfd = fds[0];
 	return (true);
 }
+
 bool	find_heredoc_after(t_direct *direct)
 {
 	while (direct)

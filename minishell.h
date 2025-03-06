@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/06 02:55:37 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/06 15:31:44 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,6 @@ int is_in_env(char **export_env, char *content);
 t_context	*create_context(void);
 void	safe_close(int fd);
 //aisha bulid_in
-t_command *creat_command(char *cmd);
 void add_command(t_command **command, t_command *new);
 int my_cd(t_environment *env, char *path);
 char	*get_new_path(t_environment *env, char *path);
@@ -215,6 +214,8 @@ void print_list(t_environment *head) ;
 t_values*create_node(char *cmd);
 void add_node(t_command **head, char *cmd);
 int my_echo(t_context *context);
+int	get_fd(t_context *ctx);
+void	print_args(int fd, char **args, int i);
 int 	ms_pwd(void);
 void    exit_shell(t_shell *shell,t_context *text);
 char  *add_quotes(char *value);

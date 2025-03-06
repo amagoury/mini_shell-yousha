@@ -6,7 +6,7 @@
 /*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 23:00:06 by amagoury          #+#    #+#             */
-/*   Updated: 2025/03/05 23:01:44 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/06 15:42:34 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ t_environment *env, t_shell *shell)
 
 	context = handle_heredocs(cmd, -1, shell);
 	// TODO handle failure
-	handle_everything(context,cmd, env->export_env);
-	return context;
+	handle_everything(context, cmd, env->export_env);
+	return (context);
 }
+
 void	free_context_list(t_context *context)
 {
 	t_context	*temp;

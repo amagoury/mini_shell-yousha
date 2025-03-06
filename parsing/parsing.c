@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 12:16:43 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/06 13:18:46 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/06 16:33:06 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	parse_end(t_shell *shell)
 	}
 	else
 	{
-		// execution(shell, shell->environment);
+		execution(shell, shell->environment);
 		if (shell->pipe_split_L)
 			shell->pipe_split_L = free_array(shell->pipe_split_L);
 		shell->environment->export_env = remake_env(shell->environment);

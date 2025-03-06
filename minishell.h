@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/06 15:54:33 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/06 16:52:31 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ typedef struct s_values
 {
 	char				*key; // before "=" (eg; USER)
 	char				*value; // after "=" (eg; lalwafi)
-	// char				*envstr; // the whole line (eg; USER = lalwafi) probably will delete
 	t_values			*next;
 } t_values;
 
@@ -109,17 +108,13 @@ typedef struct s_context
 	struct s_context	*next;
 }	t_context;
 
-
-// typedef struct s_token
-// {
-//     char *str;             // for normal text aisha
-//     char *blockers;       // the bolcks withe the text will stop aisha
-// 	char *dupl_block;
-// 	char *s_block;
-//    	int len;               //  text len aisha
-//     bool convert;          // if the text need to convert or not aisha
-// } t_token;
-
+typedef struct s_split
+{
+	char	**result;
+	int		i;
+	int		len;
+	int		counter
+}	t_split;
 
 // ================================================================================== //
 
@@ -133,11 +128,14 @@ void		make_values_node(char *key, t_shell *shell);
 void		minishell(t_shell *shell);
 char		**split_pipes(char const *s, char c);
 char		**make_letters(char **result, char const *s, char c, int count);
+t_split		*make_letters_2(t_split *sp, char const *s, char c);
 int			make_words(char const *s, char c);
 char		**one_word(char const *s, char **result);
 char		**free_array(char **result);
 int			skip_quotes(const char *str, int i);
 char		*rmv_extra_spaces(char *str);
+int			count_rmv_extra_spaces(int i, int j, char *str);
+char		*rmv_extra_spaces_2(char *result, char *str, int i, int j);
 int			open_quote_or_no(char *str);
 int			count_pipes(char *str);
 int			check_pipes(char *input);
@@ -188,7 +186,7 @@ void		operator_tokens(t_shell *shell, t_command *cmds , int i);
 char		*copy_file(char *str, int i, t_command *cmds, int start);
 t_state		operators_check(char *str, int i);
 void		print_enum(t_state en);
-void		print_commands(t_command *cmds);
+// void		print_commands(t_command *cmds);
 
 
 // ================================================================================== //

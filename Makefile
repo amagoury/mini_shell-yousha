@@ -4,7 +4,7 @@ CC			= cc
 CFLAGS 		= -Wall -Werror -Wextra 
 CFLAGS		+= -I.
 CFLAGS		+= -g3
-CFLAGS		+= -fsanitize=address
+# CFLAGS		+= -fsanitize=address
 CFLAGS		+=	-Ilibft -I./ -I/opt/vagrant/embedded/include/readline -I/opt/vagrant/embedded/include
 #CFLAGS		= -Wall -Werror -Wextra -g3  -I /Users/$(USER)/.brew/opt/readline/include -fsanitize=address
 #CFLAGS		+= -I/opt/vagrant/embedded/include/readline -I/opt/vagrant/embedded/include

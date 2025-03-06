@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:53:50 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/06 17:54:01 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/06 20:16:25 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,11 @@ char	*return_var(char *str, int start, int len, t_environment *env)
 {
 	t_values *temp;
 	char *var;
-	int i;
 
 	var = ft_substr(str, start, len);
 	if (!var)
 		return (ft_strdup(""));
 	// printf("var = #%s#\n", var);
-	i = 0;
 	temp = env->vals;
 	while (temp)
 	{

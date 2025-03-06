@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/06 20:00:12 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:46:19 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,37 +200,40 @@ void		print_enum(t_state en);
 // ================================================================================== //
 
 // aisha utils
-bool	is_valid_env(const char *env_var);
+
+bool		is_valid_env(const char *env_var);
 t_context	*create_context(void);
 void		safe_close(int fd);
+
 //aisha bulid_in
-void 	add_command(t_command **command, t_command *new);
-int		 my_cd(t_environment *env, char *path);
-char	*get_new_path(t_environment *env, char *path);
-int		update_env(t_environment *env, char *current_dir);
- void 	set_env_var(t_environment *env,  char *key, char *value);
-char 	*ft_get_env(char *key, t_values *env);
-int 	my_unset(t_values **head, char *args);
-void 	print_list(t_environment *head) ;
-int 	my_echo(t_context *context);
-int		get_fd(t_context *ctx);
-void	print_args(int fd, char **args, int i);
-int 	ms_pwd(void);
-char  	*add_quotes(char *value);
-void	print_env(t_values *env, bool export);
-int 	env_add(char *value, char ***env);
-bool	ft_export(t_context *cntx, t_values *env, t_shell *shell);
-int 	exec_bulidin( t_shell *shell,t_context *cntx, t_environment *env);
-int		ft_env(t_values *env, t_context *context);
-bool  	run_bulidin( t_shell *shell,t_context *context, t_environment *env);
-bool  	is_bulidin(char *str);
-int		ft_strcmp(char *s1, char *s2);
-void	execution(t_shell *shell, t_environment *env);
-void	exit_utils(t_shell *shell, t_context *cntx);
-void	exit_utils2(t_shell *shell, char *arg, t_context *cntx);
-void	free_exit(t_shell *shell, t_context *cntx);
-int		ft_str_isnum(char *c);
-int		ft_exit(t_shell *shell, t_context *cntx);
+
+void 		add_command(t_command **command, t_command *new);
+int			 my_cd(t_environment *env, char *path);
+char		*get_new_path(t_environment *env, char *path);
+int			update_env(t_environment *env, char *current_dir);
+ void 		set_env_var(t_environment *env,  char *key, char *value);
+char 		*ft_get_env(char *key, t_values *env);
+int 		my_unset(t_values **head, char *args);
+void 		print_list(t_environment *head) ;
+int 		my_echo(t_context *context);
+int			get_fd(t_context *ctx);
+void		print_args(int fd, char **args, int i);
+int 		ms_pwd(t_context *context);
+char  		*add_quotes(char *value);
+void		print_env(t_values *env, bool export, int fd);
+int 		env_add(char *value, char ***env);
+bool		ft_export(t_context *cntx, t_values *env, t_shell *shell);
+int 		exec_bulidin( t_shell *shell,t_context *cntx, t_environment *env);
+int			ft_env(t_values *env, t_context *context);
+bool  		run_bulidin( t_shell *shell,t_context *context, t_environment *env);
+bool  		is_bulidin(char *str);
+int			ft_strcmp(char *s1, char *s2);
+void		execution(t_shell *shell, t_environment *env);
+void		exit_utils(t_shell *shell, t_context *cntx);
+void		exit_utils2(t_shell *shell, char *arg, t_context *cntx);
+void		free_exit(t_shell *shell, t_context *cntx);
+int			ft_str_isnum(char *c);
+int			ft_exit(t_shell *shell, t_context *cntx);
 char		*find_path(char *cmd, char **env);
 void		free_context_list(t_context *context);
 bool		handle_heredoc(t_context *context, char *delim, t_shell *shell);
@@ -242,13 +245,14 @@ t_context	*create_context_list(t_command *cmd, \
 t_environment *env, t_shell *shell);
 void		free_context(t_context *context);
 char		**copy_strs(char **strs);
-void	free_context_list(t_context *context);
-int	execute_context(t_shell *shell, t_context *context, t_environment *env);
-int	execute_command( t_shell *shell ,t_context *context, t_environment *env);
-void	handle_everything(t_context *context, t_command *commands, char **env);
-void	handle_redirects(t_context *context, t_command *command);
-void	handle_output(t_context *context, char *file, bool append);
-void	handle_input(t_context *context, char *file, bool ignore);
+void		free_context_list(t_context *context);
+int			execute_context(t_shell *shell, t_context *context, t_environment *env);
+int			execute_command( t_shell *shell, t_context *context, t_environment *env,int errnum);
+void		handle_everything(t_context *context, t_command *commands, char **env);
+void		handle_redirects(t_context *context, t_command *command);
+void		handle_output(t_context *context, char *file, bool append);
+void		handle_input(t_context *context, char *file, bool ignore);
+int			handle_signaled(int signal);
 
 
 #endif

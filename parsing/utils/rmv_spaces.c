@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:31:50 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/06 16:31:51 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/06 17:17:04 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 char	*rmv_extra_spaces(char *str)
 {
 	char	*result;
-	int		i;
-	int		j;
-	char	quote;
 
 	result = malloc(sizeof(char) * (count_rmv_extra_spaces(0, 0, str) + 1));
 	if (!result)

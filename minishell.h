@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 07:35:24 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/06 16:52:31 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/06 17:54:48 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ typedef struct s_split
 	char	**result;
 	int		i;
 	int		len;
-	int		counter
+	int		counter;
 }	t_split;
 
 // ================================================================================== //
@@ -179,9 +179,17 @@ bool		operator_valid(char *input);
 void		tokenize_it(t_shell *shell, char *str, int i);
 int			tokenize_loop(t_shell *shell, t_command **ctemp, int i);
 int			token_quotes(t_command **ctemp, int i);
-char		*expand_them_vars(char *str, t_environment *env, t_shell *shell);
-char		*string_but_string(char *pushed, char *pusher, int start, int rmv);
-char		*return_var(char *str, int start, int len, t_environment *env);
+// char		*expand_them_vars(char *str, t_shell *shell);
+// void		expand_word_vars(char *str, int i, t_shell *sh);
+// char		*string_but_string_2(char *pushed, char *pusher, int start, int rmv);
+// char		*string_but_string(char *pushed, char *pusher, int start, int rmv);
+// char		*return_var(char *str, int start, int len, t_environment *env);
+
+char	*expand_them_vars(char *str, t_environment *env, t_shell *shell);
+char	*string_but_string(char *pushed, char *pusher, int start, int rmv);
+char	*return_var(char *str, int start, int len, t_environment *env);
+
+
 void		operator_tokens(t_shell *shell, t_command *cmds , int i);
 char		*copy_file(char *str, int i, t_command *cmds, int start);
 t_state		operators_check(char *str, int i);
@@ -215,7 +223,7 @@ int my_echo(t_context *context);
 int	get_fd(t_context *ctx);
 void	print_args(int fd, char **args, int i);
 int 	ms_pwd(void);
-void    exit_shell(t_shell *shell,t_context *text);
+// void    exit_shell(t_shell *shell,t_context *text);
 char  *add_quotes(char *value);
 void	print_env(t_values *env, bool export);
 int env_add(char *value, char ***env);
@@ -243,6 +251,10 @@ void	handle_redirects(t_context *context, t_command *command);
 void	handle_output(t_context *context, char *file, bool append);
 void	handle_input(t_context *context, char *file, bool ignore);
 void	execution(t_shell *shell, t_environment *env);
-
+void	exit_utils(t_shell *shell, t_context *cntx);
+void	exit_utils2(t_shell *shell, char *arg, t_context *cntx);
+void	free_exit(t_shell *shell, t_context *cntx);
+int		ft_str_isnum(char *c);
+int		ft_exit(t_shell *shell, t_context *cntx);
 
 #endif

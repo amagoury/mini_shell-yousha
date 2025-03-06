@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 20:21:30 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/06 16:52:56 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/06 17:13:52 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	**make_letters(char **result, char const *s, char c, int count)
 {
 	t_split	*split;
 
+	split = ft_calloc(sizeof(t_split), 1);
 	split->i = 0;
 	split->counter = 0;
 	split->len = 0;
@@ -50,7 +51,11 @@ char	**make_letters(char **result, char const *s, char c, int count)
 		while (s[split->i] == ' ' && s[split->i] != '\0')
 			split->i++;
 		if (s[split->i] != c)
-			split = lol(split, s, c);
+		{
+			split = make_letters_2(split, s, c);
+			if (split == NULL)
+				return (NULL);
+		}
 		else
 			split->i++;
 	}
@@ -71,10 +76,11 @@ t_split	*make_letters_2(t_split *sp, char const *s, char c)
 		sp->len--;
 	sp->result[sp->counter] = ft_substr(s, sp->i, sp->len);
 	if (!sp->result[sp->counter])
-		return (free_array(sp->result));
+		return (NULL);
 	sp->i += sp->len;
 	sp->len = 0;
 	sp->counter++;
+	return (sp);
 }
 
 char	**one_word(char const *s, char **result)

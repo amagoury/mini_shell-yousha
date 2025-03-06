@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 21:11:32 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/06 16:16:18 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/03/06 17:14:51 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ int	execute_command( t_shell *shell, t_context *context, t_environment *env)
 void	execution(t_shell *shell, t_environment *env)
 {
 	t_context	*context;
-	int			pid;
 	int			status;
 
 	context = create_context_list(shell->commands, env, shell);
@@ -117,7 +116,7 @@ void	execution(t_shell *shell, t_environment *env)
 		shell->exit_code = exec_bulidin(shell, context, env);
 		return ;
 	}
-	pid = execute_context(shell, context, env);
+	execute_context(shell, context, env);
 	signal(SIGINT, SIG_IGN);
 	while (wait(&status) != -1)
 		;

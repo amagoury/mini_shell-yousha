@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 21:11:32 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/06 17:14:51 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/06 18:09:20 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	execution(t_shell *shell, t_environment *env)
 {
 	t_context	*context;
 	int			status;
+	int			last_pid;
 
 	context = create_context_list(shell->commands, env, shell);
 	// TODO check error
@@ -116,9 +117,10 @@ void	execution(t_shell *shell, t_environment *env)
 		shell->exit_code = exec_bulidin(shell, context, env);
 		return ;
 	}
-	execute_context(shell, context, env);
+	last_pid = execute_context(shell, context, env);
 	signal(SIGINT, SIG_IGN);
-	while (wait(&status) != -1)
+	waitpid(last_pid, &status, 0);
+	while (wait(NULL) != -1)
 		;
 	// TODO check if status is signaled
 	shell->exit_code = WEXITSTATUS(status);

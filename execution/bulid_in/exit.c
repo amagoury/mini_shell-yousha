@@ -6,7 +6,7 @@
 /*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:45:07 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/03/06 17:58:39 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/06 18:10:34 by lalwafi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,14 @@ int	ft_str_isnum(char *c)
 
 int	ft_exit(t_shell *shell, t_context *cntx)
 {
-	ft_putstr_fd("exit\n", STDOUT_FILENO);
-	if (shell->num_of_cmds > 2)
+	int	arg_count;
+
+	arg_count = 0;
+	while (cntx->args[arg_count])
+		arg_count++;
+	if (arg_count > 2)
 		exit_utils(shell, cntx);
-	else if (shell->num_of_cmds == 2)
+	else if (arg_count == 2)
 	{
 		if (ft_str_isnum(cntx->args[1]) == 0)
 		{

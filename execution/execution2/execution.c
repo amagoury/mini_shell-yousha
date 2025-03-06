@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 21:11:32 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/06 18:09:20 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/06 19:56:21 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,6 @@ char	*find_path(char *cmd, char **env)
 	return (free_array(paths), NULL);
 }
 
-void	handle_everything(t_context *context, t_command *commands, char **env)
-{
-	context->args = copy_strs(commands->cmd_args);
-	if (is_bulidin(commands->cmd_args[0]))
-		context->cmd = ft_strdup(commands->cmd_args[0]);
-	else if (commands->cmd_args[0] != NULL)
-		context->cmd = find_path(commands->cmd_args[0], env);
-	handle_redirects(context, commands);
-	if (commands->next)
-		handle_everything(context->next, commands->next, env);
-}
-
 int	execute_command( t_shell *shell, t_context *context, t_environment *env)
 {
 	if (context->next)
@@ -93,13 +81,23 @@ int	execute_command( t_shell *shell, t_context *context, t_environment *env)
 		return (127);
 	if (is_bulidin(context->cmd))
 		return (run_bulidin(shell, context, env));
-	if (execve(context->cmd, context->args, env->export_env) == -1)
-	{
-		ft_putstr_fd(context->args[0], 2);
-		ft_putstr_fd(": Error executing\n", 2);
-	}
-	// TODO check error type and print appropriate msg
-	return (127); //TODO Return with correct error msg
+	execve(context->cmd, context->args, env->export_env);
+	ft_putstr_fd(context->args[0], 2);
+	if (errno == EACCES)
+		return (ft_putstr_fd(": Permission Denied\n", 2), 126);
+	ft_putstr_fd(": Command not found\n", 2);
+	return (127);
+}
+
+int	handle_signaled(int signal)
+{
+	if (signal == SIGINT)
+		ft_putstr_fd("\n", 2);
+	if (signal == SIGQUIT)
+		ft_putstr_fd("something went wrong\n", 2);
+	if (signal == SIGSEGV)
+		ft_putstr_fd("sigfult\n", 2);
+	return (signal + 128);
 }
 
 void	execution(t_shell *shell, t_environment *env)
@@ -109,7 +107,11 @@ void	execution(t_shell *shell, t_environment *env)
 	int			last_pid;
 
 	context = create_context_list(shell->commands, env, shell);
-	// TODO check error
+	if (!context)
+	{
+		shell->exit_code = 1;
+		return ;
+	}
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	if (context->next == NULL && is_bulidin(context->cmd))
@@ -122,8 +124,9 @@ void	execution(t_shell *shell, t_environment *env)
 	waitpid(last_pid, &status, 0);
 	while (wait(NULL) != -1)
 		;
-	// TODO check if status is signaled
 	shell->exit_code = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+		shell->exit_code = handle_signaled(WTERMSIG(status));
 }
 /*
 	if error != 0, dont execute anything, free and exit with error code

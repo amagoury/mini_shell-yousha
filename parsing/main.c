@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lalwafi <lalwafi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:37:42 by lalwafi           #+#    #+#             */
-/*   Updated: 2025/03/06 15:55:31 by lalwafi          ###   ########.fr       */
+/*   Updated: 2025/03/06 19:29:17 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	minishell(t_shell *shell)
 			parse_end(shell);
 		}
 		else if (shell->input_L[0] == '\0')
-			write(2, "empty line\n", 11);
+			shell->parse_fail_L = 0;
 		free(shell->input_L);
 		free_cmds(shell);
 	}
